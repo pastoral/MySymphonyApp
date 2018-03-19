@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "303838651450",
+    "firebase_url": "https://about-device.firebaseio.com",
+    "project_id": "about-device",
+    "storage_bucket": "about-device.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303838651450:android:76c07917596f83b1",
+        "android_client_info": {
+          "package_name": "aboutdevice.com.munir.symphony.mysymphony"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303838651450-5dqqd50dih72j0td6vumf7nfkt4h6ao0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5b7fD2Kqzw_Ug5ERNeT9SnDcs-EoFWQk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
