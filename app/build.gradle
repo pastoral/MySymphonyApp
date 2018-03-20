@@ -76,6 +76,7 @@ dependencies {
     compile 'com.firebase:firebase-client-android:2.4.0'
     compile 'com.firebaseui:firebase-ui-database:3.1.2'
     compile 'com.firebaseui:firebase-ui:2.3.0'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     debugCompile 'com.amitshekhar.android:debug-db:0.5.0'

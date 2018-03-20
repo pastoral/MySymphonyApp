@@ -1,0 +1,275 @@
+{
+  "V46": {
+    "processor": "1.3 GHz Quad core",
+    "camera": "13MP + 5MP",
+    "display": "5 inch",
+    "memory": "128GB + 8GB",
+    "os": "Android Nougat 7.0",
+    "data_connection": "4G LTE ",
+    "connectivity": "WiFi MIMO",
+    "battery": "10000mAh",
+    "sim": "dual"
+  },
+  "V47": {
+    "processor": "1.3 GHz Quad core",
+    "camera": "8MP + 5MP",
+    "display": "4.5” FWVGA TN display",
+    "memory": "8GB ROM + 1GB RAM",
+    "os": "Android Nougat 7.0",
+    "data_connection": "3G, HSPA+ ",
+    "connectivity": "WIFi, Bluetooth",
+    "battery": "1800mAh",
+    "sim": "dual"
+  },
+  "Z9": {
+    "processor": "64 bit octa core processor \n Clock speed upto 1.5 GHz ",
+    "camera": "13MP + 2MP Dual Back Camera \n 8MP Front Camera",
+    "display": "5.5 inch FHD IPS display \n 2.5D glass",
+    "memory": "32GB ROM + 3GB RAM",
+    "os": "Android Nougat 7.0",
+    "data_connection": "4G, HSPA+ ",
+    "connectivity": "WiFi, GPS, Bluetooth, OTG",
+    "battery": "3000mAh Li-polymer Battery",
+    "sim": "1 micro SIM \n 1 nano SIM",
+    "sensor": "Fingerprint"
+  },
+  "i21": {
+    "processor": "1.3GHz Quad core processor",
+    "camera": "8MP + 5MP Camera",
+    "display": "5.0 inch HD IPS display \n 2.5D glass",
+    "memory": "8GB ROM + 1GB RAM",
+    "os": "Android Marshmallow 6.0",
+    "data_connection": "3G, HSPA+ ",
+    "connectivity": "WiFi, GPS, Bluetooth",
+    "battery": "2500mAh Li-poly Battery",
+    "sim": "Dual SIM"
+  },
+  "P9": {
+    "processor": "1.3GHz 64-bit Octa core",
+    "camera": "13MP + 13MP with Dual Flash",
+    "display": "5.5” HD IPS 2.5D display",
+    "memory": "32GB ROM + 3GB RAM",
+    "os": "Android Nougat 7.0",
+    "data_connection": "4G LTE, 3G HSPA+, 2G EDGE",
+    "connectivity": "WiFi, BT, GPS, OTG",
+    "battery": "3000mAh Li-Polymer",
+    "sim": "Dual Sim ( Micro )",
+    "sensor": "Gravity, Proximity, Light, Compass, Fingerprint"
+  },
+  "V42": {
+    "processor": "1.2 GHz Quad Core",
+    "camera": "5MP + 2MP",
+    "display": "4.5 inch FWVGA TN",
+    "memory": "4GB ROM + 512MB RAM",
+    "os": "Android Marshmallow 6.0",
+    "data_connection": "3G",
+    "connectivity": "WiFi, Bluetooth",
+    "battery": "1750mAh",
+    "sim": "dual"
+  },
+  "V120": {
+    "processor": "1.3 GHz Quad Core",
+    "camera": "5MP + 5MP",
+    "display": "5 inch",
+    "memory": "8GB ROM + 1GB RAM",
+    "os": "Android Nougat 7.0",
+    "data_connection": "2G, 3G, EDGE",
+    "connectivity": "WiFi, Bluetooth",
+    "battery": "2500mAh Li-ion",
+    "sim": "dual"
+  },
+  "E82": {
+    "processor": "1.3 GHz Dual Core",
+    "camera": "1.3MP + VGA",
+    "display": "4 inch",
+    "memory": "8GB ROM + 512MB RAM",
+    "os": "Android 6.0",
+    "data_connection": "2G, 3G, EDGE",
+    "connectivity": "WiFi,Bluetooth",
+    "battery": "1300mAh Li-ion",
+    "sim": "dual"
+  },
+  "roar V20": {
+    "processor": "1.3GHz dual core",
+    "camera": "2MP + 2MP",
+    "display": "4 inch WVGA TN",
+    "memory": "4GB + 512MB",
+    "os": "Android 6.0",
+    "data_connection": "3G",
+    "connectivity": "WiFi, EDGE, Bluetooth, GPS",
+    "battery": "15000mAh Li-ion",
+    "sim": "dual"
+  },
+  "SYMTAB25": {
+    "processor": "1.3GHz Quad Core",
+    "camera": "5MP + 2MP",
+    "display": "7 inch WSVGA IPS",
+    "memory": "16GB ROM + 2GB RAM",
+    "os": "Android Nougat 7.0",
+    "data_connection": "3G ",
+    "connectivity": "WiFi, EDGE, Bluetooth, GPS",
+    "battery": "3500mAh Li-ion",
+    "sim": "dual"
+  },
+  "P8_PRO": {
+    "processor": "Quad Core Processor\n1.3GHz, Cortex A7",
+    "camera": "13MP + 8MP Camera\nDual Flash",
+    "display": "5.5” HD IPS Display\nMali-400 MP2 GPU",
+    "memory": "16GB ROM + 2GB RAM",
+    "os": "Android Nougat 7.0",
+    "data_connection": "3G HSPA+, EDGE",
+    "connectivity": "WiFi, GPS, BT, OTG",
+    "battery": "2800mAh Lithium-ion Battery",
+    "sim": "Dual Micro SIM",
+    "sensor": "G-Sensor, Proximity, Light",
+    "others": "One Touch Selfie"
+  },
+  "i10_plus": {
+    "processor": "1.3GHz Quad core; mali 400",
+    "camera": "8MP(AF) + 8MP(FF)",
+    "display": "5.2 inch HD IPS; 2.5D Glass",
+    "memory": "16GB + 1GB",
+    "os": "Android 7.0",
+    "data_connection": "3G",
+    "connectivity": "WiFi, EDGE, Bluetooth, GPS",
+    "battery": "2500mAh Li-ion",
+    "sim": "dual",
+    "others": "selfie touch, metal body, otg supported"
+  },
+  "G20": {
+    "processor": "1.3 GHz Dual Core",
+    "camera": "0.3MP + 2MP",
+    "display": "4.0 inch",
+    "memory": "4GB ROM + 512MB RAM",
+    "os": "Android 6.0",
+    "data_connection": "2G, 3G, EDGE",
+    "connectivity": "WiFi,Bluetooth",
+    "battery": "1400mAh Li-ion",
+    "sim": "dual"
+  },
+  "i60" :{
+    "processor" : "Quad Core Processor\n1.3GHz, Cortex A7",
+    "camera" : "8MP + 5MP Camera\nDual Flash",
+    "display" : "5” HD IPS Display\nMali-400 MP2 GPU",
+    "memory" : "16GB ROM + 2GB RAM",
+    "os" : "Android Nougat 7.0",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "WiFi, GPS, BT",
+    "battery" : "2500mAh Lithium-ion Battery",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "G-Sensor, Proximity, Light"
+  },
+
+  "Z10" :{
+    "processor" : "Qualcomm® Snapdragon™ 425\nQuad Core Processor\n1.4GHz 64-bit Cortex-A53",
+    "camera" : "16MP Selfie Camera\n13MP PDAF Rear Camera\nDual Flash",
+    "display" : "5.7” HD+ IPS 2.5D Display\n18:9 Wide Screen Full Vision\nQualcomm® Adreno™ 308 GPU",
+    "memory" : "32GB ROM + 3GB RAM",
+    "os" : "Android Nougat 7.1.2",
+    "data_connection" : "4G LTE, 3G HSPA+, EDGE",
+    "connectivity" : "WiFi, GPS, BT, OTG",
+    "battery" : "2900mAh Li-Polymer Battery",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "G-Sensor, Proximity, Light, Compass",
+    "others" : "Fingerprint Security"
+  }
+,
+  "R30" :{
+    "processor" : "1.3 GHz Quad Core",
+    "camera" : "8MP + 5MP",
+    "display" : "5 inch",
+    "memory" : "16GB ROM + 1GB RAM",
+    "os" : "Android 7.0",
+    "data_connection" : "2G, 3G, GPRS",
+    "connectivity" : "WiFi, Bluetooth, GPS",
+    "battery" : "4000mAh Li-poly",
+    "sim" : "dual"
+  },
+  "V90" :{
+    "processor" : "1.3GHz Quad core; mali 400",
+    "camera" : "5MP + 5MP",
+    "display" : "5 inch FWVGA TN",
+    "memory" : "8GB + 512MB",
+    "os" : "Android 6.0",
+    "data_connection" : "3G",
+    "connectivity" : "WiFi, EDGE, Bluetooth, GPS",
+    "battery" : "2150mAh Li-ion",
+    "sim" : "dual"
+  },
+  "SYMTAB60" :{
+    "processor" : "1.3GHz Quad core; mali 400",
+    "camera" : "5MP + 2MP",
+    "display" : "8 inch HD IPS",
+    "memory" : "16GB + 2GB",
+    "os" : "Android 7.0",
+    "data_connection" : "3G",
+    "connectivity" : "WiFi, EDGE, Bluetooth, GPS",
+    "battery" : "4200mAh Li-poly",
+    "sim" : "dual"
+
+  },
+  " roarV95" :{
+    "processor" : "1.3 GHz Quad Core",
+    "camera" : "5MP + 5MP",
+    "display" : "5.0 inch",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android 7.0",
+    "data_connection" : "2G, 3G, EDGE",
+    "connectivity" : "WiFi, Bluetooth, GPS",
+    "battery" : "2000mAh Li-ion",
+    "sim" : "dual"
+
+  },
+  " V75m" :{
+    "processor" : "1.3 GHz Quad Core",
+    "camera" : "5MP + 5MP",
+    "display" : "5.0 inch",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android 7.0",
+    "data_connection" : "2G, 3G, EDGE",
+    "connectivity" : "WiFi, Bluetooth, GPS",
+    "battery" : "2200mAh Li-ion",
+    "sim" : "dual"
+
+  },
+
+  "P9_Plus" :{
+    "processor" : "1.3GHz 64-bit Octa core",
+    "camera" : "13MP + 13MP with Dual Flash",
+    "display" : "5.5” FHD IPS 2.5D display",
+    "memory" : "32GB ROM + 3GB RAM",
+    "os" : "Android Nougat 7.0",
+    "data_connection" : "4G LTE, 3G HSPA+, 2G EDGE",
+    "connectivity" : "WiFi, BT, GPS, OTG",
+    "battery" : "3000mAh Li-Polymer",
+    "sim" : "Dual Sim ( Micro )",
+    "sensor" : "Gravity, Proximity, Light, Compass, Fingerprint"
+  },
+
+  "V130" :{
+    "processor" : "1.3 GHz Quad Core",
+    "camera" : "5MP + 5MP",
+    "display" : "5.34 inch",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android 7.0",
+    "data_connection" : "2G, 3G, EDGE",
+    "connectivity" : "WiFi, Bluetooth, GPS",
+    "battery" : "2400mAh Li-ion",
+    "sim" : "dual"
+
+  },
+
+  "INOVA" :{
+    "processor" : "1.3 GHz Quad Core",
+    "camera" : "13MP + 5MP",
+    "display" : "5 inch",
+    "memory" : "16GB ROM + 2GB RAM",
+    "os" : "Android 7.0",
+    "data_connection" : "2G, 3G, EDGE, 4G",
+    "connectivity" : "WiFi, Bluetooth, GPS",
+    "battery" : "2900mAh Li-polymer",
+    "sim" : "dual"
+
+  }
+
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>is_admob_on</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>disable_admob_for</key>
+        <value>all</value>
+    </entry>
+    <entry>
+        <key>get_news_image_header</key>
+        <value>none</value>
+    </entry>
+</defaultsMap>
