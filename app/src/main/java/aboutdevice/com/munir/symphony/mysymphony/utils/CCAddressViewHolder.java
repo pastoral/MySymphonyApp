@@ -24,9 +24,9 @@ public class CCAddressViewHolder extends RecyclerView.ViewHolder {
     public CCAddressViewHolder(View mView){
         super(mView);
         this.mView = mView;
-        txtCCName = (TextView)mView.findViewById(R.id.txtCCName);
-        txtCCAddress = (TextView)mView.findViewById(R.id.txtCCAddress);
-        ccIcon = (ImageView)mView.findViewById(R.id.id_ccicon);
+        txtCCName = mView.findViewById(R.id.txtCCName);
+        txtCCAddress = mView.findViewById(R.id.txtCCAddress);
+        ccIcon = mView.findViewById(R.id.id_ccicon);
 
 
     }

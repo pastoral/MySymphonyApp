@@ -41,9 +41,7 @@ import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -57,7 +55,6 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.firebase.database.ChildEventListener;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -225,8 +222,7 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
 
         if (!calledAlready)
         {
-            //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            FirebaseDatabase.getInstance();
+            FirebaseDatabase.getInstance();//.setPersistenceEnabled(true)
             calledAlready = true;
         }
 
@@ -245,40 +241,28 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
         super.onResume();
         //  askForPermission(permisionList[1],REQUEST_CHECK_SETTINGS);
         //ccAddressList.clear();
-        Query query = FirebaseDatabase.getInstance()
-                .getReference()
-                .child(Constants.ADRESS)
-                .orderByChild("name");
-
-        FirebaseRecyclerOptions<CCAddress> options =
-                new FirebaseRecyclerOptions.Builder<CCAddress>()
-                        .setQuery(query, CCAddress.class)
-                        .build();
-
         getActivity().registerReceiver(receiver,filter);
         resultReceiver.setmReceiver(this);
         final Intent intent = new Intent(getActivity(),MapsActivity.class);
         LoadCC loadCC = new LoadCC();
         loadCC.execute();
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<CCAddress, CCAddressViewHolder>(options) {
-
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<CCAddress, CCAddressViewHolder>(
+                CCAddress.class,
+                R.layout.cc_list,
+                CCAddressViewHolder.class,
+                // mDatabaseReference.orderByChild("name")
+                mDatabaseReference.orderByChild("name")
+        ) {
             @Override
-            public CCAddressViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.cc_list, parent, false);
-                return new CCAddressViewHolder(view);
-            }
-
-            @Override
-            protected void onBindViewHolder(CCAddressViewHolder holder, int position, CCAddress model) {
+            protected void populateViewHolder(CCAddressViewHolder viewHolder, CCAddress model, int position) {
                 progressBar.setVisibility(GONE);
                 ccLocation.setLatitude(firebaseRecyclerAdapter.getItem(position).getLat());
                 ccLocation.setLongitude(firebaseRecyclerAdapter.getItem(position).getLan());
                 //Toast.makeText(getActivity(),String.valueOf(mCurrentlocation),Toast.LENGTH_SHORT).show();
                 // ccLocationMap.put(firebaseRecyclerAdapter.getItem(position).getName().toString(),ccLocation);
 
-                holder.txtCCName.setText(model.getName());
-                holder.txtCCAddress.setText(model.getAddress());
+                viewHolder.txtCCName.setText(model.getName());
+                viewHolder.txtCCAddress.setText(model.getAddress());
                 pos = position;
                 // ccLocationMap.put(map.get("name").toString(),ccLocation);
 
@@ -300,44 +284,9 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
                         }
                     }
                 }));
-                holder.ccIcon.setImageDrawable(drawIcon(alphbetSelect(firebaseRecyclerAdapter.getItem(position).getName().toString())));
+                viewHolder.ccIcon.setImageDrawable(drawIcon(alphbetSelect(firebaseRecyclerAdapter.getItem(position).getName().toString())));
                 ccLocation = new Location("");
             }
-
-//            @Override
-//            protected void populateViewHolder(CCAddressViewHolder viewHolder, CCAddress model, int position) {
-//                progressBar.setVisibility(GONE);
-//                ccLocation.setLatitude(firebaseRecyclerAdapter.getItem(position).getLat());
-//                ccLocation.setLongitude(firebaseRecyclerAdapter.getItem(position).getLan());
-//                //Toast.makeText(getActivity(),String.valueOf(mCurrentlocation),Toast.LENGTH_SHORT).show();
-//               // ccLocationMap.put(firebaseRecyclerAdapter.getItem(position).getName().toString(),ccLocation);
-//
-//                viewHolder.txtCCName.setText(model.getName());
-//                viewHolder.txtCCAddress.setText(model.getAddress());
-//                pos = position;
-//               // ccLocationMap.put(map.get("name").toString(),ccLocation);
-//
-//
-//                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), new RecyclerTouchListener.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(View view, int position) {
-//                        String Key = getRef(position).getKey();
-//                        intent.putExtra("CCName", firebaseRecyclerAdapter.getItem(position).getName());
-//                        intent.putExtra("CCAddress", firebaseRecyclerAdapter.getItem(position).getAddress());
-//                        intent.putExtra("Latitude",String.valueOf(firebaseRecyclerAdapter.getItem(position).getLat()) );
-//                        intent.putExtra("Longitude" , String.valueOf(firebaseRecyclerAdapter.getItem(position).getLan()));
-//                        scrollToPosition = position ;
-//                        if(haveNetworkConnection()) {
-//                            startActivity(intent);
-//                        }
-//                        else{
-//                            showSnack(false);
-//                        }
-//                    }
-//                }));
-//                viewHolder.ccIcon.setImageDrawable(drawIcon(alphbetSelect(firebaseRecyclerAdapter.getItem(position).getName().toString())));
-//                ccLocation = new Location("");
-//            }
         };
         /*firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
             @Override
@@ -347,7 +296,6 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
                 int lastVisiblePosition = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
                 if (lastVisiblePosition == -1 || (positionStart >= (itemCount -1) && lastVisiblePosition == (positionStart -1))){
                     recyclerView.scrollToPosition(positionStart);
-
                 }
                 //recyclerView.scrollToPosition(positionStart);
             }
@@ -385,8 +333,8 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
         }
 
 
-      //  LocationAsyncRunner runner = new LocationAsyncRunner();
-      //  runner.execute();
+        //  LocationAsyncRunner runner = new LocationAsyncRunner();
+        //  runner.execute();
 
         nearest_cc_card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -413,10 +361,8 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
                 //here you can parse intent and get sms fields.
                 boolean anyLocationProv = false;
                 LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
-
                 anyLocationProv = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                 // anyLocationProv |=  locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
                 // Log.i("", "Location service status" + anyLocationProv);
                 //Toast.makeText(context, "Location service status : " + anyLocationProv, Toast.LENGTH_SHORT).show();
                 if(anyLocationProv == false){
@@ -427,7 +373,6 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
                 else{
                     LocationAsyncRunner runner = new LocationAsyncRunner();
                     runner.execute();
-
                     updateUI();
                 }
             }
@@ -443,11 +388,11 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
     @Override
     public void onPause() {
         super.onPause();
-       // this.getContext().unregisterReceiver(gpsLocationReceiver);
+        // this.getContext().unregisterReceiver(gpsLocationReceiver);
 
-       // stopLocationUpdates();
+        // stopLocationUpdates();
 
-       getActivity().unregisterReceiver(receiver);
+        getActivity().unregisterReceiver(receiver);
         resultReceiver.setmReceiver(this);
 
     }
@@ -456,14 +401,14 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
     public void onStop() {
         super.onStop();
 
-      //  googleApiClient.disconnect();
+        //  googleApiClient.disconnect();
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-       // firebaseRecyclerAdapter.cleanup();
+        // firebaseRecyclerAdapter.cleanup();
         stopLocationUpdate();
     }
 
