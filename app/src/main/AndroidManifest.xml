@@ -98,6 +98,13 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <activity
+            android:name=".ui.NewsListActivity"
+            android:label="@string/title_activity_stored_news_list"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
         <service
             android:name=".services.BackgroundLocationService"
             android:process=":mysmphony_loc" />

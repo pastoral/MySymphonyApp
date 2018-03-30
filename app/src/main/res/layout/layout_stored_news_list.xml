@@ -15,8 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
             <ImageView
-                android:layout_width="68dp"
-                android:layout_height="68dp"
+                android:layout_width="85dp"
+                android:layout_height="80dp"
                 android:id="@+id/id_notificationicon"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
@@ -44,6 +44,7 @@
                 android:textColor="#262626"
                 android:layout_marginStart="8dp"
                 android:id="@+id/notification_title"
+                android:textSize="14sp"
                 android:textStyle="bold"/>
 
 
@@ -54,6 +55,7 @@
                 android:text="Address"
                 android:textColor="#4d4d4d"
                 android:layout_marginStart="8dp"
+                android:textSize="14sp"
                 android:id="@+id/notification_content" />
             <TextView
                 android:layout_width="wrap_content"

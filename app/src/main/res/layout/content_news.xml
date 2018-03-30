@@ -30,13 +30,15 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         android:text="Feature"
                         android:textStyle="bold"
                         android:id="@+id/txttitle"
                         android:layout_marginLeft="7dp"
                         android:textColor="#000000"
                         android:maxLines="3"
+                        android:layout_marginBottom="2dp"
+
 
                         />
                     <View
@@ -53,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="34dp"
+                        android:layout_marginTop="39dp"
                         android:id="@+id/txtbody"
                         android:linksClickable="false"
                         android:autoLink="web"/>

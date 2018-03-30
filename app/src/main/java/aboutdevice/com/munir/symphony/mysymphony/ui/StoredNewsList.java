@@ -53,7 +53,7 @@ public class StoredNewsList extends AppCompatActivity {
     int totalSize, rowId;
     List<Integer> rowsToDelete;
     ArrayList<NotificationStore> notificationStoreKeyList;
-    TextView noNitifaication;
+    //TextView noNitifaication;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private RemoteConfig remoteConfig;
     public ImageView headerImg;
@@ -74,8 +74,8 @@ public class StoredNewsList extends AppCompatActivity {
         adViewStoredNews = (AdView)findViewById(R.id.adViewStoredNews);
         lm = new LinearLayoutManager(getApplicationContext());
         lm.setOrientation(LinearLayoutManager.VERTICAL);
-        noNitifaication = (TextView)findViewById(R.id.nonotification);
-        noNitifaication.setVisibility(View.INVISIBLE);
+       // noNitifaication = (TextView)findViewById(R.id.nonotification);
+        //noNitifaication.setVisibility(View.INVISIBLE);
         notificationRecyclerView.setLayoutManager(lm);
         notificationRecyclerView.setHasFixedSize(true);
         rowsToDelete = new ArrayList<Integer>();
@@ -132,9 +132,9 @@ public class StoredNewsList extends AppCompatActivity {
         notificationRecyclerView.setAdapter(mAdapter);
 
         int curSize = mAdapter.getItemCount();
-        if(curSize < 1){
-            noNitifaication.setVisibility(View.VISIBLE);
-        }
+//        if(curSize < 1){
+//            noNitifaication.setVisibility(View.VISIBLE);
+//        }
         mAdapter.notifyDataSetChanged();
 
         notificationRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, new RecyclerTouchListener.OnItemClickListener() {

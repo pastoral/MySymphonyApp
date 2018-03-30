@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    //buildToolsVersion "26.1.0"
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "aboutdevice.com.munir.symphony.mysymphony"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 33
-        versionName "4.2.19"
+        versionCode 35
+        versionName "5.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [onesignal_app_id               : "ca87c9a3-54e4-47b2-9c04-ffd835d47e17",
                                 onesignal_google_project_number: "303838651450"]
@@ -37,51 +37,51 @@ android {
 
 dependencies {
     implementation 'com.android.support:support-vector-drawable:27.1.0'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
     // Required for OneSignal
 
 
-    compile 'com.android.support:appcompat-v7:27.1.0'
-    compile 'com.android.support:design:27.1.0'
-    compile 'com.pkmmte.view:circularimageview:1.1'
-    compile 'com.android.support:cardview-v7:27.1.0'
-    compile 'com.android.support:recyclerview-v7:27.1.0'
-    compile 'com.onesignal:OneSignal:3.5.8'
-    compile 'com.android.support:support-v4:27.1.0'
-    compile 'com.pkmmte.view:circularimageview:1.1'
-    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.pkmmte.view:circularimageview:1.1'
+    implementation 'com.android.support:cardview-v7:27.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.onesignal:OneSignal:[3.8.3, 3.99.99)'
+    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.pkmmte.view:circularimageview:1.1'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //compile 'com.firebaseui:firebase-ui:3.1.0'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.google.android.gms:play-services:11.6.2'
-    compile 'com.google.android.gms:play-services-maps:11.6.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.google.android.gms:play-services:11.6.2'
+    implementation 'com.google.android.gms:play-services-maps:11.6.2'
     // Required only if Facebook login support is required
-    compile('com.facebook.android:facebook-android-sdk:4.25.0') // never change this
-    compile 'com.google.firebase:firebase-core:11.6.2'
-    compile 'com.google.firebase:firebase-database:11.6.2'
-    compile 'com.google.firebase:firebase-storage:11.6.2'
-    compile 'com.google.firebase:firebase-auth:11.6.2'
-    compile 'com.google.firebase:firebase-config:11.6.2'
-    compile 'com.google.firebase:firebase-invites:11.6.2'
-    compile 'com.google.android.gms:play-services-location:11.6.2'
-    compile 'com.google.android.gms:play-services-maps:11.6.2'
-    compile 'com.google.android.gms:play-services-ads:11.6.2'
-    compile 'com.firebase:firebase-client-android:2.4.0'
-    compile 'com.firebaseui:firebase-ui:2.4.0'
+    implementation('com.facebook.android:facebook-android-sdk:4.25.0') // never change this
+    implementation 'com.google.firebase:firebase-core:11.6.2'
+    implementation 'com.google.firebase:firebase-database:11.6.2'
+    implementation 'com.google.firebase:firebase-storage:11.6.2'
+    implementation 'com.google.firebase:firebase-auth:11.6.2'
+    implementation 'com.google.firebase:firebase-config:11.6.2'
+    implementation 'com.google.firebase:firebase-invites:11.6.2'
+    implementation 'com.google.android.gms:play-services-location:11.6.2'
+    implementation 'com.google.android.gms:play-services-maps:11.6.2'
+    implementation 'com.google.android.gms:play-services-ads:11.6.2'
+    implementation 'com.firebase:firebase-client-android:2.4.0'
+    implementation 'com.firebaseui:firebase-ui:2.4.0'
 
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-    debugCompile 'com.amitshekhar.android:debug-db:0.5.0'
+    debugImplementation 'com.amitshekhar.android:debug-db:0.5.0'
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'
 

@@ -101,6 +101,7 @@ import aboutdevice.com.munir.symphony.mysymphony.model.AppUser;
 import aboutdevice.com.munir.symphony.mysymphony.model.NotificationStore;
 import aboutdevice.com.munir.symphony.mysymphony.ui.FourFrgment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.LoginActivity;
+import aboutdevice.com.munir.symphony.mysymphony.ui.NewsListActivity;
 import aboutdevice.com.munir.symphony.mysymphony.ui.OneFragment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.StoredNewsList;
 import aboutdevice.com.munir.symphony.mysymphony.ui.ThreeFragment;
@@ -406,7 +407,8 @@ public class MainActivity extends BaseActivity
 
      }*/
     public void loadNews(View view){
-        Intent intent = new Intent(getContext(), StoredNewsList.class);
+        //Intent intent = new Intent(getContext(), StoredNewsList.class);
+        Intent intent = new Intent(getContext(), NewsListActivity.class);
         startActivity(intent);
     }
 
