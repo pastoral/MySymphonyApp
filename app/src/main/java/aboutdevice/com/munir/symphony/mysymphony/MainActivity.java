@@ -99,6 +99,7 @@ import aboutdevice.com.munir.symphony.mysymphony.adapter.SectionAdapter;
 import aboutdevice.com.munir.symphony.mysymphony.firebase.RemoteConfig;
 import aboutdevice.com.munir.symphony.mysymphony.model.AppUser;
 import aboutdevice.com.munir.symphony.mysymphony.model.NotificationStore;
+import aboutdevice.com.munir.symphony.mysymphony.ui.EditProfileActivity;
 import aboutdevice.com.munir.symphony.mysymphony.ui.FourFrgment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.LoginActivity;
 import aboutdevice.com.munir.symphony.mysymphony.ui.NewsListActivity;
@@ -106,6 +107,7 @@ import aboutdevice.com.munir.symphony.mysymphony.ui.OneFragment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.StoredNewsList;
 import aboutdevice.com.munir.symphony.mysymphony.ui.ThreeFragment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.TwoFragment;
+import aboutdevice.com.munir.symphony.mysymphony.ui.UserProfileActivity;
 import aboutdevice.com.munir.symphony.mysymphony.utils.DatabaseHandler;
 import aboutdevice.com.munir.symphony.mysymphony.utils.FetchJson;
 import aboutdevice.com.munir.symphony.mysymphony.utils.ModelInfo;
@@ -166,6 +168,8 @@ public class MainActivity extends BaseActivity
     public ArrayList<String> existingImeiList = new ArrayList<>();
     public ArrayList<String> existingModelList = new ArrayList<>();
     public String userLocality = "";
+    private OneFragment oneFragment = new OneFragment();
+
 
 
 
@@ -571,6 +575,7 @@ public class MainActivity extends BaseActivity
         super.onDestroy();
         // mGoogleApiClient.stopAutoManage(this);
         // mGoogleApiClient.disconnect();
+        oneFragment.removeListnerFromClient();
     }
 
     @Override
@@ -590,6 +595,8 @@ public class MainActivity extends BaseActivity
     }
 
     public void logout(View v) {
+        isActivityActive =false;
+        //oneFragment.removeListnerFromClient();
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -842,5 +849,11 @@ public class MainActivity extends BaseActivity
                         .getLastLocation(mGoogleApiClient);
             }
         }
+    }
+
+    public void editProfile(View view){
+        Intent i  = new Intent(this, UserProfileActivity.class);
+        i.putExtra("USERDATA",appUser);
+        startActivity(i);
     }
 }

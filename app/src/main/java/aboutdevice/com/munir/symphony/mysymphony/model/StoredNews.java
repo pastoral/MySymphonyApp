@@ -19,8 +19,9 @@ public class StoredNews {
     private String locality;
     private String activityToBeOpened;
     private long revTimeStamp;
+    private String modelSWVersion;
 
-    public StoredNews(String title, String description, long timestamp, String imageUrl, String series, String type, String top_card, String created_by, String imei, String locality, String activityToBeOpened, long revTimeStamp) {
+    public StoredNews(String title, String description, long timestamp, String imageUrl, String series, String type, String top_card, String created_by, String imei, String locality, String activityToBeOpened, long revTimeStamp, String modelSWVersion) {
         this.title = title;
         this.description = description;
         this.timestamp = timestamp;
@@ -33,6 +34,7 @@ public class StoredNews {
         this.locality = locality;
         this.activityToBeOpened = activityToBeOpened;
         this.revTimeStamp = revTimeStamp;
+        this.modelSWVersion = modelSWVersion;
     }
 
     public StoredNews(){}
@@ -131,5 +133,13 @@ public class StoredNews {
 
     public void setRevTimeStamp(long revTimeStamp) {
         this.revTimeStamp = revTimeStamp;
+    }
+
+    public String getModelSWVersion() {
+        return modelSWVersion;
+    }
+
+    public void setModelSWVersion(String modelSWVersion) {
+        this.modelSWVersion = modelSWVersion;
     }
 }

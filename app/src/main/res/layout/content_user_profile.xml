@@ -40,63 +40,64 @@
                     android:gravity="bottom">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:layout_gravity="center"
                         >
-                        <LinearLayout
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_gravity="bottom"
-                            >
-                            <ImageView
-                                android:layout_weight="1"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/user_type_badge"
-                                android:layout_gravity="center"
-                                android:gravity="bottom"
-                                android:id="@+id/imgUserCategory"
-                                />
-                            <aboutdevice.com.munir.symphony.mysymphony.customfonts.MyTextView
-                                android:layout_weight="1"
-                                android:id="@+id/txtUserCategory"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="Bronze user"
-                                android:gravity="center"
-                                android:textSize="12dp"
-                                android:textColor="#85ffffff"
-                                />
-                        </LinearLayout>
+                        <!--<LinearLayout-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_gravity="bottom"-->
+                            <!--&gt;-->
+                            <!--<ImageView-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:layout_width="50dp"-->
+                                <!--android:layout_height="50dp"-->
+                                <!--android:src="@drawable/user_type_badge"-->
+                                <!--android:layout_gravity="center"-->
+                                <!--android:gravity="bottom"-->
+                                <!--android:id="@+id/imgUserCategory"-->
+                                <!--/>-->
+                            <!--<aboutdevice.com.munir.symphony.mysymphony.customfonts.MyTextView-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:id="@+id/txtUserCategory"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:text="Bronze user"-->
+                                <!--android:gravity="center"-->
+                                <!--android:textSize="12dp"-->
+                                <!--android:textColor="#85ffffff"-->
+                                <!--/>-->
+                        <!--</LinearLayout>-->
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:src="@drawable/ic_person_black"
-                            android:gravity="bottom"
-                            android:id="@+id/userPhoto"
+                            android:gravity="center|bottom"
+                            android:id="@+id/userProfilePhoto"
                             />
-                        <LinearLayout
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginBottom="20dp"
-                            android:gravity="bottom">
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:textColor="@color/colorPrimary"
-                                android:background="#0000"
-                                android:padding="16dp"
-                                android:text="@string/change_profile_picture"
-                                />
-                            <!-- android:onClick="changeProfilePic"-->
+                        <!--<LinearLayout-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:layout_marginBottom="20dp"-->
+                            <!--android:gravity="bottom">-->
+                            <!--<Button-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_gravity="bottom"-->
+                                <!--android:textColor="@color/colorPrimary"-->
+                                <!--android:background="#0000"-->
+                                <!--android:padding="16dp"-->
+                                <!--android:text="@string/change_profile_picture"-->
+                                <!--/>-->
+                            <!--&lt;!&ndash; android:onClick="changeProfilePic"&ndash;&gt;-->
 
-                        </LinearLayout>
+                        <!--</LinearLayout>-->
                     </LinearLayout>
                 </LinearLayout>
             </FrameLayout>
@@ -222,40 +223,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#dad8d8"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <aboutdevice.com.munir.symphony.mysymphony.customfonts.MyTextView
-                    android:layout_weight="2"
-                    android:id="@+id/fbook"
-                    android:textSize="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Location"
-                    android:textColor="#a2a1b8"
-                    android:maxLength="12"
-                    android:background="#0000"
-                    android:padding="16dp"
-                    android:gravity="left"
-                    />
-                <!--com.rey.material.widget.Switch!-->
-                <aboutdevice.com.munir.symphony.mysymphony.customfonts.MyTextView
-                    android:layout_weight="1"
-                    android:id="@+id/userLocation"
-                    android:textSize="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="#1b193b"
-                    android:hint=""
-                    android:textColor="#181737"
-                    android:maxLength="100"
-                    android:background="#0000"
-                    android:padding="16dp"
-                    android:gravity="right"
-                    />
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--&gt;-->
+                <!--<aboutdevice.com.munir.symphony.mysymphony.customfonts.MyTextView-->
+                    <!--android:layout_weight="2"-->
+                    <!--android:id="@+id/fbook"-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Location"-->
+                    <!--android:textColor="#a2a1b8"-->
+                    <!--android:maxLength="12"-->
+                    <!--android:background="#0000"-->
+                    <!--android:padding="16dp"-->
+                    <!--android:gravity="left"-->
+                    <!--/>-->
+                <!--&lt;!&ndash;com.rey.material.widget.Switch!&ndash;&gt;-->
+                <!--<aboutdevice.com.munir.symphony.mysymphony.customfonts.MyTextView-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:id="@+id/userLocation"-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColorHint="#1b193b"-->
+                    <!--android:hint=""-->
+                    <!--android:textColor="#181737"-->
+                    <!--android:maxLength="100"-->
+                    <!--android:background="#0000"-->
+                    <!--android:padding="16dp"-->
+                    <!--android:gravity="right"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
 
 
             <View
@@ -275,6 +276,7 @@
                     android:textColor="@color/colorAccent"
                     android:background="#0000"
                     android:padding="16dp"
+                    android:onClick="editProfile"
 
                     android:gravity="center_horizontal" />
                 <!--  android:onClick="editProfile" -->
@@ -309,24 +311,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#dad8d8" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal"
-                >
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delete_account"
-                    android:textColor="@color/colorAccent"
-                    android:background="#0000"
-                    android:padding="16dp"
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--&gt;-->
+                <!--<Button-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/delete_account"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:background="#0000"-->
+                    <!--android:padding="16dp"-->
 
-                    android:gravity="center_horizontal" />
-                <!-- android:onClick="deleteAccount"-->
+                    <!--android:gravity="center_horizontal" />-->
+                <!--&lt;!&ndash; android:onClick="deleteAccount"&ndash;&gt;-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
         </LinearLayout>
 
     </LinearLayout>

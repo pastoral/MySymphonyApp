@@ -1,12 +1,13 @@
 package aboutdevice.com.munir.symphony.mysymphony.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by AppUser on 8/18/2017.
  */
-
-public class AppUser {
+@SuppressWarnings("serial")
+public class AppUser implements Serializable {
     private String uid;
     private String name;
     private String email;

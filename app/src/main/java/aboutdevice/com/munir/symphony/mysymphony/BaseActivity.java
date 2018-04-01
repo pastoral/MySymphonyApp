@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
@@ -124,6 +125,15 @@ public  class BaseActivity extends AppCompatActivity {
         if(mProgressDialog != null  && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
         }
+    }
+
+    public void showSnack(ViewGroup viewGroup, String message){
+        Snackbar snackbar = Snackbar
+                .make(viewGroup, message, Snackbar.LENGTH_LONG);
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.YELLOW);
+        snackbar.show();
     }
 
 

@@ -171,4 +171,5 @@
     <string name="name_hint"><i>John Doe</i></string>
     <string name="location_hint"><i>Gulshan,Dhaka,Bangladesh</i></string>
     <string name="edit_profile">Edit Profile</string>
+    <string name = "hint_phone_number"><i>0171000000</i></string>
 </resources>
