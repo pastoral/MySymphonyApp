@@ -3,6 +3,7 @@ package aboutdevice.com.munir.symphony.mysymphony;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.onesignal.OneSignal;
 
 import aboutdevice.com.munir.symphony.mysymphony.onesignal.MyNotificationOpenedHandler;
@@ -34,6 +35,7 @@ public class MySymphonyApp extends Application {
                 .setNotificationOpenedHandler(new MyNotificationOpenedHandler())
                 .setNotificationReceivedHandler( new MyNotificationReceivedHandler() )
                 .init();
+        Fresco.initialize(this);
 
     }
 

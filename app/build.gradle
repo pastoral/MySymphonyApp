@@ -75,6 +75,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:11.6.2'
     implementation 'com.firebase:firebase-client-android:2.4.0'
     implementation 'com.firebaseui:firebase-ui:2.4.0'
+    implementation 'com.facebook.fresco:fresco:0.6.1'
+
 
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 

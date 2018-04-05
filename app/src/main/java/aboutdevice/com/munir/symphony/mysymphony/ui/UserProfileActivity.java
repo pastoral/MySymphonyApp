@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +32,8 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -250,6 +255,63 @@ public class UserProfileActivity extends BaseActivity {
         }
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
+    }
+
+
+
+    public void updatePassword(View v) {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final EditText edittext = new EditText(this);
+        edittext.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        edittext.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        profileAlertBuilder = new ProfileAlertBuilder(this);
+
+        alert = profileAlertBuilder.alertForEditText("",
+                "MySymphony Profile",
+                "Change your Password",
+                edittext);
+
+
+        alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //What ever you want to do with the value
+                //Editable YouEditTextValue = edittext.getText();
+                //OR
+                //String YouEditTextValue = edittext.getText().toString();
+                if (edittext.getText() == null || edittext.getText().length() == 0) {
+                    showSnack(coordinate_profile, "Password could not be empty");
+                    return;
+                }
+                if (edittext.getText().length() < 6) {
+                    showSnack(coordinate_profile, "Minimum password length is 6 character");
+                    return;
+                }
+                String editedPassword = edittext.getText().toString();
+                user.updatePassword(editedPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("User_Password_Change:", "User password updated.");
+                            showSnack(coordinate_profile, "Password changed successfully");
+                        }
+                    }
+                });
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // what ever you want to do with No option.
+            }
+        });
+        AlertDialog d = alert.show();
+        if (edittext.getText().toString() == null || edittext.getText().toString().isEmpty()) {
+            d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+        }
+        d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+
+
     }
 
 
