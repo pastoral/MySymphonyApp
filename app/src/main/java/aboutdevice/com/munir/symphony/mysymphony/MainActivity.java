@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    public ViewPager mViewPager;
     private  AppBarLayout appBarLayout;
     private ThreeFragment threeFragment;
     private String modelName;
@@ -171,8 +171,17 @@ public class MainActivity extends BaseActivity
     private OneFragment oneFragment = new OneFragment();
 
 
+    public MainActivity(){
 
+    }
 
+    public ViewPager getmViewPager() {
+        return mViewPager;
+    }
+
+    public void setmViewPager(ViewPager mViewPager) {
+        this.mViewPager = mViewPager;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -518,6 +527,23 @@ public class MainActivity extends BaseActivity
     }
 
     public void loadContactFragment(View v){
+        // Fragment fg = new TwoFragment();
+        // FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        // SectionAdapter sectionAdapter = new SectionAdapter(getSupportFragmentManager());
+        // fragmentTransaction.replace(mViewPager.getCurrentItem(),f);
+        // Intent i = new Intent(getContext(),fg.getClass());
+        //startActivity(i);
+        // int pos = sectionAdapter.getItemPosition(TwoFragment.class);
+        // mViewPager.setCurrentItem(2);
+        if(mViewPager.getAdapter().getCount() ==4 ) {
+            mViewPager.setCurrentItem(3);
+        }
+        else{
+            mViewPager.setCurrentItem(2);
+        }
+    }
+
+    public void loadCCFragment(View v){
         // Fragment fg = new TwoFragment();
         // FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         // SectionAdapter sectionAdapter = new SectionAdapter(getSupportFragmentManager());

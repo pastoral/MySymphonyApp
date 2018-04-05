@@ -20,6 +20,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,6 +58,7 @@ import org.json.JSONException;
 import java.util.HashMap;
 import java.util.Map;
 
+import aboutdevice.com.munir.symphony.mysymphony.MainActivity;
 import aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp;
 import aboutdevice.com.munir.symphony.mysymphony.R;
 
@@ -106,13 +109,14 @@ public class OneFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private FirebaseRecyclerAdapter<StoredNews,TopNewsHolder> topNewsRecyclerAdapter;
     private Snackbar snackbar;
-    private LinearLayout linear_content_holder;
+    private LinearLayout linear_content_holder,linear_cc_block;
     private StoredNews[] storedNews = new StoredNews[2];
     private Query query;
     private SimpleDraweeView offer_img1, offer_img2;
     private SharedPreferences topSharedPreferences;
     private SharedPreferences.Editor topEditor ;
     //private ImageLoader imageLoader1, imageLoader2;
+    private ViewPager oneViewPager;
 
 
     public ValueEventListener profileListener = new ValueEventListener() {
@@ -198,6 +202,7 @@ public class OneFragment extends Fragment {
         linear_content_holder = view.findViewById(R.id.linear_content_holder);
         offer_img1 = view.findViewById(R.id.offer_img1);
         offer_img2 = view.findViewById(R.id.offer_img2);
+        linear_cc_block = view.findViewById(R.id.linear_cc_block);
        // recyclerTopCard = view.findViewById(R.id.recyclerTopCard);
         dbRef = FirebaseDatabase.getInstance().getReference();
         dbUserRef = dbRef.child("users");
@@ -264,6 +269,8 @@ public class OneFragment extends Fragment {
         modelFound = fetchJson.searchModelName(modelName);
 
 
+
+
         //setHasOptionsMenu(true);
        /* contactline1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,7 +306,7 @@ public class OneFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-
+        
 
         if(modelFound) {
             featureArea.setVisibility(View.VISIBLE);

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -56,6 +59,7 @@ import aboutdevice.com.munir.symphony.mysymphony.utils.ProfileAlertBuilder;
 
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.permisionList;
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.permsRequestCode;
+import static aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp.getContext;
 
 public class UserProfileActivity extends BaseActivity {
      private Toolbar toolbar;
@@ -73,6 +77,8 @@ public class UserProfileActivity extends BaseActivity {
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference, profilepicReference;
     public AppUser appUser;
+    private CoordinatorLayout coordProfile;
+    private Snackbar snackbar;
 
     private Intent i;
 
@@ -98,6 +104,7 @@ public class UserProfileActivity extends BaseActivity {
         userProfilePhoto = findViewById(R.id.userProfilePhoto);
         phoneNumber = findViewById(R.id.phoneNumber);
         button_change_password = findViewById(R.id.button_change_password);
+        coordProfile = findViewById(R.id.coordProfile);
 
 
     }
@@ -159,6 +166,7 @@ public class UserProfileActivity extends BaseActivity {
 
         final EditText displayNameEditText = new EditText(context);
         displayNameEditText.setHint(R.string.name_hint);
+
         if (appUser.getName() == null) {
             displayNameEditText.setHint(R.string.name_hint);
         } else {
@@ -210,33 +218,40 @@ public class UserProfileActivity extends BaseActivity {
                 //Editable YouEditTextValue = edittext.getText();
                 //OR
                 //String YouEditTextValue = edittext.getText().toString();
-                if (displayNameEditText.getText() == null || displayNameEditText.getText().length() <= 0) {
-                    showSnack(coordinate_profile, "Name can not be empty");
-                    return;
-                }
-
-
-                String editedName = (displayNameEditText.getText().toString().length() > 0) ? displayNameEditText.getText().toString() : userDataMap.get("name").toString();
-                String editedPhone = (phoneEditText.getText().toString().length() > 0) ? phoneEditText.getText().toString() : userDataMap.get("phoneNumber").toString();
-                String editedEmail = emailEditText.getText().toString();
-               // String editedLocation = (locationEditText.getText().toString().length() > 0) ? locationEditText.getText().toString() : userDataMap.get("location").toString();
-
-                try {
-                    dbUserRef.child(user.getUid()).child("name").setValue(editedName);
-                    dbUserRef.child(user.getUid()).child("phoneNumber").setValue(editedPhone);
-                    if (!editedEmail.isEmpty() && !validEmail(editedEmail)) {
-                        showSnack(coordinate_profile, "Please insert a correct Email");
+                if (haveNetworkConnection()) {
+                    if (displayNameEditText.getText() == null || displayNameEditText.getText().length() <= 0) {
+                        showSnack(coordinate_profile, "Name can not be empty");
                         return;
-                    } else {
-                        dbUserRef.child(user.getUid()).child("email").setValue(editedEmail);
                     }
-                   // dbUserRef.child(user.getUid()).child("location").setValue(editedLocation);
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                    String editedName = (displayNameEditText.getText().toString().length() > 0) ? displayNameEditText.getText().toString() : userDataMap.get("name").toString();
+                    String editedPhone = (phoneEditText.getText().toString().length() > 0) ? phoneEditText.getText().toString() : userDataMap.get("phoneNumber").toString();
+                    String editedEmail = emailEditText.getText().toString();
+                    // String editedLocation = (locationEditText.getText().toString().length() > 0) ? locationEditText.getText().toString() : userDataMap.get("location").toString();
+
+                    try {
+                        dbUserRef.child(user.getUid()).child("name").setValue(editedName);
+                        dbUserRef.child(user.getUid()).child("phoneNumber").setValue(editedPhone);
+                        if (!editedEmail.isEmpty() && !validEmail(editedEmail)) {
+                            showSnack(coordinate_profile, "Please insert a correct Email");
+                            return;
+                        } else {
+                            dbUserRef.child(user.getUid()).child("email").setValue(editedEmail);
+                        }
+                        // dbUserRef.child(user.getUid()).child("location").setValue(editedLocation);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
-
+                else{
+                    showNoNetworkSnack(false);
+                }
             }
+
+
         });
 
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -279,24 +294,29 @@ public class UserProfileActivity extends BaseActivity {
                 //Editable YouEditTextValue = edittext.getText();
                 //OR
                 //String YouEditTextValue = edittext.getText().toString();
-                if (edittext.getText() == null || edittext.getText().length() == 0) {
-                    showSnack(coordinate_profile, "Password could not be empty");
-                    return;
-                }
-                if (edittext.getText().length() < 6) {
-                    showSnack(coordinate_profile, "Minimum password length is 6 character");
-                    return;
-                }
-                String editedPassword = edittext.getText().toString();
-                user.updatePassword(editedPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("User_Password_Change:", "User password updated.");
-                            showSnack(coordinate_profile, "Password changed successfully");
-                        }
+                if(haveNetworkConnection()){
+                    if (edittext.getText() == null || edittext.getText().length() == 0) {
+                        showSnack(coordinate_profile, "Password could not be empty");
+                        return;
                     }
-                });
+                    if (edittext.getText().length() < 6) {
+                        showSnack(coordinate_profile, "Minimum password length is 6 character");
+                        return;
+                    }
+                    String editedPassword = edittext.getText().toString();
+                    user.updatePassword(editedPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("User_Password_Change:", "User password updated.");
+                                showSnack(coordinate_profile, "Password changed successfully");
+                            }
+                        }
+                    });
+                }
+                else{
+                    showNoNetworkSnack(false);
+                }
             }
         });
 
@@ -312,6 +332,41 @@ public class UserProfileActivity extends BaseActivity {
         d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
 
 
+    }
+
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
+    private void showNoNetworkSnack(boolean isConnected){
+        String message;
+        int color;
+        if(!isConnected){
+            message = "Sorry! Not connected to internet";
+            color = Color.RED;
+        }
+        else{
+            message = "Good! Connected to Internet";
+            color = Color.WHITE;
+        }
+        snackbar = Snackbar.make(coordProfile, message, Snackbar.LENGTH_LONG);
+        View sbView = snackbar.getView();
+        TextView textView = (TextView)sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(color);
+        snackbar.show();
     }
 
 

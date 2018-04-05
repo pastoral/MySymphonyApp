@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:id="@+id/coordProfile"
     tools:context="aboutdevice.com.munir.symphony.mysymphony.ui.UserProfileActivity">
 
     <android.support.design.widget.AppBarLayout

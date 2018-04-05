@@ -186,7 +186,7 @@ public class NewsListActivity extends BaseActivity {
                             }
                         }
                         else{
-                            showSnack(false);
+                            showNoNetworkSnack(false);
                         }
                     }
                 }));
@@ -284,7 +284,7 @@ public class NewsListActivity extends BaseActivity {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
-    private void showSnack(boolean isConnected){
+    private void showNoNetworkSnack(boolean isConnected){
         String message;
         int color;
         if(!isConnected){

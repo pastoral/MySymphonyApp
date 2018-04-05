@@ -206,6 +206,7 @@
                             android:orientation="horizontal"
                             android:padding="3dp"
                             android:id="@+id/linear_cc_block"
+                            android:onClick="loadCCFragment"
                             >
                             <ImageView
                                 android:layout_width="@dimen/main_feature_icon"
