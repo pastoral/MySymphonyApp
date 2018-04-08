@@ -31,6 +31,9 @@ public  class BaseActivity extends AppCompatActivity {
     private Snackbar snackbar;
 
 
+
+
+
     public BaseActivity(){
         mErrorString = new SparseIntArray();
     }
@@ -143,4 +146,5 @@ public  class BaseActivity extends AppCompatActivity {
         super.onStop();
 
     }
+
 }

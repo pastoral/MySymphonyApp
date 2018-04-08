@@ -53,8 +53,8 @@ public class LoginActivity extends BaseActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         googleIdp = new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER)
                 .setPermissions(Arrays.asList(Scopes.PROFILE)).build();
-        facebookIdp = new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER)
-                .setPermissions(Arrays.asList("user_friends")).build();
+        //facebookIdp = new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER)
+               // .setPermissions(Arrays.asList("user_friends")).build();
     }
 
     @Override
@@ -79,10 +79,11 @@ public class LoginActivity extends BaseActivity {
         else{
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                     .setAvailableProviders(
-                            Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                            Arrays.asList(
                                     new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
-                                    googleIdp,
-                                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
+                                    new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                    googleIdp
+                                   // new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
                             ))
                     .setLogo(R.mipmap.ic_launcher)
                     .setTheme(R.style.LoginTheme)
@@ -112,7 +113,7 @@ public class LoginActivity extends BaseActivity {
                     Snackbar.make(contraint_login,"Signin Cancelled", Snackbar.LENGTH_SHORT);
                     Log.d("Login Info" , "Signin Cancelled");
                 }
-                if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                if (response!= null && response.getErrorCode() == ErrorCodes.NO_NETWORK) {
                     Snackbar.make(contraint_login,"No Internet Connection", Snackbar.LENGTH_SHORT);
                     Log.d("Login Info" , "No Internet Connection");
                     new MaterialDialog.Builder(this)

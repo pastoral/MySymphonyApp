@@ -178,6 +178,7 @@
                             android:orientation="horizontal"
                             android:padding="3dp"
                             android:id="@+id/linear_feature_block"
+                            android:onClick="loadFeatureFragment"
                             android:visibility="gone"
                             >
                             <ImageView
@@ -235,6 +236,7 @@
                             android:orientation="horizontal"
                             android:padding="3dp"
                             android:id="@+id/linear_contact_us_block"
+                            android:onClick="loadContactFragment"
                             >
                             <ImageView
                                 android:layout_width="@dimen/main_feature_icon"
@@ -286,17 +288,20 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:id="@+id/news_area_first_block"
+                        android:onClick="loadNews"
                         android:orientation="vertical">
+
                         <ImageView
-                            android:layout_width="@dimen/main_second_block_icon"
+                            android:layout_width="20dp"
                             android:layout_height="@dimen/main_second_block_icon"
+                            android:layout_gravity="center_horizontal"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_self_care"
-                            android:layout_gravity="center_horizontal"/>
+                            android:src="@drawable/ic_news_news" />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/self_care"
+                            android:text="Offers"
                             android:textSize="@dimen/main_user_info"
                             android:paddingBottom="5dp"
                             android:gravity="center_horizontal"/>
@@ -313,18 +318,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:id="@+id/news_area_second_block"
-                        android:onClick="loadNews"
+                        android:onClick="loadInvitation"
                         android:orientation="vertical">
                         <ImageView
                             android:layout_width="@dimen/main_second_block_icon"
                             android:layout_height="@dimen/main_second_block_icon"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_news_news"
+                            android:src="@drawable/ic_invitation"
                             android:layout_gravity="center_horizontal"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/news"
+                            android:text="@string/invite"
                             android:textSize="@dimen/main_user_info"
                             android:paddingBottom="5dp"
                             android:gravity="center_horizontal"/>
@@ -489,7 +494,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:paddingLeft="10dp">
+                            android:paddingLeft="10dp"
+                            android:onClick="loadFacebook">
                             <ImageView
                                 android:layout_width="@dimen/main_quick_link_block_icon"
                                 android:layout_height="@dimen/main_quick_link_block_icon"
@@ -510,6 +516,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
+                            android:onClick="loadInstagram"
                             android:paddingLeft="10dp">
                             <ImageView
                                 android:layout_width="@dimen/main_quick_link_block_icon"
@@ -531,7 +538,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:paddingLeft="10dp">
+                            android:paddingLeft="10dp"
+                            android:onClick="loadWeb">
                             <ImageView
                                 android:layout_width="@dimen/main_quick_link_block_icon"
                                 android:layout_height="@dimen/main_quick_link_block_icon"
@@ -552,6 +560,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
+                            android:onClick="loadInvitation"
                             android:paddingLeft="5dp">
                             <ImageView
                                 android:layout_width="@dimen/main_quick_link_block_icon"

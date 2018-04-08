@@ -1,21 +1,15 @@
 package aboutdevice.com.munir.symphony.mysymphony.ui;
 
-import android.hardware.camera2.CameraManager;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONException;
 
@@ -23,16 +17,17 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import aboutdevice.com.munir.symphony.mysymphony.BaseActivity;
+import aboutdevice.com.munir.symphony.mysymphony.MainActivity;
 import aboutdevice.com.munir.symphony.mysymphony.R;
 import aboutdevice.com.munir.symphony.mysymphony.adapter.FeatureAdapter;
 import aboutdevice.com.munir.symphony.mysymphony.utils.FetchJson;
-import aboutdevice.com.munir.symphony.mysymphony.utils.SpecException;
 
 
 /**
  * Created by munirul.hoque on 5/16/2016.
  */
-public class TwoFragment extends Fragment  {
+public class TwoFragment extends Fragment{
     public String modelName;
     TextView txtLat, txtLan, txtModelName ;
     RecyclerView recyclerView;
@@ -41,6 +36,9 @@ public class TwoFragment extends Fragment  {
     public FetchJson fetchJson;
     private List<String> featureList = new ArrayList<String>();
     private LinkedHashMap<Integer,String> featureMap = new LinkedHashMap<Integer,String>();
+
+    private MainActivity mainActivity = new MainActivity();
+
     public TwoFragment (){
     }
 
@@ -48,6 +46,8 @@ public class TwoFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_two,container,false);
+        //(getContext()).setOnBackPressedListener(this);
+        MainActivity.backstackFragTrack = "TwoFragment";
         return view;
     }
 
@@ -124,4 +124,9 @@ public class TwoFragment extends Fragment  {
         return value;
     }
 
+//    @Override
+//    public void onClick() {
+//        Intent i = new Intent(getContext(),MainActivity.class);
+//        startActivity(i);
+//    }
 }

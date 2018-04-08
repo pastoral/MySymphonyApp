@@ -6,9 +6,9 @@
         android:icon="@drawable/ic_home"
         />
     <item
-        android:id="@+id/navccchat"
-        android:title="@string/cc_chat"
-        android:icon="@drawable/ic_cc_chat"
+        android:id="@+id/navnews"
+        android:title="@string/news"
+        android:icon="@drawable/ic_news"
         />
     <item
         android:id="@+id/navcclocation"
@@ -16,9 +16,9 @@
         android:icon="@drawable/ic_cc_location"
         />
     <item
-        android:id="@+id/navnews"
-        android:title="@string/news"
-        android:icon="@drawable/ic_news"
+        android:id="@+id/navlogout"
+        android:title="@string/logout"
+        android:icon="@drawable/ic_logout"
         />
 
 

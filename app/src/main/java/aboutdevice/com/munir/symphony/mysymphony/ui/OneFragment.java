@@ -1,9 +1,11 @@
 package aboutdevice.com.munir.symphony.mysymphony.ui;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -74,6 +76,7 @@ import aboutdevice.com.munir.symphony.mysymphony.utils.RecyclerTouchListener;
 
 import static aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp.getContext;
 import static aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp.getmInstance;
+import static aboutdevice.com.munir.symphony.mysymphony.ui.FourFrgment.newFacebookIntent;
 import static android.view.View.GONE;
 
 
@@ -183,7 +186,8 @@ public class OneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_one,container,false);
 
-        contactline1 = (LinearLayout)view.findViewById(R.id.hotline1);
+        //MainActivity.backstackFragTrack = "";
+         contactline1 = (LinearLayout)view.findViewById(R.id.hotline1);
         contactline2 = (LinearLayout)view.findViewById(R.id.hotline2);
 
         featureArea = (LinearLayout)view.findViewById(R.id.linear_feature_block) ;
@@ -570,6 +574,9 @@ public class OneFragment extends Fragment {
     public void loadTopCard(){
 
     }
+
+
+
 
 
 }

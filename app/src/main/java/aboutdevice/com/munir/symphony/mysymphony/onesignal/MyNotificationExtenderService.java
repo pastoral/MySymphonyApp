@@ -55,7 +55,7 @@ public class MyNotificationExtenderService  extends NotificationExtenderService{
         activityToBeOpened = data.optString("activityToBeOpened", null);
         t = data.optString("t", null); // useless
         b = data.optString("b", null); // useless
-        notificationID = notification.payload.notificationID.toString();
+        notificationID = notification.payload.notificationID;
 
 
         if(link != null && modelSWVersion.equals("any")){
@@ -81,9 +81,9 @@ public class MyNotificationExtenderService  extends NotificationExtenderService{
 
 
         if (modelSWVersion != null && (modelSWVersion.equals(getSystemProperty("ro.custom.build.version"))) || (modelSWVersion.equals(getSystemProperty("ro.build.display.id")))) {
-            if(!databaseHandler.CheckIsDataAlreadyInDBorNot(DatabaseHandler.notification_id, notificationID)){
-                insertDB();
-            }
+//            if(!databaseHandler.CheckIsDataAlreadyInDBorNot(DatabaseHandler.notification_id, notificationID)){
+//                insertDB();
+//            }
             overrideSettings.extender = new NotificationCompat.Extender() {
                 @Override
                 public NotificationCompat.Builder extend(NotificationCompat.Builder builder) {
@@ -102,9 +102,9 @@ public class MyNotificationExtenderService  extends NotificationExtenderService{
 
         else if(modelSWVersion != null && modelSWVersion.equals("any")){
            // long count = databaseHandler.getNotificationCount();
-            if(!databaseHandler.CheckIsDataAlreadyInDBorNot(DatabaseHandler.notification_id, notificationID)){
-                insertDB();
-            }
+//            if(!databaseHandler.CheckIsDataAlreadyInDBorNot(DatabaseHandler.notification_id, notificationID)){
+//                insertDB();
+//            }
           //  insertDB();
             overrideSettings.extender = new NotificationCompat.Extender() {
                 @Override
@@ -121,8 +121,8 @@ public class MyNotificationExtenderService  extends NotificationExtenderService{
             Log.d("OneSignalExample", "Notification displayed with id: " + displayedResult.androidNotificationId);
         }
        // databaseHandler.deleteAll(new NotificationStore(title,body,activityToBeOpened,modelSWVersion,t,b,link,bigPicture,new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()),notificationID, notificationType));
-        totalSize = (int)databaseHandler.getNotificationCount();
-        databaseHandler.close();
+//        totalSize = (int)databaseHandler.getNotificationCount();
+//        databaseHandler.close();
         return true;
     }
 
@@ -139,12 +139,12 @@ public class MyNotificationExtenderService  extends NotificationExtenderService{
         return value;
     }
 
-    public void insertDB(){
-
-        Log.d("Insert: ", "Inserting ..");
-        databaseHandler.addNotification(new NotificationStore(title,body,activityToBeOpened,modelSWVersion,t,b,link,bigPicture,new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()),notificationID,notificationType));
-        String temp = null;
-    }
+//    public void insertDB(){
+//
+//        Log.d("Insert: ", "Inserting ..");
+//        databaseHandler.addNotification(new NotificationStore(title,body,activityToBeOpened,modelSWVersion,t,b,link,bigPicture,new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()),notificationID,notificationType));
+//        String temp = null;
+//    }
 
 
 }

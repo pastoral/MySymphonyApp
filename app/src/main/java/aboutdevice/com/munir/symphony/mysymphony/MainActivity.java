@@ -1,44 +1,36 @@
 package aboutdevice.com.munir.symphony.mysymphony;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.FragmentTransaction;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -49,10 +41,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.appinvite.AppInvite;
 import com.google.android.gms.appinvite.AppInviteInvitation;
-import com.google.android.gms.appinvite.AppInviteInvitationResult;
-import com.google.android.gms.appinvite.AppInviteReferral;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -66,8 +55,6 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,10 +73,11 @@ import com.onesignal.OneSignal;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -98,17 +86,14 @@ import java.util.Map;
 import aboutdevice.com.munir.symphony.mysymphony.adapter.SectionAdapter;
 import aboutdevice.com.munir.symphony.mysymphony.firebase.RemoteConfig;
 import aboutdevice.com.munir.symphony.mysymphony.model.AppUser;
-import aboutdevice.com.munir.symphony.mysymphony.model.NotificationStore;
-import aboutdevice.com.munir.symphony.mysymphony.ui.EditProfileActivity;
 import aboutdevice.com.munir.symphony.mysymphony.ui.FourFrgment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.LoginActivity;
 import aboutdevice.com.munir.symphony.mysymphony.ui.NewsListActivity;
+import aboutdevice.com.munir.symphony.mysymphony.ui.NewsWebActivity;
 import aboutdevice.com.munir.symphony.mysymphony.ui.OneFragment;
-import aboutdevice.com.munir.symphony.mysymphony.ui.StoredNewsList;
 import aboutdevice.com.munir.symphony.mysymphony.ui.ThreeFragment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.TwoFragment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.UserProfileActivity;
-import aboutdevice.com.munir.symphony.mysymphony.utils.DatabaseHandler;
 import aboutdevice.com.munir.symphony.mysymphony.utils.FetchJson;
 import aboutdevice.com.munir.symphony.mysymphony.utils.ModelInfo;
 
@@ -118,6 +103,7 @@ import static aboutdevice.com.munir.symphony.mysymphony.Constants.UPDATE_INTERVA
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.permisionList;
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.permsRequestCode;
 import static aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp.getContext;
+import static aboutdevice.com.munir.symphony.mysymphony.ui.FourFrgment.newFacebookIntent;
 
 public class MainActivity extends BaseActivity
         implements
@@ -167,8 +153,15 @@ public class MainActivity extends BaseActivity
     private static boolean isActivityActive = false;
     public ArrayList<String> existingImeiList = new ArrayList<>();
     public ArrayList<String> existingModelList = new ArrayList<>();
+    public ArrayList<String> esitingMacList = new ArrayList<>();
     public String userLocality = "";
     private OneFragment oneFragment = new OneFragment();
+    public static String backstackFragTrack ;
+    private String macAddress = "00:00:00:00:00:00";
+    private String brand = Build.BRAND;
+    private BottomNavigationView bottomnavigation;
+
+
 
 
     public MainActivity(){
@@ -196,7 +189,8 @@ public class MainActivity extends BaseActivity
         MainActivity.super.requestAppPermissions(permisionList, R.string.runtime_permissions_txt, permsRequestCode);
         featureArea = (LinearLayout)findViewById(R.id.linear_feature_block) ;
         contactArea = (LinearLayout)findViewById(R.id.linear_contact_us_block) ;
-        logoutText = findViewById(R.id.logout);
+        bottomnavigation = findViewById(R.id.bottomnavigation);
+        //logoutText = findViewById(R.id.logout);
         remoteConfig = new RemoteConfig();
 
 
@@ -294,6 +288,34 @@ public class MainActivity extends BaseActivity
             return;
         }
 
+        bottomnavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navhome:
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                        break;
+                    case R.id.navnews:
+                        Intent j = new Intent(getApplicationContext(), NewsListActivity.class);
+                        startActivity(j);
+                        break;
+                    case R.id.navcclocation:
+                        if(mViewPager.getAdapter().getCount() ==4 ) {
+                            mViewPager.setCurrentItem(2);
+                        }
+                        else{
+                            mViewPager.setCurrentItem(1);
+                        }
+                        break;
+                    case R.id.navlogout:
+                        logout();
+                        break;
+                }
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -313,7 +335,7 @@ public class MainActivity extends BaseActivity
             finish();
         }
         else{
-            logoutText.setVisibility(View.VISIBLE);
+           // logoutText.setVisibility(View.VISIBLE);
             mFirebaseRemoteConfig = remoteConfig.getmFirebaseRemoteConfig();
             fetchRemoteConfig();
         }
@@ -324,13 +346,20 @@ public class MainActivity extends BaseActivity
         super.onResume();
         isGooglePlayServicesAvailable(this);
         checkLocationSettings();
+        backstackFragTrack = "";
+
+       // WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        //WifiInfo wInfo = wifiManager.getConnectionInfo();
+        macAddress = getMACAdress();
+
+        //Toast.makeText(this,macAddress,Toast.LENGTH_LONG).show();
 
         if(mRequestingLocationUpdates && mGoogleApiClient.isConnected()){
             startLocationUpdate();
         }
         if (user != null) {
             if (!isActivityActive) {
-                showProgressDialog("Loading user data....", MainActivity.this);
+                //showProgressDialog("Loading user data....", MainActivity.this);
             }
             dbUserRef.orderByKey().equalTo(user.getUid()).limitToFirst(1).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -535,7 +564,9 @@ public class MainActivity extends BaseActivity
         //startActivity(i);
         // int pos = sectionAdapter.getItemPosition(TwoFragment.class);
         // mViewPager.setCurrentItem(2);
+
         if(mViewPager.getAdapter().getCount() ==4 ) {
+
             mViewPager.setCurrentItem(3);
         }
         else{
@@ -552,6 +583,7 @@ public class MainActivity extends BaseActivity
         //startActivity(i);
         // int pos = sectionAdapter.getItemPosition(TwoFragment.class);
         // mViewPager.setCurrentItem(2);
+
         if(mViewPager.getAdapter().getCount() ==4 ) {
             mViewPager.setCurrentItem(2);
         }
@@ -562,9 +594,20 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+
+        if(backstackFragTrack.equals("")){
+
+            finish();
+        }
+        else{
+            Intent i  = new Intent(getApplicationContext(),MainActivity.class);
+            backstackFragTrack = "";
+            startActivity(i);
+           // mViewPager.setCurrentItem(0);
+        }
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -602,6 +645,7 @@ public class MainActivity extends BaseActivity
         // mGoogleApiClient.stopAutoManage(this);
         // mGoogleApiClient.disconnect();
         oneFragment.removeListnerFromClient();
+        //onBackPressedListener = null;
     }
 
     @Override
@@ -620,7 +664,7 @@ public class MainActivity extends BaseActivity
         //mGoogleApiClient.disconnect();
     }
 
-    public void logout(View v) {
+    public void logout() {
         isActivityActive =false;
         //oneFragment.removeListnerFromClient();
         AuthUI.getInstance()
@@ -762,6 +806,10 @@ public class MainActivity extends BaseActivity
                 for(int i=0; i<appUser.getModel().size(); i++){
                     existingModelList.add(appUser.model.get(i).toString());
                 }
+                for(int i=0; i<appUser.getMac().size(); i++){
+                    esitingMacList.add(appUser.mac.get(i).toString());
+                }
+
             }
             else{
                 return;
@@ -783,6 +831,10 @@ public class MainActivity extends BaseActivity
             dbUserRef.child(user.getUid()).child("imei").setValue(existingImeiList);
             existingModelList.add(modelName);
             dbUserRef.child(user.getUid()).child("model").setValue(existingModelList);
+            if(brand.contains("Symphony")||brand.contains("symphony") || brand.contains("SYMPHONY")) {
+                esitingMacList.add(getMACAdress());
+                dbUserRef.child(user.getUid()).child("mac").setValue(esitingMacList);
+            }
         }
        /* if(!userDataMap.get("providerId").toString().equals("phone")){
             if(modelInfo.isSimSupport(mTelephonyManager,getApplicationContext())) {
@@ -882,4 +934,73 @@ public class MainActivity extends BaseActivity
         i.putExtra("USERDATA",appUser);
         startActivity(i);
     }
+
+    public String getMACAdress(){
+        StringBuilder res1 = new StringBuilder();
+        try {
+            // get all the interfaces
+            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+            //find network interface wlan0
+            for (NetworkInterface networkInterface : all) {
+                if (!networkInterface.getName().equalsIgnoreCase("wlan0")) continue;
+                //get the hardware address (MAC) of the interface
+                byte[] macBytes = networkInterface.getHardwareAddress();
+                if (macBytes == null) {
+                    return "";
+                }
+
+
+
+                for (byte b : macBytes) {
+                    //gets the last byte of b
+                    res1.append(Integer.toHexString(b & 0xFF) + ":");
+                }
+
+                if (res1.length() > 0) {
+                    res1.deleteCharAt(res1.length() - 1);
+                }
+                //return res1.toString();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return res1.toString();
+    }
+
+
+    public void loadFacebook(View v){
+        String url = "https://www.facebook.com/symphonymobile/";
+        PackageManager pkm = getContext().getPackageManager();
+        Intent i = newFacebookIntent(pkm,url);
+        startActivity(i);
+    }
+
+    public void loadWeb(View v){
+        String url = "https://www.symphony-mobile.com";
+        // Intent i = new Intent(Intent.ACTION_VIEW);
+        //i.setData(Uri.parse(url));
+        //startActivity(i);
+        Intent intent = new Intent(MySymphonyApp.getContext(), NewsWebActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("targetUrl", url);
+        intent.putExtra("SYSTRAY","systray");
+
+        MySymphonyApp.getContext().startActivity(intent);
+    }
+
+    public void loadInstagram(View v){
+        Uri uri = Uri.parse("http://instagram.com/_u/symphony_mobile/");
+        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+        likeIng.setPackage("com.instagram.android");
+
+        try {
+            startActivity(likeIng);
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://instagram.com/symphony_mobile/")));
+        }
+    }
+
+
 }

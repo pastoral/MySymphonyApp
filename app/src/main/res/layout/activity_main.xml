@@ -79,19 +79,20 @@
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:layout_collapseMode = "pin"
-                android:layout_gravity="top"
+                android:gravity="bottom"
                 app:titleTextAppearance="@style/Toolbar.TitleText"
+                android:layout_gravity="bottom"
                 >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/logout"
-                    android:textSize="11sp"
-                    android:visibility="gone"
-                    android:text="Logout"
-                    android:layout_gravity="right"
-                    android:onClick="logout"
-                    />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/logout"-->
+                    <!--android:textSize="11sp"-->
+                    <!--android:visibility="gone"-->
+                    <!--android:text="Logout"-->
+                    <!--android:layout_gravity="right"-->
+                    <!--android:onClick="logout"-->
+                    <!--/>-->
 
             </android.support.v7.widget.Toolbar>
 

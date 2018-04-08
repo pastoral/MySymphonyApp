@@ -3,6 +3,7 @@ package aboutdevice.com.munir.symphony.mysymphony;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.FacebookSdk;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.onesignal.OneSignal;
 
@@ -36,6 +37,8 @@ public class MySymphonyApp extends Application {
                 .setNotificationReceivedHandler( new MyNotificationReceivedHandler() )
                 .init();
         Fresco.initialize(this);
+        FacebookSdk.setApplicationId("2064990243720158");
+        FacebookSdk.sdkInitialize(this);
 
     }
 

@@ -21,12 +21,13 @@ public class AppUser implements Serializable {
     public List<Object> imei;
     private String userCategoryText;
     private String userCategoryImage;
+    public List<Object> mac;
 
 
     public AppUser() {
     }
 
-    public AppUser(String uid, String name, String email, String phoneNumber, String photoURL, String providerId, String location, double lat, double lan, List<Object> imei, List<Object> model, String userCategoryText, String userCategoryImage) {
+    public AppUser(String uid, String name, String email, String phoneNumber, String photoURL, String providerId, String location, double lat, double lan, List<Object> imei, List<Object> model, String userCategoryText, String userCategoryImage, List<Object> mac) {
         this.uid = uid;
         this.name = name;
         this.email = email;
@@ -40,6 +41,7 @@ public class AppUser implements Serializable {
         this.model = model;
         this.userCategoryText = userCategoryText;
         this.userCategoryImage = userCategoryImage;
+        this.mac = mac;
     }
 
     public String getUid() {
@@ -144,5 +146,13 @@ public class AppUser implements Serializable {
 
     public void setLan(double lan) {
         this.lan = lan;
+    }
+
+    public List<Object> getMac() {
+        return mac;
+    }
+
+    public void setMac(List<Object> mac) {
+        this.mac = mac;
     }
 }
