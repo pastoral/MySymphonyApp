@@ -182,6 +182,9 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
         if(user == null){
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -315,6 +318,9 @@ public class MainActivity extends BaseActivity
                 return true;
             }
         });
+        if(mRequestingLocationUpdates && mGoogleApiClient.isConnected()){
+            startLocationUpdate();
+        }
 
     }
 
@@ -323,9 +329,7 @@ public class MainActivity extends BaseActivity
         super.onStart();
         isActivityActive = true;
         mLastLocation = new Location("");
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect();
-        }
+
         //receiver = new ResponeReceiver();
         if(!mRequestingLocationUpdates){
             mRequestingLocationUpdates = true;
@@ -353,10 +357,10 @@ public class MainActivity extends BaseActivity
         macAddress = getMACAdress();
 
         //Toast.makeText(this,macAddress,Toast.LENGTH_LONG).show();
-
         if(mRequestingLocationUpdates && mGoogleApiClient.isConnected()){
             startLocationUpdate();
         }
+
         if (user != null) {
             if (!isActivityActive) {
                 //showProgressDialog("Loading user data....", MainActivity.this);

@@ -91,7 +91,7 @@ public class TwoFragment extends Fragment{
         }
 
         else{
-            txtModelName.setText("This model is not enlisted");
+            txtModelName.setText("");
         }
     }
 

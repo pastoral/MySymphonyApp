@@ -224,7 +224,10 @@ public class UserProfileActivity extends BaseActivity {
                         return;
                     }
 
-
+                    if (phoneEditText.getText() == null  || phoneEditText.getText().length() <= 0) {
+                        showSnack(coordinate_profile, "Phone number can not be empty");
+                        return;
+                    }
                     String editedName = (displayNameEditText.getText().toString().length() > 0) ? displayNameEditText.getText().toString() : userDataMap.get("name").toString();
                     String editedPhone = (phoneEditText.getText().toString().length() > 0) ? phoneEditText.getText().toString() : userDataMap.get("phoneNumber").toString();
                     String editedEmail = emailEditText.getText().toString();
@@ -244,8 +247,9 @@ public class UserProfileActivity extends BaseActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
+
+
                 else{
                     showNoNetworkSnack(false);
                 }
@@ -263,6 +267,7 @@ public class UserProfileActivity extends BaseActivity {
         AlertDialog alertDialog = alert.create();
         alertDialog.show();
     }
+
 
     private boolean validEmail(String email) {
         if (email == null || email.isEmpty()) {

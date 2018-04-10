@@ -32,6 +32,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -99,7 +100,7 @@ public class OneFragment extends Fragment {
     public  boolean modelFound;
     public LinearLayout linear_offerarea;
     public TextView main_user_name, main_user_phone,main_user_email;
-    public ImageView userPhoto;
+    public SimpleDraweeView userPhoto;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private AppUser appUser;
     public Map<String,Object> userDataMap = new HashMap<String, Object>();
@@ -120,6 +121,7 @@ public class OneFragment extends Fragment {
     private SharedPreferences.Editor topEditor ;
     //private ImageLoader imageLoader1, imageLoader2;
     private ViewPager oneViewPager;
+    private Button btnEditProfile;
 
 
     public ValueEventListener profileListener = new ValueEventListener() {
@@ -207,6 +209,7 @@ public class OneFragment extends Fragment {
         offer_img1 = view.findViewById(R.id.offer_img1);
         offer_img2 = view.findViewById(R.id.offer_img2);
         linear_cc_block = view.findViewById(R.id.linear_cc_block);
+        btnEditProfile = view.findViewById(R.id.btnEditProfile);
        // recyclerTopCard = view.findViewById(R.id.recyclerTopCard);
         dbRef = FirebaseDatabase.getInstance().getReference();
         dbUserRef = dbRef.child("users");
@@ -417,8 +420,12 @@ public class OneFragment extends Fragment {
             main_user_name.setText(appUser.getName());
             main_user_phone.setText(appUser.getPhoneNumber());
             main_user_email.setText(appUser.getEmail());
+            btnEditProfile.setVisibility(View.VISIBLE);
+
             if (appUser.getPhotoURL() != null) {
-                Glide.with(getActivity()).load(appUser.getPhotoURL()).into(userPhoto);
+                //Glide.with(getActivity()).load(appUser.getPhotoURL()).into(userPhoto);
+                userPhoto.setImageURI(Uri.parse(appUser.getPhotoURL()));
+
 
 //            Glide.with(getActivity()).load(appUser.getPhotoURL()).asBitmap().into(new SimpleTarget<Bitmap>() {
 //                @Override
