@@ -166,7 +166,7 @@ public class NewsWebActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent i;
         if(Systray == null){
-            i = new Intent(getApplicationContext(),StoredNewsList.class);
+            i = new Intent(getApplicationContext(),NewsListActivity.class);
         }
         else{
             i = new Intent(getApplicationContext(),MainActivity.class);

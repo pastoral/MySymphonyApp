@@ -67,6 +67,8 @@ import aboutdevice.com.munir.symphony.mysymphony.R;
 
 import aboutdevice.com.munir.symphony.mysymphony.adapter.NewsHolder;
 import aboutdevice.com.munir.symphony.mysymphony.adapter.TopNewsHolder;
+import aboutdevice.com.munir.symphony.mysymphony.data.remote.UserDataAPIService;
+import aboutdevice.com.munir.symphony.mysymphony.data.remote.UserDataApiUtils;
 import aboutdevice.com.munir.symphony.mysymphony.firebase.RemoteConfig;
 import aboutdevice.com.munir.symphony.mysymphony.model.AppUser;
 import aboutdevice.com.munir.symphony.mysymphony.model.StoredNews;
@@ -85,10 +87,7 @@ import static android.view.View.GONE;
  * Created by munirul.hoque on 5/16/2016.
  */
 public class OneFragment extends Fragment {
-   // private RecyclerView mRecyclerView;
-   // private TileAdapter mTileAdapter;
-   // private RecyclerView.LayoutManager mLayoutManager;
-   // private TileSpacesItemDecoration tileSpacesItemDecoration;
+
    public LinearLayout contactline1, contactline2;
     public AdView mAdView;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
@@ -107,7 +106,7 @@ public class OneFragment extends Fragment {
     private DatabaseReference dbRef,dbUserRef,dpTopNewsRef;
     public static ProgressDialog mProgressDialog;
     public static boolean isActivityActive = false;
-    public RecyclerView recyclerTopCard;
+
     //public PhotoViewAttacher mAttacher = new PhotoViewAttacher(imageView);
     private GridLayoutManager gridLayoutManager;
     private LinearLayoutManager linearLayoutManager;
@@ -119,9 +118,10 @@ public class OneFragment extends Fragment {
     private SimpleDraweeView offer_img1, offer_img2;
     private SharedPreferences topSharedPreferences;
     private SharedPreferences.Editor topEditor ;
-    //private ImageLoader imageLoader1, imageLoader2;
+
     private ViewPager oneViewPager;
     private Button btnEditProfile;
+
 
 
     public ValueEventListener profileListener = new ValueEventListener() {
@@ -152,8 +152,7 @@ public class OneFragment extends Fragment {
             }
             linear_offerarea.setVisibility(View.VISIBLE);
             if(storedNews.length>1){
-               // Glide.with(getActivity()).load(storedNews[0].getImageUrl()).asBitmap().into(offer_img1);
-               // Glide.with(getActivity()).load(storedNews[1].getImageUrl()).asBitmap().into(offer_img2);
+
                 topEditor = getContext().getSharedPreferences("mysymphonyapp_top", Context.MODE_PRIVATE).edit();
                 topEditor.putString("title1",storedNews[0].getTitle());
                 topEditor.putString("title2",storedNews[1].getTitle());
@@ -278,24 +277,7 @@ public class OneFragment extends Fragment {
 
 
 
-        //setHasOptionsMenu(true);
-       /* contactline1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:16272"));
-                startActivity(intent);
-            }
-        });
 
-        contactline2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:0966670066"));
-                startActivity(intent);
-            }
-        });*/
 
 
 
@@ -325,12 +307,7 @@ public class OneFragment extends Fragment {
             String image_url2 = topSharedPreferences.getString("image_url2", "https://firebasestorage.googleapis.com/v0/b/about-device.appspot.com/o/creatives%2Fslider_one.jpg?alt=media&token=64b9d22d-a435-45b0-9578-b7c10936c7bc");
             offer_img1.setImageURI(Uri.parse(image_url1));
             offer_img2.setImageURI(Uri.parse(image_url2));
-            //Glide.with(getActivity()).load(image_url1).into(offer_img1);
-            //Glide.with(getActivity()).load(image_url2).into(offer_img2);
-            //Glide.with(getActivity()).load(image_url2).asBitmap().into(offer_img2);
-//            Picasso.with(getContext()).load(image_url1).fit().into(offer_img1);
-//            Picasso.with(getContext()).load(image_url2).fit().into(offer_img2);
-            // Glide.with(getActivity()).load(image_url1).asBitmap().into(offer_img1);
+
 
         }
         offer_img1.setOnClickListener(new View.OnClickListener() {
@@ -353,22 +330,6 @@ public class OneFragment extends Fragment {
             if(!isActivityActive){
                 showProgressDialog("Loading User Data ... ", getActivity());
             }
-
-
-//                    (new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    for(DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-//                        appUser = postSnapshot.getValue(AppUser.class);
-//                        UpdateUI(appUser);
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
 
 
 
@@ -427,16 +388,11 @@ public class OneFragment extends Fragment {
                 userPhoto.setImageURI(Uri.parse(appUser.getPhotoURL()));
 
 
-//            Glide.with(getActivity()).load(appUser.getPhotoURL()).asBitmap().into(new SimpleTarget<Bitmap>() {
-//                @Override
-//                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                    //bitmap = resource;
-//                    userPhoto.setImageBitmap(resource);
-//                   // mAttacher = new PhotoViewAttacher(ivGirlDetail);
-//                }
-//            });
             }
+
         }
+
+
     }
 
     @Override

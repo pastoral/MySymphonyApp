@@ -96,11 +96,9 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-apk" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-main-apk-res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-resources" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifest-checker" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
@@ -164,8 +162,8 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-base-11.6.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-panorama-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.android.support:mediarouter-v7-27.0.0" level="project" />
+    <orderEntry type="library" name="com.onesignal:OneSignal-3.8.4" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-identity-license-11.6.2" level="project" />
-    <orderEntry type="library" name="com.onesignal:OneSignal-3.8.3" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-27.0.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-tagmanager-v4-impl-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-analytics-11.6.2" level="project" />
@@ -187,7 +185,6 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-nearby-11.6.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-appinvite-11.6.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-analytics-impl-license-11.6.2" level="project" />
-    <orderEntry type="library" name="com.squareup.retrofit2:converter-gson:2.1.0@jar" level="project" />
     <orderEntry type="library" name="com.squareup.retrofit2:retrofit:2.3.0@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-database-connection-11.6.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-maps-11.6.2" level="project" />
@@ -211,6 +208,7 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-fitness-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-tagmanager-api-11.6.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-tasks-license-11.6.2" level="project" />
+    <orderEntry type="library" name="com.squareup.retrofit2:converter-gson:2.3.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:multidex-1.0.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-nearby-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.0@jar" level="project" />

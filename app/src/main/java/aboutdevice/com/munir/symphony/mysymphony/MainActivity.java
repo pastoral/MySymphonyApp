@@ -20,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -74,6 +75,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.NetworkInterface;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -84,6 +86,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import aboutdevice.com.munir.symphony.mysymphony.adapter.SectionAdapter;
+import aboutdevice.com.munir.symphony.mysymphony.data.model.UserDataRemote;
+import aboutdevice.com.munir.symphony.mysymphony.data.remote.UserDataAPIService;
+import aboutdevice.com.munir.symphony.mysymphony.data.remote.UserDataApiUtils;
 import aboutdevice.com.munir.symphony.mysymphony.firebase.RemoteConfig;
 import aboutdevice.com.munir.symphony.mysymphony.model.AppUser;
 import aboutdevice.com.munir.symphony.mysymphony.ui.FourFrgment;
@@ -95,7 +100,12 @@ import aboutdevice.com.munir.symphony.mysymphony.ui.ThreeFragment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.TwoFragment;
 import aboutdevice.com.munir.symphony.mysymphony.ui.UserProfileActivity;
 import aboutdevice.com.munir.symphony.mysymphony.utils.FetchJson;
+import aboutdevice.com.munir.symphony.mysymphony.utils.ListTraverse;
 import aboutdevice.com.munir.symphony.mysymphony.utils.ModelInfo;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Field;
 
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS;
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.REQUEST_CHECK_SETTINGS;
@@ -123,8 +133,7 @@ public class MainActivity extends BaseActivity
      * The {@link ViewPager} that will host the section contents.
      */
     public ViewPager mViewPager;
-    private  AppBarLayout appBarLayout;
-    private ThreeFragment threeFragment;
+
     private String modelName;
     private FetchJson fetchJson;
     public  boolean modelFound;
@@ -141,9 +150,9 @@ public class MainActivity extends BaseActivity
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     public Map<String, Object> userDataMap = new HashMap<String, Object>();
     private FirebaseStorage firebaseStorage;
-    private StorageReference storageReference, profilepicReference;
+    private StorageReference storageReference;
     public AppUser appUser;
-    private TextView logoutText;
+
 
     private boolean mRequestingLocationUpdates;
     protected LocationRequest mLocationRequest;
@@ -160,6 +169,11 @@ public class MainActivity extends BaseActivity
     private String macAddress = "00:00:00:00:00:00";
     private String brand = Build.BRAND;
     private BottomNavigationView bottomnavigation;
+    public static UserDataRemote userDataRemote;
+    private UserDataAPIService userDataAPIService = UserDataApiUtils.getUserDataAPIServices();
+    private CoordinatorLayout main_content;
+    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    static SecureRandom rnd = new SecureRandom();
 
 
 
@@ -193,6 +207,7 @@ public class MainActivity extends BaseActivity
         featureArea = (LinearLayout)findViewById(R.id.linear_feature_block) ;
         contactArea = (LinearLayout)findViewById(R.id.linear_contact_us_block) ;
         bottomnavigation = findViewById(R.id.bottomnavigation);
+        main_content = findViewById(R.id.main_content);
         //logoutText = findViewById(R.id.logout);
         remoteConfig = new RemoteConfig();
 
@@ -227,9 +242,7 @@ public class MainActivity extends BaseActivity
 
 
 
-        // threeFragment = new ThreeFragment();
-        // getSupportActionBar().setTitle("Parallax Tabs");
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         // Set up the ViewPager with the sections adapter.
@@ -246,31 +259,7 @@ public class MainActivity extends BaseActivity
 
 
 
-       /* ImageView header = (ImageView) findViewById(R.id.main_imageview);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.purple2);
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener(){
-            @Override
-            public void onGenerated(Palette palette) {
-                int vibrantColor = palette.getVibrantColor(getResources().getColor(R.color.vibrant));
-                int vibrantDarkColor = palette.getDarkVibrantColor(getResources().getColor(R.color.vibrant_dark));
-                collapsingToolbarLayout.setContentScrimColor(vibrantColor);
-                collapsingToolbarLayout.setStatusBarScrimColor(vibrantDarkColor);
-               // Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-               // Palette.Swatch vibrantDarkSwatch = palette.getDarkMutedSwatch();
 
-                  //  collapsingToolbarLayout.setContentScrimColor(vibrantSwatch.getRgb());
-                  //  collapsingToolbarLayout.setStatusBarScrimColor(vibrantDarkSwatch.getRgb());
-
-            }
-        });*/
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
        buildGoogleApiClient();
        createLocationRequest();
@@ -318,9 +307,7 @@ public class MainActivity extends BaseActivity
                 return true;
             }
         });
-        if(mRequestingLocationUpdates && mGoogleApiClient.isConnected()){
-            startLocationUpdate();
-        }
+
 
     }
 
@@ -436,22 +423,7 @@ public class MainActivity extends BaseActivity
         return value;
     }
 
-    /* public void testDB(){
-         DatabaseHandler databaseHandler = new DatabaseHandler(this);
-         Log.d("Insert: ", "Inserting ..");
-         databaseHandler.addNotification(new NotificationStore("Test Title", "Test Content",
-                 "NewsActivity", "any", "TTTT", "bbbbbbbbbbbbb",
-                 "", " http://images.indianexpress.com/2016/07/eid-mubarak-3.jpg ", new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime())));
-         // Reading all contacts
-         Log.d("Reading: ", "Reading all contacts..");
-         List<NotificationStore> notificationStoreList = databaseHandler.getAllNotifications();
-         for(NotificationStore ns : notificationStoreList){
-             String log = "Title : "+ ns.getNotification_title() + " , Content:  " + ns.getNotification_content()+
-                           " , ctivityToBeOpened: "+ns.getActivityToBeOpened();
-             Log.d("Stored Data : " , log);
-         }
 
-     }*/
     public void loadNews(View view){
         //Intent intent = new Intent(getContext(), StoredNewsList.class);
         Intent intent = new Intent(getContext(), NewsListActivity.class);
@@ -517,57 +489,17 @@ public class MainActivity extends BaseActivity
     }
 
 
-   /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
 
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-        if (id == R.id.action_news) {
-            Intent i = new Intent(getApplicationContext(), StoredNewsList.class);
-            startActivity(i);
-        }
-
-        return super.onOptionsItemSelected(item);
-    } */
 
     public void loadFeatureFragment(View v){
-        /*Fragment fg = new TwoFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-       // SectionAdapter sectionAdapter = new SectionAdapter(getSupportFragmentManager());
-        fragmentTransaction.replace(mViewPager.getCurrentItem(),fg);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();*/
-        //  Intent i = new Intent(getContext(),fg.getClass());
-        //startActivity(i);
-        // int pos = sectionAdapter.getItemPosition(TwoFragment.class);
-        // mViewPager.setCurrentItem(1);
+
 
         mViewPager.setCurrentItem(1);
 
     }
 
     public void loadContactFragment(View v){
-        // Fragment fg = new TwoFragment();
-        // FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        // SectionAdapter sectionAdapter = new SectionAdapter(getSupportFragmentManager());
-        // fragmentTransaction.replace(mViewPager.getCurrentItem(),f);
-        // Intent i = new Intent(getContext(),fg.getClass());
-        //startActivity(i);
-        // int pos = sectionAdapter.getItemPosition(TwoFragment.class);
-        // mViewPager.setCurrentItem(2);
+
 
         if(mViewPager.getAdapter().getCount() ==4 ) {
 
@@ -579,14 +511,7 @@ public class MainActivity extends BaseActivity
     }
 
     public void loadCCFragment(View v){
-        // Fragment fg = new TwoFragment();
-        // FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        // SectionAdapter sectionAdapter = new SectionAdapter(getSupportFragmentManager());
-        // fragmentTransaction.replace(mViewPager.getCurrentItem(),f);
-        // Intent i = new Intent(getContext(),fg.getClass());
-        //startActivity(i);
-        // int pos = sectionAdapter.getItemPosition(TwoFragment.class);
-        // mViewPager.setCurrentItem(2);
+
 
         if(mViewPager.getAdapter().getCount() ==4 ) {
             mViewPager.setCurrentItem(2);
@@ -836,8 +761,26 @@ public class MainActivity extends BaseActivity
             existingModelList.add(modelName);
             dbUserRef.child(user.getUid()).child("model").setValue(existingModelList);
             if(brand.contains("Symphony")||brand.contains("symphony") || brand.contains("SYMPHONY")) {
-                esitingMacList.add(getMACAdress());
-                dbUserRef.child(user.getUid()).child("mac").setValue(esitingMacList);
+                //if(ListTraverse.getLast(esitingMacList)==null||ListTraverse.getLast(esitingMacList).isEmpty()) {
+                    esitingMacList.add(getMACAdress());
+                    dbUserRef.child(user.getUid()).child("mac").setValue(esitingMacList);
+//                    userDataRemote = new UserDataRemote(appUser.getUid()+"_"+randomString(4),
+//                            appUser.getUid(),
+//                            appUser.getEmail(),
+//                            ListTraverse.getLast(existingImeiList),
+//                            ListTraverse.getLast(esitingMacList),
+//                            appUser.getPhoneNumber(),
+//                            String.valueOf(appUser.getLat()),
+//                            String.valueOf(appUser.getLan()));
+                //}
+                savePost(appUser.getUid()+"_"+randomString(4),
+                        appUser.getUid(),
+                        appUser.getEmail(),
+                        ListTraverse.getLast(existingImeiList),
+                        ListTraverse.getLast(esitingMacList),
+                        appUser.getPhoneNumber(),
+                        String.valueOf(appUser.getLat()),
+                        String.valueOf(appUser.getLan()));
             }
         }
        /* if(!userDataMap.get("providerId").toString().equals("phone")){
@@ -1004,6 +947,39 @@ public class MainActivity extends BaseActivity
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://instagram.com/symphony_mobile/")));
         }
+    }
+
+    private void savePost(String rowid,
+                          String uuid,
+                          String email,
+                          String imei,
+                          String mac,
+                          String msisdn,
+                          String lat,
+                          String lan){
+        userDataAPIService.saveUser(rowid,uuid,email,imei,mac,msisdn, lat,lan)
+                .enqueue(new Callback<UserDataRemote>() {
+            @Override
+            public void onResponse(Call<UserDataRemote> call, Response<UserDataRemote> response) {
+                if(response.isSuccessful()){
+                    showSnack(main_content, "DataStored Successfully");
+                    Toast.makeText(getApplicationContext(),"DataStored Successfully",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserDataRemote> call, Throwable t) {
+                showSnack(main_content, "Userdata is not stored");
+                Toast.makeText(getApplicationContext(),"Userdata is not stored",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    String randomString( int len ){
+        StringBuilder sb = new StringBuilder( len );
+        for( int i = 0; i < len; i++ )
+            sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+        return sb.toString();
     }
 
 

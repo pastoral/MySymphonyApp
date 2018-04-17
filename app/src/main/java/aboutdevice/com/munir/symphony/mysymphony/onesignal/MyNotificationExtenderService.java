@@ -2,10 +2,8 @@ package aboutdevice.com.munir.symphony.mysymphony.onesignal;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.onesignal.NotificationExtenderService;
 import com.onesignal.OSNotificationDisplayedResult;
@@ -14,16 +12,12 @@ import com.onesignal.OSNotificationReceivedResult;
 import org.json.JSONObject;
 
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import aboutdevice.com.munir.symphony.mysymphony.MainActivity;
 import aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp;
 import aboutdevice.com.munir.symphony.mysymphony.R;
 import aboutdevice.com.munir.symphony.mysymphony.model.NotificationStore;
-import aboutdevice.com.munir.symphony.mysymphony.utils.DatabaseHandler;
 
 /**
  * Created by munirul.hoque on 1/12/2017.
@@ -37,7 +31,7 @@ public class MyNotificationExtenderService  extends NotificationExtenderService{
     String title,body, t,b, notificationID, notificationType;
     boolean returnVal;
     JSONObject data;
-    DatabaseHandler databaseHandler;
+
     int totalSize, rowId;
     List<Integer> rowsToDelete;
     ArrayList<NotificationStore> notificationStoreKeyList;
@@ -71,7 +65,7 @@ public class MyNotificationExtenderService  extends NotificationExtenderService{
 
         OverrideSettings overrideSettings = new OverrideSettings();
 
-        databaseHandler = new DatabaseHandler(getApplicationContext());
+
 
         //int minKey = databaseHandler.getMinRowId();
         rowsToDelete = null;

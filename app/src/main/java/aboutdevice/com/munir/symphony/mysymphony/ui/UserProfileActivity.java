@@ -77,7 +77,7 @@ public class UserProfileActivity extends BaseActivity {
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference, profilepicReference;
     public AppUser appUser;
-    private CoordinatorLayout coordProfile;
+
     private Snackbar snackbar;
 
     private Intent i;
@@ -104,7 +104,7 @@ public class UserProfileActivity extends BaseActivity {
         userProfilePhoto = findViewById(R.id.userProfilePhoto);
         phoneNumber = findViewById(R.id.phoneNumber);
         button_change_password = findViewById(R.id.button_change_password);
-        coordProfile = findViewById(R.id.coordProfile);
+        coordinate_profile = findViewById(R.id.coordProfile);
 
 
     }
@@ -367,7 +367,7 @@ public class UserProfileActivity extends BaseActivity {
             message = "Good! Connected to Internet";
             color = Color.WHITE;
         }
-        snackbar = Snackbar.make(coordProfile, message, Snackbar.LENGTH_LONG);
+        snackbar = Snackbar.make(coordinate_profile, message, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         TextView textView = (TextView)sbView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setTextColor(color);

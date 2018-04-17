@@ -337,6 +337,19 @@
     "battery" : "2500mAh Li-ion Battery",
     "sim" : "Dual Micro SIM",
     "sensor" : "G-Sensor, Proximity, Light"
+  },
+
+  "V92" :{
+    "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
+    "camera" : "5MP + 2MP Camera",
+    "display" : "5'' FWVGA TN Display\nMali-400 GPU",
+    "memory" : "8GB ROM + 512MB RAM",
+    "os" : "Android GO 8.1.0",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "WiFi, GPS, BT",
+    "battery" : "2150mAh Li-ion Battery",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "G-Sensor, Proximity, Light"
   }
 
 

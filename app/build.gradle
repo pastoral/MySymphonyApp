@@ -7,8 +7,8 @@ android {
         applicationId "aboutdevice.com.munir.symphony.mysymphony"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 51
-        versionName "5.0.2"
+        versionCode 52
+        versionName "5.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [onesignal_app_id               : "ca87c9a3-54e4-47b2-9c04-ffd835d47e17",
                                 onesignal_google_project_number: "303838651450"]
@@ -47,7 +47,7 @@ dependencies {
 
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
-    implementation 'com.pkmmte.view:circularimageview:1.1'
+    //implementation 'com.pkmmte.view:circularimageview:1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.onesignal:OneSignal:[3.8.3, 3.99.99)'
@@ -59,7 +59,7 @@ dependencies {
     //compile 'com.firebaseui:firebase-ui:3.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.google.android.gms:play-services:11.6.2'
     implementation 'com.google.android.gms:play-services-maps:11.6.2'
     // Required only if Facebook login support is required

@@ -27,7 +27,7 @@ import java.util.List;
 
 import aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp;
 import aboutdevice.com.munir.symphony.mysymphony.R;
-import aboutdevice.com.munir.symphony.mysymphony.adapter.TileAdapter;
+
 
 /**
  * Created by munirul.hoque on 11/15/2016.
