@@ -94,7 +94,7 @@ import static android.view.View.VISIBLE;
 /**
  * Created by munirul.hoque on 5/16/2016.
  */
-public class ThreeFragment extends Fragment implements  ResultCallback<LocationSettingsResult>, MyResultReceiver.Receiver {
+public class ThreeFragment extends Fragment {
     public String name;
     public int pos, scrollToPosition = 0;
     public ProgressBar progressBar, progressBarCC;
@@ -123,17 +123,17 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
     public Map<String, Object> addressMap;
     public Map<String,Float> distanceMap, sortedDistanceMap;
     public Button btnRefresh;
-    public CardView nearest_cc_card;
+   // public CardView nearest_cc_card;
     public Query query;
     // public GpsLocationReceiver gpsLocationReceiver;
-    public String nearestCCName, nearestCCAddress;
-    public SharedPreferences sharedpreferences;
-    public  SharedPreferences.Editor editor;
-    BroadcastReceiver gpsLocationReceiver;
+    //public String nearestCCName, nearestCCAddress;
+   // public SharedPreferences sharedpreferences;
+    //public  SharedPreferences.Editor editor;
+    //BroadcastReceiver gpsLocationReceiver;
     public double nearestCCLat, nearestCCLan;
     private IntentFilter filter;
-    private ResponeReceiver receiver;
-    public MyResultReceiver resultReceiver;
+    //private ResponeReceiver receiver;
+    //public MyResultReceiver resultReceiver;
 
     private Snackbar snackbar;
 
@@ -165,7 +165,7 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
         recyclerView = (RecyclerView)view.findViewById(R.id.cc_recycler);
         txtNearestCCName = (TextView)view.findViewById(R.id.txtNearestCCName);
         txtNearestCCAddress = (TextView)view.findViewById(R.id.txtNearestCCAddress);
-        nearest_cc_card = (CardView)view.findViewById(R.id.nearest_cc_header);
+       // nearest_cc_card = (CardView)view.findViewById(R.id.nearest_cc_header);
 
         // btnRefresh = (Button)view.findViewById(R.id.buttonRefresh);
 
@@ -174,8 +174,8 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
 
         recyclerView.setHasFixedSize(true);
 
-        filter = new IntentFilter(ResponeReceiver.ACTION_RESP);
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        //filter = new IntentFilter(ResponeReceiver.ACTION_RESP);
+        //filter.addCategory(Intent.CATEGORY_DEFAULT);
 
     }
 
@@ -191,9 +191,9 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
         ccLocationMap = new HashMap<>();
         addressMap = new HashMap<>();
 
-        sharedpreferences = getContext().getSharedPreferences("mysymphonyapp_data", Context.MODE_PRIVATE);
-        receiver = new ResponeReceiver();
-        resultReceiver = new MyResultReceiver(new Handler());
+        //sharedpreferences = getContext().getSharedPreferences("mysymphonyapp_data", Context.MODE_PRIVATE);
+//        receiver = new ResponeReceiver();
+//        resultReceiver = new MyResultReceiver(new Handler());
 
     }
 
@@ -202,10 +202,10 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            loadSP();
+            //loadSP();
         }
         else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            loadSP();
+            //loadSP();
         }
     }
 
@@ -236,11 +236,11 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
         super.onResume();
         //  askForPermission(permisionList[1],REQUEST_CHECK_SETTINGS);
         //ccAddressList.clear();
-        getActivity().registerReceiver(receiver,filter);
-        resultReceiver.setmReceiver(this);
+//        getActivity().registerReceiver(receiver,filter);
+//        resultReceiver.setmReceiver(this);
         final Intent intent = new Intent(getActivity(),MapsActivity.class);
-        LoadCC loadCC = new LoadCC();
-        loadCC.execute();
+        //LoadCC loadCC = new LoadCC();
+        //loadCC.execute();
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<CCAddress, CCAddressViewHolder>(
                 CCAddress.class,
                 R.layout.cc_list,
@@ -324,31 +324,31 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
             recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
             recyclerView.setAdapter(firebaseRecyclerAdapter);
 
-            loadSP();
+            //loadSP();
         }
 
 
         //  LocationAsyncRunner runner = new LocationAsyncRunner();
         //  runner.execute();
 
-        nearest_cc_card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(),MapsActivity.class);
-
-                i.putExtra("CCName", nearestCCName);
-                i.putExtra("CCAddress", nearestCCAddress);
-                i.putExtra("Latitude", String.valueOf(latlanLocation.getLatitude()));
-                i.putExtra("Longitude" , String.valueOf(latlanLocation.getLongitude()));
-                if(haveNetworkConnection()) {
-                    startActivity(i);
-                }
-                else{
-                    showSnack(false);
-                }
-
-            }
-        });
+//        nearest_cc_card.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getActivity(),MapsActivity.class);
+//
+//                i.putExtra("CCName", nearestCCName);
+//                i.putExtra("CCAddress", nearestCCAddress);
+//                i.putExtra("Latitude", String.valueOf(latlanLocation.getLatitude()));
+//                i.putExtra("Longitude" , String.valueOf(latlanLocation.getLongitude()));
+//                if(haveNetworkConnection()) {
+//                    startActivity(i);
+//                }
+//                else{
+//                    showSnack(false);
+//                }
+//
+//            }
+//        });
 
        /* gpsLocationReceiver = new BroadcastReceiver() {
             @Override
@@ -373,7 +373,7 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
             }
         }; */
         IntentFilter filter = new IntentFilter("android.location.PROVIDERS_CHANGED");
-        this.getContext().registerReceiver(gpsLocationReceiver, filter);
+        //this.getContext().registerReceiver(gpsLocationReceiver, filter);
 
 
     }
@@ -387,8 +387,8 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
 
         // stopLocationUpdates();
 
-        getActivity().unregisterReceiver(receiver);
-        resultReceiver.setmReceiver(this);
+//        getActivity().unregisterReceiver(receiver);
+//        resultReceiver.setmReceiver(this);
 
     }
 
@@ -430,50 +430,6 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
 
 
 
-
-    /**
-     * Check if the device's location settings are adequate for the app's needs using the
-     * {@link com.google.android.gms.location.SettingsApi#checkLocationSettings(GoogleApiClient,
-     * LocationSettingsRequest)} method, with the results provided through a {@code PendingResult}.
-     */
-    public void checkLocationSettings() {
-        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient,mLocationSettingsRequest);
-        result.setResultCallback(this);
-
-    }
-
-    /**
-     * The callback invoked when
-     * {@link com.google.android.gms.location.SettingsApi#checkLocationSettings(GoogleApiClient,
-     * LocationSettingsRequest)} is called. Examines the
-     * {@link com.google.android.gms.location.LocationSettingsResult} object and determines if
-     * location settings are adequate. If they are not, begins the process of presenting a location
-     * settings dialog to the user.
-     */
-    @Override
-    public void onResult(@NonNull LocationSettingsResult locationSettingsResult) {
-        final Status status = locationSettingsResult.getStatus();
-        switch(status.getStatusCode()){
-            case LocationSettingsStatusCodes.SUCCESS :
-                Log.i(TAG, "All location settings are satisfied.");
-                //startLocationUpdates();
-                break;
-            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED :
-                Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to" +
-                        "upgrade location settings ");
-                try{
-                    status.startResolutionForResult(getActivity(), REQUEST_CHECK_SETTINGS);
-                }
-                catch(IntentSender.SendIntentException e){
-                    Log.i(TAG, "PendingIntent unable to execute request.");
-                }
-                break;
-            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE :
-                Log.i(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog " +
-                        "not created.");
-                break;
-        }
-    }
 
 
 
@@ -564,15 +520,15 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
     }
 
 
-    public void loadSP(){
-        if(sharedpreferences.getString("NEARESTCC_ADDRESS", null) != null  && sharedpreferences.getString("NEARESTCC_NAME", null) != null){
-
-            nearest_cc_card.setVisibility(GONE);
-            txtNearestCCAddress.setText(sharedpreferences.getString("NEARESTCC_ADDRESS", null));
-            txtNearestCCName.setText(sharedpreferences.getString("NEARESTCC_NAME", null));
-
-        }
-    }
+//    public void loadSP(){
+//        if(sharedpreferences.getString("NEARESTCC_ADDRESS", null) != null  && sharedpreferences.getString("NEARESTCC_NAME", null) != null){
+//
+//            nearest_cc_card.setVisibility(GONE);
+//            txtNearestCCAddress.setText(sharedpreferences.getString("NEARESTCC_ADDRESS", null));
+//            txtNearestCCName.setText(sharedpreferences.getString("NEARESTCC_NAME", null));
+//
+//        }
+//    }
 
 
     private void startLocationUpdate(){
@@ -591,124 +547,124 @@ public class ThreeFragment extends Fragment implements  ResultCallback<LocationS
 
     }
 
-    @Override
-    public void onReceiveResult(int resultCode, Bundle ResultData) {
+//    @Override
+//    public void onReceiveResult(int resultCode, Bundle ResultData) {
+//
+//        nearest_cc_card.setVisibility(VISIBLE);
+//
+//        switch (resultCode){
+//            case  NearestCCIntentService.STATUS_RUNNING:
+//                txtNearestCCName.setText("Updating CC Location .....");
+//                txtNearestCCAddress.setText("Updating CC Address...");
+//                break;
+//
+//            case NearestCCIntentService.STATUS_FINISHED:
+//                nearestCCName = ResultData.getString("result");
+//                nearestCCAddress = (String)addressMap.get(nearestCCName);
+//                latlanLocation = (Location) ccLocationMap.get(nearestCCName);
+//                txtNearestCCName.setText(nearestCCName);
+//                txtNearestCCAddress.setText(nearestCCAddress);
+//        }
+//
+//    }
+//
+//    public class ResponeReceiver extends BroadcastReceiver {
+//        public static final String ACTION_RESP = "MESSAGE_PROCESSED";
+//        //Log.d("MAP Size " , String.valueOf(locationMap.size()));
+//        Location lastLocation = new Location("");
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            double[] resultData = new double[2];
+//            resultData = intent.getDoubleArrayExtra(LocationUpdates.PARAM_OUT_MSG);
+//            HashMap<String, Object> hashmapobject =new HashMap<>();
+//            if(resultData[0] != 0.0 || resultData[1] != 0.0) {
+//               /* editor = sharedpreferences.edit();
+//                editor.putString("LATITUDE", String.valueOf(resultData[0]));
+//                editor.putString("LONGITUDE", String.valueOf(resultData[1]));
+//                editor.commit();*/
+//
+//                lastLocation.setLatitude(resultData[0]);
+//                lastLocation.setLongitude(resultData[1]);
+//
+//                hashmapobject.put("key", ccLocationMap);
+//                Log.i("LAT LON" , String.valueOf(resultData[0]) + " , " + String.valueOf(resultData[1]));
+//                Log.i("MAP Size" , String.valueOf(ccLocationMap.size()));
+//                mCurrentlocation = lastLocation;
+//
+//                Intent i = new Intent(getContext(), NearestCCIntentService.class);
+//                i.putExtra("receiver", resultReceiver);
+//                i.putExtra("requestId", 101);
+//                i.putExtra("lastlocation",lastLocation);
+//                i.putExtra("cclocationsmap",hashmapobject);
+//                getActivity().startService(i);
+//
+//                //temp.setText(String.valueOf(locationMap.size()));
+//
+//            }
+//        }
+//    }
 
-        nearest_cc_card.setVisibility(VISIBLE);
-
-        switch (resultCode){
-            case  NearestCCIntentService.STATUS_RUNNING:
-                txtNearestCCName.setText("Updating CC Location .....");
-                txtNearestCCAddress.setText("Updating CC Address...");
-                break;
-
-            case NearestCCIntentService.STATUS_FINISHED:
-                nearestCCName = ResultData.getString("result");
-                nearestCCAddress = (String)addressMap.get(nearestCCName);
-                latlanLocation = (Location) ccLocationMap.get(nearestCCName);
-                txtNearestCCName.setText(nearestCCName);
-                txtNearestCCAddress.setText(nearestCCAddress);
-        }
-
-    }
-
-    public class ResponeReceiver extends BroadcastReceiver {
-        public static final String ACTION_RESP = "MESSAGE_PROCESSED";
-        //Log.d("MAP Size " , String.valueOf(locationMap.size()));
-        Location lastLocation = new Location("");
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            double[] resultData = new double[2];
-            resultData = intent.getDoubleArrayExtra(LocationUpdates.PARAM_OUT_MSG);
-            HashMap<String, Object> hashmapobject =new HashMap<>();
-            if(resultData[0] != 0.0 || resultData[1] != 0.0) {
-               /* editor = sharedpreferences.edit();
-                editor.putString("LATITUDE", String.valueOf(resultData[0]));
-                editor.putString("LONGITUDE", String.valueOf(resultData[1]));
-                editor.commit();*/
-
-                lastLocation.setLatitude(resultData[0]);
-                lastLocation.setLongitude(resultData[1]);
-
-                hashmapobject.put("key", ccLocationMap);
-                Log.i("LAT LON" , String.valueOf(resultData[0]) + " , " + String.valueOf(resultData[1]));
-                Log.i("MAP Size" , String.valueOf(ccLocationMap.size()));
-                mCurrentlocation = lastLocation;
-
-                Intent i = new Intent(getContext(), NearestCCIntentService.class);
-                i.putExtra("receiver", resultReceiver);
-                i.putExtra("requestId", 101);
-                i.putExtra("lastlocation",lastLocation);
-                i.putExtra("cclocationsmap",hashmapobject);
-                getActivity().startService(i);
-
-                //temp.setText(String.valueOf(locationMap.size()));
-
-            }
-        }
-    }
-
-    public class LoadCC extends AsyncTask<Void,Void,Map<String, Location>> {
-        Location location = new Location("");
-        @Override
-        protected Map<String, Location> doInBackground(Void... params) {
-            mDatabaseReference.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Map<String, Object> map = (HashMap<String, Object>)dataSnapshot.getValue();
-
-
-                    location.setLatitude(Double.parseDouble(map.get("lat").toString()));
-                    location.setLongitude(Double.parseDouble(map.get("lan").toString()));
-
-                    ccLocationMap.put(map.get("name").toString() , location);
-
-                    addressMap.put(map.get("name").toString(), map.get("address").toString());
-
-
-                    Log.d("Map Size : ", String.valueOf(ccLocationMap.size()));
-                    location = new Location("");
-                    publishProgress();
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-
-            });
-            Log.d("Last Map Size : ", String.valueOf(ccLocationMap.size()));
-            return ccLocationMap;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-            // tmptext.setText("Updating... " + String.valueOf(locationMap.size()));
-
-        }
-
-        @Override
-        protected void onPostExecute(Map<String, Location> stringObjectMap) {
-            super.onPostExecute(stringObjectMap);
-
-        }
-    }
+//    public class LoadCC extends AsyncTask<Void,Void,Map<String, Location>> {
+//        Location location = new Location("");
+//        @Override
+//        protected Map<String, Location> doInBackground(Void... params) {
+//            mDatabaseReference.addChildEventListener(new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                    Map<String, Object> map = (HashMap<String, Object>)dataSnapshot.getValue();
+//
+//
+//                    location.setLatitude(Double.parseDouble(map.get("lat").toString()));
+//                    location.setLongitude(Double.parseDouble(map.get("lan").toString()));
+//
+//                    ccLocationMap.put(map.get("name").toString() , location);
+//
+//                    addressMap.put(map.get("name").toString(), map.get("address").toString());
+//
+//
+//                    Log.d("Map Size : ", String.valueOf(ccLocationMap.size()));
+//                    location = new Location("");
+//                    publishProgress();
+//                }
+//
+//                @Override
+//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//
+//            });
+//            Log.d("Last Map Size : ", String.valueOf(ccLocationMap.size()));
+//            return ccLocationMap;
+//        }
+//
+//        @Override
+//        protected void onProgressUpdate(Void... values) {
+//            super.onProgressUpdate(values);
+//            // tmptext.setText("Updating... " + String.valueOf(locationMap.size()));
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Map<String, Location> stringObjectMap) {
+//            super.onPostExecute(stringObjectMap);
+//
+//        }
+//    }
 
 }
