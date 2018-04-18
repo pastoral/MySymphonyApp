@@ -106,6 +106,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Field;
+import retrofit2.http.Query;
 
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS;
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.REQUEST_CHECK_SETTINGS;
@@ -152,6 +153,7 @@ public class MainActivity extends BaseActivity
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
     public AppUser appUser;
+    public String imei = "";
 
 
     private boolean mRequestingLocationUpdates;
@@ -361,6 +363,16 @@ public class MainActivity extends BaseActivity
                     if(user!=null && appUser!=null) {
                         getExistingImei();
                         updateOneSignal(appUser);
+                        if (brand.contains("Symphony") || brand.contains("symphony") || brand.contains("SYMPHONY")) {
+                            savePost(macAddress,
+                                    appUser.getUid(),
+                                    appUser.getEmail(),
+                                    imei,
+                                    macAddress,
+                                    appUser.getPhoneNumber(),
+                                    String.valueOf(appUser.getLat()),
+                                    String.valueOf(appUser.getLan()));
+                        }
                     }
                 }
 
@@ -714,7 +726,7 @@ public class MainActivity extends BaseActivity
     public void getExistingImei(){
 
         String modelName = "";
-        String imei = "";
+
         ModelInfo modelInfo = new ModelInfo();
 
 
@@ -755,34 +767,29 @@ public class MainActivity extends BaseActivity
             imei = "UnAccessable";
         }
 
-        if(!existingImeiList.contains(modelInfo.getDeviceImei(mTelephonyManager))){
+        if(!existingImeiList.contains(modelInfo.getDeviceImei(mTelephonyManager))) {
             existingImeiList.add(imei);
             dbUserRef.child(user.getUid()).child("imei").setValue(existingImeiList);
             existingModelList.add(modelName);
             dbUserRef.child(user.getUid()).child("model").setValue(existingModelList);
-            if(brand.contains("Symphony")||brand.contains("symphony") || brand.contains("SYMPHONY")) {
+            if (brand.contains("Symphony") || brand.contains("symphony") || brand.contains("SYMPHONY")) {
                 //if(ListTraverse.getLast(esitingMacList)==null||ListTraverse.getLast(esitingMacList).isEmpty()) {
-                    esitingMacList.add(getMACAdress());
-                    dbUserRef.child(user.getUid()).child("mac").setValue(esitingMacList);
-//                    userDataRemote = new UserDataRemote(appUser.getUid()+"_"+randomString(4),
-//                            appUser.getUid(),
-//                            appUser.getEmail(),
-//                            ListTraverse.getLast(existingImeiList),
-//                            ListTraverse.getLast(esitingMacList),
-//                            appUser.getPhoneNumber(),
-//                            String.valueOf(appUser.getLat()),
-//                            String.valueOf(appUser.getLan()));
-                //}
-                savePost(appUser.getUid()+"_"+randomString(4),
-                        appUser.getUid(),
-                        appUser.getEmail(),
-                        ListTraverse.getLast(existingImeiList),
-                        ListTraverse.getLast(esitingMacList),
-                        appUser.getPhoneNumber(),
-                        String.valueOf(appUser.getLat()),
-                        String.valueOf(appUser.getLan()));
+                esitingMacList.add(getMACAdress());
+               // Toast.makeText(getApplicationContext(),getMACAdress(),Toast.LENGTH_LONG).show();
+                dbUserRef.child(user.getUid()).child("mac").setValue(esitingMacList);
+//                userDataRemote = new UserDataRemote(appUser.getUid() + "_" + randomString(4),
+//                        appUser.getUid(),
+//                        appUser.getEmail(),
+//                        ListTraverse.getLast(existingImeiList),
+//                        ListTraverse.getLast(esitingMacList),
+//                        appUser.getPhoneNumber(),
+//                        String.valueOf(appUser.getLat()),
+//                        String.valueOf(appUser.getLan()));
+//            }
+
             }
         }
+
        /* if(!userDataMap.get("providerId").toString().equals("phone")){
             if(modelInfo.isSimSupport(mTelephonyManager,getApplicationContext())) {
                 String m = modelInfo.getPhoneNumber(getApplicationContext());
@@ -883,35 +890,62 @@ public class MainActivity extends BaseActivity
     }
 
     public String getMACAdress(){
-        StringBuilder res1 = new StringBuilder();
+//        StringBuilder res1 = new StringBuilder();
+//        try {
+//            // get all the interfaces
+//            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+//            //find network interface wlan0
+//            for (NetworkInterface networkInterface : all) {
+//                if (!networkInterface.getName().equalsIgnoreCase("wlan0")) continue;
+//                //get the hardware address (MAC) of the interface
+//                byte[] macBytes = networkInterface.getHardwareAddress();
+//                if (macBytes == null) {
+//                    return "";
+//                }
+//
+//
+//
+//                for (byte b : macBytes) {
+//                    //gets the last byte of b
+//                    res1.append(Integer.toHexString(b & 0xFF) + ":");
+//                }
+//
+//                if (res1.length() > 0) {
+//                    res1.deleteCharAt(res1.length() - 1);
+//                }
+//                //return res1.toString();
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return res1.toString();
+
         try {
-            // get all the interfaces
             List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
-            //find network interface wlan0
-            for (NetworkInterface networkInterface : all) {
-                if (!networkInterface.getName().equalsIgnoreCase("wlan0")) continue;
-                //get the hardware address (MAC) of the interface
-                byte[] macBytes = networkInterface.getHardwareAddress();
+            for (NetworkInterface nif : all) {
+                if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+
+                byte[] macBytes = nif.getHardwareAddress();
                 if (macBytes == null) {
                     return "";
                 }
 
-
-
+                StringBuilder res1 = new StringBuilder();
                 for (byte b : macBytes) {
-                    //gets the last byte of b
-                    res1.append(Integer.toHexString(b & 0xFF) + ":");
+                    // res1.append(Integer.toHexString(b & 0xFF) + ":");
+                    res1.append(String.format("%02X:",b));
                 }
 
                 if (res1.length() > 0) {
                     res1.deleteCharAt(res1.length() - 1);
                 }
-                //return res1.toString();
+                return res1.toString();
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //handle exception
         }
-        return res1.toString();
+        return "";
+
     }
 
 
@@ -949,31 +983,47 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    private void savePost(String rowid,
-                          String uuid,
-                          String email,
-                          String imei,
-                          String mac,
-                          String msisdn,
-                          String lat,
-                          String lan){
-        userDataAPIService.saveUser(rowid,uuid,email,imei,mac,msisdn, lat,lan)
+    private void savePost(String rowid, String uuid,
+                          String email, String imei,
+                          String mac, String msisdn,
+                          String lat, String lan){
+        userDataAPIService.storeUserData(rowid, uuid,
+                email, imei,
+                mac, msisdn,
+                lat,  lan)
                 .enqueue(new Callback<UserDataRemote>() {
-            @Override
-            public void onResponse(Call<UserDataRemote> call, Response<UserDataRemote> response) {
-                if(response.isSuccessful()){
-                    showSnack(main_content, "DataStored Successfully");
-                    Toast.makeText(getApplicationContext(),"DataStored Successfully",Toast.LENGTH_LONG).show();
-                }
-            }
+                    @Override
+                    public void onResponse(Call<UserDataRemote> call, Response<UserDataRemote> response) {
+                        String m =response.raw().request().url().toString();
+                        if(response.isSuccessful()){
+                            //String m =response.raw().request().url().toString();
+                            if (response.body() != null){
 
-            @Override
-            public void onFailure(Call<UserDataRemote> call, Throwable t) {
-                showSnack(main_content, "Userdata is not stored");
-                Toast.makeText(getApplicationContext(),"Userdata is not stored",Toast.LENGTH_LONG).show();
-            }
-        });
+                               // Toast.makeText(getApplicationContext(), "Successfull", Toast.LENGTH_SHORT).show();
+                                }
+                            else {
+                                //  Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                           // Toast.makeText(getApplicationContext(), "Sorry for inconvince server is down", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+
+                    @Override
+                    public void onFailure(Call<UserDataRemote> call, Throwable t) {
+                        String m = t.getMessage();
+                        showSnack(main_content, t.getMessage());
+                        Toast.makeText(getApplicationContext(),"Userdata is not stored",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+
     }
+
+
 
     String randomString( int len ){
         StringBuilder sb = new StringBuilder( len );

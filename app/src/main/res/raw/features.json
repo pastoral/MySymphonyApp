@@ -350,6 +350,19 @@
     "battery" : "2150mAh Li-ion Battery",
     "sim" : "Dual Micro SIM",
     "sensor" : "G-Sensor, Proximity, Light"
+  },
+
+  "V75m" :{
+    "processor" : "Quad Core Processor",
+    "camera" : "5MP + 5MP Camera",
+    "display" : "5'' FWVGA TN Display",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android 7.0",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "WiFi, GPS, BT",
+    "battery" : "2200mAh Li-ion Battery",
+    "sim" : "Dual SIM",
+    "sensor" : "G-Sensor, Proximity, Light"
   }
 
 
