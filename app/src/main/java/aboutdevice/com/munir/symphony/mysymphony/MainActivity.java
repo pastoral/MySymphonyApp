@@ -357,10 +357,10 @@ public class MainActivity extends BaseActivity
             dbUserRef.orderByKey().equalTo(user.getUid()).limitToFirst(1).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         appUser = postSnapshot.getValue(AppUser.class);
                     }
-                    if(user!=null && appUser!=null) {
+                    if (user != null && appUser != null) {
                         getExistingImei();
                         updateOneSignal(appUser);
                         if (brand.contains("Symphony") || brand.contains("symphony") || brand.contains("SYMPHONY")) {
@@ -372,8 +372,27 @@ public class MainActivity extends BaseActivity
                                     appUser.getPhoneNumber(),
                                     String.valueOf(appUser.getLat()),
                                     String.valueOf(appUser.getLan()));
+
+                            if (appUser.getEmail() == null || appUser.getEmail().length()<4
+                                    || appUser.getName() == null || appUser.getName().length()<1 ||
+                                    appUser.getPhoneNumber() == null || appUser.getPhoneNumber().length()<5) {
+
+                                editPost(
+                                        appUser.getUid(),
+                                        appUser.getEmail(),
+                                        imei,
+                                        macAddress,
+                                        appUser.getPhoneNumber(),
+                                        String.valueOf(appUser.getLat()),
+                                        String.valueOf(appUser.getLan()));
+
+                            }
+                            else {
+                                return;
+                            }
                         }
                     }
+
                 }
 
                 @Override
@@ -1014,8 +1033,47 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void onFailure(Call<UserDataRemote> call, Throwable t) {
                         String m = t.getMessage();
-                        showSnack(main_content, t.getMessage());
-                        Toast.makeText(getApplicationContext(),"Userdata is not stored",Toast.LENGTH_LONG).show();
+                        //showSnack(main_content, t.getMessage());
+                        //Toast.makeText(getApplicationContext(),"Userdata is not stored",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+    }
+
+
+    private void editPost(String uuid,
+                          String email, String imei,
+                          String mac, String msisdn,
+                          String lat, String lan){
+        userDataAPIService.editUserData(uuid,
+                email, imei,
+                mac, msisdn,
+                lat,  lan)
+                .enqueue(new Callback<UserDataRemote>() {
+                    @Override
+                    public void onResponse(Call<UserDataRemote> call, Response<UserDataRemote> response) {
+                        String m =response.raw().request().url().toString();
+                        if(response.isSuccessful()){
+                            String n =response.raw().request().url().toString();
+                            if (response.body() != null){
+
+                                // Toast.makeText(getApplicationContext(), "Successfull", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                //  Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            // Toast.makeText(getApplicationContext(), "Sorry for inconvince server is down", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+
+                    @Override
+                    public void onFailure(Call<UserDataRemote> call, Throwable t) {
+                        String m = t.getMessage();
+                        //showSnack(main_content, t.getMessage());
+                        //Toast.makeText(getApplicationContext(),"Userdata is not stored",Toast.LENGTH_LONG).show();
                     }
                 });
 

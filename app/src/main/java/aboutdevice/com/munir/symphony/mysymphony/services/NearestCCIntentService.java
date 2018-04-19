@@ -1,31 +1,9 @@
 package aboutdevice.com.munir.symphony.mysymphony.services;
 
-import android.app.IntentService;
-import android.content.Intent;
-import android.content.Context;
-import android.location.Location;
-import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.v4.os.ResultReceiver;
-import android.util.Log;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-
-import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * An {@link IntentService} subclass for handling asynchronous task requests in
+ * An {@link } subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * <p>
  * TODO: Customize class - update intent actions, extra parameters and static

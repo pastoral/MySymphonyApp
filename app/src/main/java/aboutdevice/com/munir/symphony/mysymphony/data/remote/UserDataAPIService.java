@@ -47,4 +47,10 @@ public interface UserDataAPIService {
                        @Query("email")String email, @Query("imei")String imei,
                        @Query("mac")String mac, @Query("msisdn")String msisdn,
                        @Query("lat")String lat, @Query("lan")String lan);
+
+    @GET("PutMySymAppUsrs_PoweredBy_EDISON_IT_2")
+    Call<UserDataRemote> editUserData( @Query("uuid")String uuid,
+                                       @Query("email")String email, @Query("imei")String imei,
+                                       @Query("mac")String mac, @Query("msisdn")String msisdn,
+                                       @Query("lat")String lat, @Query("lan")String lan);
 }

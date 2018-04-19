@@ -132,7 +132,7 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
 
-                if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                if (response==null || response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
                     Snackbar.make(contraint_login,"Unknown Error", Snackbar.LENGTH_SHORT);
                     Log.d("Login Info" , "Unknown Error");
 

@@ -1,15 +1,6 @@
 package aboutdevice.com.munir.symphony.mysymphony.services;
 
-import android.app.IntentService;
-import android.content.Intent;
-import android.location.Location;
-import android.os.Bundle;
-import android.support.v4.os.ResultReceiver;
-import android.util.Log;
 
-import com.google.android.gms.location.FusedLocationProviderApi;
-
-import aboutdevice.com.munir.symphony.mysymphony.ui.ThreeFragment;
 
 
 /**
