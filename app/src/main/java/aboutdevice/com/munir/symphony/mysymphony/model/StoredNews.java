@@ -1,11 +1,13 @@
 package aboutdevice.com.munir.symphony.mysymphony.model;
 
+import android.support.annotation.Keep;
+
 import java.sql.Timestamp;
 
 /**
  * Created by munir on 3/28/2018.
  */
-
+@Keep
 public class StoredNews {
     private String title;
     private String description;

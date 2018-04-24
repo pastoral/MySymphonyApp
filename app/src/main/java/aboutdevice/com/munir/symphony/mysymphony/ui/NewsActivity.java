@@ -27,7 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.squareup.picasso.Picasso;
-import com.facebook.FacebookSdk;
+//import com.facebook.FacebookSdk;
 
 import java.util.ArrayList;
 import java.util.Arrays;

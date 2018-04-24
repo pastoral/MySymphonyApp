@@ -1,34 +1,31 @@
 package aboutdevice.com.munir.symphony.mysymphony.ui;
 
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
+
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
+
 import android.support.v4.app.Fragment;
 
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DefaultItemAnimator;
+
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +33,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.view.SimpleDraweeView;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,26 +54,19 @@ import org.json.JSONException;
 import java.util.HashMap;
 import java.util.Map;
 
-import aboutdevice.com.munir.symphony.mysymphony.MainActivity;
+
 import aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp;
 import aboutdevice.com.munir.symphony.mysymphony.R;
 
-import aboutdevice.com.munir.symphony.mysymphony.adapter.NewsHolder;
+
 import aboutdevice.com.munir.symphony.mysymphony.adapter.TopNewsHolder;
-import aboutdevice.com.munir.symphony.mysymphony.data.remote.UserDataAPIService;
-import aboutdevice.com.munir.symphony.mysymphony.data.remote.UserDataApiUtils;
+
 import aboutdevice.com.munir.symphony.mysymphony.firebase.RemoteConfig;
 import aboutdevice.com.munir.symphony.mysymphony.model.AppUser;
 import aboutdevice.com.munir.symphony.mysymphony.model.StoredNews;
-import aboutdevice.com.munir.symphony.mysymphony.utils.DividerItemDecoration;
+
 import aboutdevice.com.munir.symphony.mysymphony.utils.FetchJson;
-import aboutdevice.com.munir.symphony.mysymphony.utils.RecyclerTouchListener;
 
-
-import static aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp.getContext;
-import static aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp.getmInstance;
-import static aboutdevice.com.munir.symphony.mysymphony.ui.FourFrgment.newFacebookIntent;
-import static android.view.View.GONE;
 
 
 /**
@@ -88,7 +74,7 @@ import static android.view.View.GONE;
  */
 public class OneFragment extends Fragment {
 
-   public LinearLayout contactline1, contactline2;
+    public LinearLayout contactline1, contactline2;
     public AdView mAdView;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private RemoteConfig remoteConfig;
@@ -99,11 +85,12 @@ public class OneFragment extends Fragment {
     public  boolean modelFound;
     public LinearLayout linear_offerarea;
     public TextView main_user_name, main_user_phone,main_user_email;
-    public SimpleDraweeView userPhoto;
+   // public SimpleDraweeView userPhoto;
+    public ImageView userPhoto;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private AppUser appUser;
     public Map<String,Object> userDataMap = new HashMap<String, Object>();
-    private DatabaseReference dbRef,dbUserRef,dpTopNewsRef;
+    private DatabaseReference dbRef,dbUserRef,dpTopNewsRef, dbOfferBannerRef;
     public static ProgressDialog mProgressDialog;
     public static boolean isActivityActive = false;
 
@@ -114,13 +101,16 @@ public class OneFragment extends Fragment {
     private Snackbar snackbar;
     private LinearLayout linear_content_holder,linear_cc_block;
     private StoredNews[] storedNews = new StoredNews[2];
+    private StoredNews topBannerNews = new StoredNews();
     private Query query;
-    private SimpleDraweeView offer_img1, offer_img2;
-    private SharedPreferences topSharedPreferences;
-    private SharedPreferences.Editor topEditor ;
+    //private SimpleDraweeView offer_img1, offer_img2;
+    private ImageView offer_img1, offer_img2;
+    public static SharedPreferences topSharedPreferences;
+    public static SharedPreferences.Editor topEditor ;
 
     private ViewPager oneViewPager;
     private Button btnEditProfile;
+    private LinearLayout linear_offer_banner;
 
 
 
@@ -178,6 +168,42 @@ public class OneFragment extends Fragment {
         }
     };
 
+
+    public ValueEventListener offerBannerListner = new ValueEventListener() {
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            int i = 0;
+            for(DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                topBannerNews = postSnapshot.getValue(StoredNews.class);
+            }
+            linear_offer_banner.setVisibility(View.VISIBLE);
+            if(topBannerNews != null){
+
+                topEditor = getContext().getSharedPreferences("mysymphonyapp_top", Context.MODE_PRIVATE).edit();
+                topEditor.putString("title1",storedNews[0].getTitle());
+                topEditor.putString("title2",storedNews[1].getTitle());
+                topEditor.putString("content1",storedNews[0].getDescription());
+                topEditor.putString("content2",storedNews[1].getDescription());
+                topEditor.putString("image_url1",storedNews[0].getImageUrl());
+                topEditor.putString("image_url2",storedNews[1].getImageUrl());
+                topEditor.putString("activityToBeOpened1",storedNews[0].getActivityToBeOpened());
+                topEditor.putString("activityToBeOpened2",storedNews[1].getActivityToBeOpened());
+                topEditor.putString("notification_type1",storedNews[0].getType());
+                topEditor.putString("notification_type2",storedNews[1].getType());
+
+                topEditor.apply();
+            }
+
+
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+
     public OneFragment (){
 
     }
@@ -185,10 +211,10 @@ public class OneFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.fragment_one,container,false);
+        view = inflater.inflate(R.layout.fragment_one,container,false);
 
         //MainActivity.backstackFragTrack = "";
-         contactline1 = (LinearLayout)view.findViewById(R.id.hotline1);
+        contactline1 = (LinearLayout)view.findViewById(R.id.hotline1);
         contactline2 = (LinearLayout)view.findViewById(R.id.hotline2);
 
         featureArea = (LinearLayout)view.findViewById(R.id.linear_feature_block) ;
@@ -196,6 +222,7 @@ public class OneFragment extends Fragment {
 
         linear_offerarea = view.findViewById(R.id.linear_offerarea);
 
+        linear_offer_banner = view.findViewById(R.id.linear_offer_banner);
         main_user_email = view.findViewById(R.id.main_user_email);
         main_user_phone = view.findViewById(R.id.main_user_phone);
         main_user_name = view.findViewById(R.id.main_user_name);
@@ -209,19 +236,21 @@ public class OneFragment extends Fragment {
         offer_img2 = view.findViewById(R.id.offer_img2);
         linear_cc_block = view.findViewById(R.id.linear_cc_block);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
-       // recyclerTopCard = view.findViewById(R.id.recyclerTopCard);
+        // recyclerTopCard = view.findViewById(R.id.recyclerTopCard);
         dbRef = FirebaseDatabase.getInstance().getReference();
         dbUserRef = dbRef.child("users");
         dbUserRef.keepSynced(true);
         dpTopNewsRef = dbRef.child("news");
         dpTopNewsRef.keepSynced(true);
+        dbOfferBannerRef = dbRef.child("news");
+        dbOfferBannerRef.keepSynced(true);
 
 
 
         topSharedPreferences = getContext().getSharedPreferences("mysymphonyapp_top", Context.MODE_PRIVATE);
 
 
-        dpTopNewsRef.orderByChild("top_card").limitToLast(2).equalTo("yes").addValueEventListener(topCardListner);
+        dpTopNewsRef.orderByChild("top_card").equalTo("yes").limitToFirst(2).addValueEventListener(topCardListner);
 
         dbUserRef.orderByKey().equalTo(user.getUid()).limitToFirst(1).addValueEventListener(profileListener);
 
@@ -295,7 +324,7 @@ public class OneFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        
+
 
         if(modelFound) {
             featureArea.setVisibility(View.VISIBLE);
@@ -305,8 +334,17 @@ public class OneFragment extends Fragment {
 
             String image_url1 = topSharedPreferences.getString("image_url1", "https://firebasestorage.googleapis.com/v0/b/about-device.appspot.com/o/creatives%2Fslider_one.jpg?alt=media&token=64b9d22d-a435-45b0-9578-b7c10936c7bc");
             String image_url2 = topSharedPreferences.getString("image_url2", "https://firebasestorage.googleapis.com/v0/b/about-device.appspot.com/o/creatives%2Fslider_one.jpg?alt=media&token=64b9d22d-a435-45b0-9578-b7c10936c7bc");
-            offer_img1.setImageURI(Uri.parse(image_url1));
-            offer_img2.setImageURI(Uri.parse(image_url2));
+            //offer_img1.setImageURI(Uri.parse(image_url1));
+           // offer_img2.setImageURI(Uri.parse(image_url2));
+            Picasso.with(getActivity())
+                    .load(image_url1)
+                    .fit()
+                    .into(offer_img1);
+
+            Picasso.with(getActivity())
+                    .load(image_url2)
+                    .fit()
+                    .into(offer_img2);
 
 
         }
@@ -325,7 +363,7 @@ public class OneFragment extends Fragment {
         });
 
         if(user!=null){
-           // Toast.makeText(getActivity(),user.getUid().toString(),Toast.LENGTH_LONG).show();
+            // Toast.makeText(getActivity(),user.getUid().toString(),Toast.LENGTH_LONG).show();
 
             if(!isActivityActive){
                 showProgressDialog("Loading User Data ... ", getActivity());
@@ -385,8 +423,11 @@ public class OneFragment extends Fragment {
 
             if (appUser.getPhotoURL() != null) {
                 //Glide.with(getActivity()).load(appUser.getPhotoURL()).into(userPhoto);
-                userPhoto.setImageURI(Uri.parse(appUser.getPhotoURL()));
-
+                //userPhoto.setImageURI(Uri.parse(appUser.getPhotoURL()));
+                Picasso.with(getActivity())
+                        .load(appUser.getPhotoURL())
+                        .fit()
+                        .into(userPhoto);
 
             }
 
@@ -449,7 +490,7 @@ public class OneFragment extends Fragment {
     }
 
     public void offer1(){
-       // String restoredText = topSharedPreferences.getString("mysymphonyapp_top", null);
+        // String restoredText = topSharedPreferences.getString("mysymphonyapp_top", null);
         if (topSharedPreferences.getString("title1", null) != null) {
             String title = topSharedPreferences.getString("title1", "No Title");//"No Title" is the default value.
             String content = topSharedPreferences.getString("content1", "No Description");
@@ -492,7 +533,7 @@ public class OneFragment extends Fragment {
     }
 
     public void offer2(){
-       // String restoredText2 = topSharedPreferences.getString("mysymphonyapp_top", null);
+        // String restoredText2 = topSharedPreferences.getString("mysymphonyapp_top", null);
         if (topSharedPreferences.getString("title1", null) != null) {
             String title = topSharedPreferences.getString("title2", "No Title");//"No Title" is the default value.
             String content = topSharedPreferences.getString("content2", "No Description");

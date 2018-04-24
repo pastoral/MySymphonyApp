@@ -1,10 +1,11 @@
 package aboutdevice.com.munir.symphony.mysymphony.model;
 
+import android.support.annotation.Keep;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.messaging.RemoteMessage;
+//import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,7 @@ import aboutdevice.com.munir.symphony.mysymphony.R;
 /**
  * Created by admin on 1/31/2017.
  */
-
+@Keep
 public class NotificationStore {
     private int id;
     public String notification_title;

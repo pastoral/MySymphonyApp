@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+//import com.facebook.drawee.backends.pipeline.Fresco;
+
 /**
  * Created by munirul.hoque on 11/28/2016.
  */
@@ -42,6 +44,7 @@ public  class BaseActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
        // mErrorString = new SparseIntArray();
+        //Fresco.initialize(this);
     }
 
     @Override

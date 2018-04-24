@@ -12,4 +12,8 @@
         <key>get_news_image_header</key>
         <value>none</value>
     </entry>
+    <entry>
+        <key>get_main_image_header</key>
+        <value>none</value>
+    </entry>
 </defaultsMap>

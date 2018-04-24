@@ -81,13 +81,13 @@
             android:name=".ui.MapsActivity"
             android:label="@string/title_activity_maps" />
 
-        <service
-            android:name=".onesignal.MyNotificationExtenderService"
-            >
-            <intent-filter>
-                <action android:name="com.onesignal.NotificationExtender" />
-            </intent-filter>
-        </service>
+        <!--<service-->
+            <!--android:name=".onesignal.MyNotificationExtenderService"-->
+            <!--&gt;-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.onesignal.NotificationExtender" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
 
         <activity android:name=".ui.NewsWebActivity" />
         <activity

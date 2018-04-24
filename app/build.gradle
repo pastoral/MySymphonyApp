@@ -7,18 +7,29 @@ android {
         applicationId "aboutdevice.com.munir.symphony.mysymphony"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 58
-        versionName "5.2.4"
+        versionCode 60
+        versionName "5.2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [onesignal_app_id               : "ca87c9a3-54e4-47b2-9c04-ffd835d47e17",
                                 onesignal_google_project_number: "303838651450"]
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+        resConfigs "en"
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //shrinkResources true
+           // minifyEnabled true
+            //useProguard true
+           // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+           // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), "proguard-rules.pro"
+            //Other parameters
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+//           // //Add your own signing config
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
         }
 
         packagingOptions {
@@ -55,7 +66,7 @@ dependencies {
     implementation 'com.pkmmte.view:circularimageview:1.1'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     //compile 'com.firebaseui:firebase-ui:3.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.0'
@@ -75,7 +86,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:11.6.2'
     implementation 'com.firebase:firebase-client-android:2.4.0'
     implementation 'com.firebaseui:firebase-ui:2.4.0'
-    implementation 'com.facebook.fresco:fresco:0.6.1'
+    //implementation 'com.facebook.fresco:fresco:0.6.1'
 
 
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'

@@ -4,9 +4,12 @@ package aboutdevice.com.munir.symphony.mysymphony.data.model;
  * Created by munirul.hoque on 12/04/2018.
  */
 
+import android.support.annotation.Keep;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Keep
 public class UserDataRemote {
 
     @SerializedName("rowid")

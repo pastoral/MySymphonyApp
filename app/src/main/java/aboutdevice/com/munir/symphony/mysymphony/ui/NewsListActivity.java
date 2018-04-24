@@ -198,6 +198,7 @@ public class NewsListActivity extends BaseActivity {
         notificationRecyclerView.setItemAnimator(new DefaultItemAnimator());
         notificationRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         newsRecyclerAdapter.notifyDataSetChanged();
+        newsRecyclerAdapter.startListening();
         notificationRecyclerView.setAdapter(newsRecyclerAdapter);
 
 

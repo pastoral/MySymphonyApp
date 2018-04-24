@@ -1,5 +1,7 @@
 package aboutdevice.com.munir.symphony.mysymphony.model;
 
+import android.support.annotation.Keep;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * Created by AppUser on 8/18/2017.
  */
 @SuppressWarnings("serial")
+
 public class AppUser implements Serializable {
     private String uid;
     private String name;

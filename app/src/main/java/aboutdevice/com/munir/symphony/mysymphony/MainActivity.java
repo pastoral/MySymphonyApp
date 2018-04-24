@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,6 +70,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.onesignal.OneSignal;
+import com.squareup.picasso.Picasso;
 
 
 import org.json.JSONException;
@@ -107,6 +109,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.Query;
+import android.view.ViewGroup.LayoutParams;
 
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS;
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.REQUEST_CHECK_SETTINGS;
@@ -116,9 +119,10 @@ import static aboutdevice.com.munir.symphony.mysymphony.Constants.permsRequestCo
 import static aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp.getContext;
 import static aboutdevice.com.munir.symphony.mysymphony.ui.FourFrgment.newFacebookIntent;
 
+
 public class MainActivity extends BaseActivity
         implements
-                GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, ResultCallback<LocationSettingsResult>, LocationListener {
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -176,6 +180,9 @@ public class MainActivity extends BaseActivity
     private CoordinatorLayout main_content;
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
+    private ImageView mainimageview;
+    private LinearLayout header_area;
+    private AppBarLayout appbarmain;
 
 
 
@@ -210,6 +217,9 @@ public class MainActivity extends BaseActivity
         contactArea = (LinearLayout)findViewById(R.id.linear_contact_us_block) ;
         bottomnavigation = findViewById(R.id.bottomnavigation);
         main_content = findViewById(R.id.main_content);
+        header_area = findViewById(R.id.header_area);
+        mainimageview = findViewById(R.id.mainimageview);
+        appbarmain = findViewById(R.id.appbarmain);
         //logoutText = findViewById(R.id.logout);
         remoteConfig = new RemoteConfig();
 
@@ -255,7 +265,7 @@ public class MainActivity extends BaseActivity
 //        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        tabLayout.setupWithViewPager(mViewPager);
 
-        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.main_collapsing);
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.maincollapsing);
         collapsingToolbarLayout.setTitleEnabled(false);
 
 
@@ -263,8 +273,8 @@ public class MainActivity extends BaseActivity
 
 
 
-       buildGoogleApiClient();
-       createLocationRequest();
+        buildGoogleApiClient();
+        createLocationRequest();
 
         // MainActivity.super.requestAppPermissions(permisionList, R.string.runtime_permissions_txt, permsRequestCode);
         isGooglePlayServicesAvailable(this);
@@ -311,6 +321,12 @@ public class MainActivity extends BaseActivity
         });
 
 
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.maincollapsing);
+        double heightLinearOfferBlock = getResources().getDisplayMetrics().heightPixels / 4.2;
+        AppBarLayout.LayoutParams lpOfferBlock = (AppBarLayout.LayoutParams)collapsingToolbar.getLayoutParams();
+        lpOfferBlock.height = (int)heightLinearOfferBlock;
+
+
     }
 
     @Override
@@ -328,7 +344,7 @@ public class MainActivity extends BaseActivity
             finish();
         }
         else{
-           // logoutText.setVisibility(View.VISIBLE);
+            // logoutText.setVisibility(View.VISIBLE);
             mFirebaseRemoteConfig = remoteConfig.getmFirebaseRemoteConfig();
             fetchRemoteConfig();
         }
@@ -341,7 +357,7 @@ public class MainActivity extends BaseActivity
         checkLocationSettings();
         backstackFragTrack = "";
 
-       // WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        // WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         //WifiInfo wInfo = wifiManager.getConnectionInfo();
         macAddress = getMACAdress();
 
@@ -373,9 +389,11 @@ public class MainActivity extends BaseActivity
                                     String.valueOf(appUser.getLat()),
                                     String.valueOf(appUser.getLan()));
 
+
                             if (appUser.getEmail() == null || appUser.getEmail().length()<4
                                     || appUser.getName() == null || appUser.getName().length()<1 ||
-                                    appUser.getPhoneNumber() == null || appUser.getPhoneNumber().length()<5) {
+                                    appUser.getPhoneNumber() == null || appUser.getPhoneNumber().length()<5||
+                                    appUser.getImei() == null || existingImeiList.size()<2) {
 
                                 editPost(
                                         appUser.getUid(),
@@ -492,6 +510,7 @@ public class MainActivity extends BaseActivity
 
                 }
                 loadAdvertige();
+                loadImageHeader();
 
             }
         });
@@ -563,7 +582,7 @@ public class MainActivity extends BaseActivity
             Intent i  = new Intent(getApplicationContext(),MainActivity.class);
             backstackFragTrack = "";
             startActivity(i);
-           // mViewPager.setCurrentItem(0);
+            // mViewPager.setCurrentItem(0);
         }
 
     }
@@ -794,7 +813,7 @@ public class MainActivity extends BaseActivity
             if (brand.contains("Symphony") || brand.contains("symphony") || brand.contains("SYMPHONY")) {
                 //if(ListTraverse.getLast(esitingMacList)==null||ListTraverse.getLast(esitingMacList).isEmpty()) {
                 esitingMacList.add(getMACAdress());
-               // Toast.makeText(getApplicationContext(),getMACAdress(),Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(),getMACAdress(),Toast.LENGTH_LONG).show();
                 dbUserRef.child(user.getUid()).child("mac").setValue(esitingMacList);
 //                userDataRemote = new UserDataRemote(appUser.getUid() + "_" + randomString(4),
 //                        appUser.getUid(),
@@ -839,7 +858,9 @@ public class MainActivity extends BaseActivity
         switch(status.getStatusCode()){
             case LocationSettingsStatusCodes.SUCCESS :
                 Log.i("Profile Activity : ", "All location settings are satisfied.");
-                startLocationUpdate();
+                if(mRequestingLocationUpdates && mGoogleApiClient.isConnected()) {
+                    startLocationUpdate();
+                }
                 //stopLocationUpdate();
                 break;
             case LocationSettingsStatusCodes.RESOLUTION_REQUIRED :
@@ -873,9 +894,13 @@ public class MainActivity extends BaseActivity
 
         try{
             if(address.length()>3){
-                dbUserRef.child(user.getUid()).child("location").setValue(address);
-                dbUserRef.child(user.getUid()).child("lat").setValue(lat);
-                dbUserRef.child(user.getUid()).child("lan").setValue(lan);
+                if(dbUserRef.child(user.getUid()).child("location").equals("Gaibandha")) {
+                    dbUserRef.child(user.getUid()).child("location").setValue(address);
+                }
+                if(dbUserRef.child(user.getUid()).child("lat").equals("22.22")||dbUserRef.child(user.getUid()).child("lan").equals("44.44")) {
+                    dbUserRef.child(user.getUid()).child("lat").setValue(lat);
+                    dbUserRef.child(user.getUid()).child("lan").setValue(lan);
+                }
             }
         }
         catch (Exception e){
@@ -1018,13 +1043,13 @@ public class MainActivity extends BaseActivity
                             //String m =response.raw().request().url().toString();
                             if (response.body() != null){
 
-                               // Toast.makeText(getApplicationContext(), "Successfull", Toast.LENGTH_SHORT).show();
-                                }
+                                // Toast.makeText(getApplicationContext(), "Successfull", Toast.LENGTH_SHORT).show();
+                            }
                             else {
                                 //  Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                           // Toast.makeText(getApplicationContext(), "Sorry for inconvince server is down", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(getApplicationContext(), "Sorry for inconvince server is down", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -1088,6 +1113,17 @@ public class MainActivity extends BaseActivity
         for( int i = 0; i < len; i++ )
             sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
         return sb.toString();
+    }
+
+    private void loadImageHeader(){
+        String imageHeaderURL = mFirebaseRemoteConfig.getString("get_main_image_header");
+        if(imageHeaderURL.equals("none")){
+            mainimageview.setImageResource(R.drawable.purple1);
+        }
+        else{
+            Picasso.with(getApplicationContext()).load(imageHeaderURL).into(mainimageview);
+        }
+
     }
 
 

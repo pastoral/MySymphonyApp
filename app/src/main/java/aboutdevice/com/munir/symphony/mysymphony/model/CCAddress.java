@@ -1,11 +1,13 @@
 package aboutdevice.com.munir.symphony.mysymphony.model;
 
+import android.support.annotation.Keep;
+
 import java.util.Date;
 
 /**
  * Created by munirul.hoque on 11/16/2016.
  */
-
+@Keep
 public class CCAddress {
     private String name;
     private String district;
