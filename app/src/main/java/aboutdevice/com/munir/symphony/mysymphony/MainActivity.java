@@ -183,6 +183,7 @@ public class MainActivity extends BaseActivity
     private ImageView mainimageview;
     private LinearLayout header_area;
     private AppBarLayout appbarmain;
+    public String link="";
 
 
 
@@ -346,7 +347,7 @@ public class MainActivity extends BaseActivity
         else{
             // logoutText.setVisibility(View.VISIBLE);
             mFirebaseRemoteConfig = remoteConfig.getmFirebaseRemoteConfig();
-            fetchRemoteConfig();
+
         }
     }
 
@@ -419,6 +420,8 @@ public class MainActivity extends BaseActivity
                 }
             });
         }
+
+        fetchRemoteConfig();
 
     }
 
@@ -511,6 +514,7 @@ public class MainActivity extends BaseActivity
                 }
                 loadAdvertige();
                 loadImageHeader();
+                loadOfferBanner();
 
             }
         });
@@ -1124,6 +1128,46 @@ public class MainActivity extends BaseActivity
             Picasso.with(getApplicationContext()).load(imageHeaderURL).into(mainimageview);
         }
 
+    }
+
+    private void loadOfferBanner(){
+        String offerImageURL = mFirebaseRemoteConfig.getString("offer_banner_image_url");
+        String offerDestinationURL = mFirebaseRemoteConfig.getString("offer_banner_click_url");
+        String visibility = mFirebaseRemoteConfig.getString("offer_banner_visibility");
+        ImageView offer_banner1 = findViewById(R.id.offer_banner1);
+        LinearLayout linear_offer_banner = findViewById(R.id.linear_offer_banner);
+
+       // if(oneFragment.linear_offer_banner != null && oneFragment.offer_banner1!=null) {
+            if (offerImageURL.equals("none")) {
+                offer_banner1.setImageResource(R.drawable.purple1);
+            } else {
+                Picasso.with(getApplicationContext()).load(offerImageURL).into(offer_banner1);
+            }
+            if (offerDestinationURL.equals("none")) {
+                link = "https://symphony-mobile.com/";
+            } else {
+                link = offerDestinationURL;
+            }
+
+            if (visibility.equals("false")) {
+                linear_offer_banner.setVisibility(View.GONE);
+            } else {
+                linear_offer_banner.setVisibility(View.VISIBLE);
+            }
+
+        offer_banner1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if(notification_type.equals("promo")){
+                    Intent intent = new Intent(MySymphonyApp.getContext(),NewsWebActivity.class);
+                    intent.putExtra("targetUrl", link);
+                    intent.putExtra("textData", "Excellent Offer" + "\n" + "Excellent Offer going on");
+                    startActivity(intent);
+                //}
+            }
+        });
+
+       // }
     }
 
 

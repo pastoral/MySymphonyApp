@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 
@@ -37,6 +38,8 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -76,8 +79,8 @@ public class OneFragment extends Fragment {
 
     public LinearLayout contactline1, contactline2;
     public AdView mAdView;
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
-    private RemoteConfig remoteConfig;
+    private FirebaseRemoteConfig firebaseRemoteConfig;
+    private RemoteConfig oneRemoteConfig;
     public  View view;
     private LinearLayout featureArea, contactArea;
     private String modelName;
@@ -101,7 +104,7 @@ public class OneFragment extends Fragment {
     private Snackbar snackbar;
     private LinearLayout linear_content_holder,linear_cc_block;
     private StoredNews[] storedNews = new StoredNews[2];
-    private StoredNews topBannerNews = new StoredNews();
+    private StoredNews[] topBannerNews = new StoredNews[1];
     private Query query;
     //private SimpleDraweeView offer_img1, offer_img2;
     private ImageView offer_img1, offer_img2;
@@ -110,7 +113,10 @@ public class OneFragment extends Fragment {
 
     private ViewPager oneViewPager;
     private Button btnEditProfile;
-    private LinearLayout linear_offer_banner;
+    public LinearLayout linear_offer_banner;
+    public ImageView offer_banner1;
+    public String URLlink;
+
 
 
 
@@ -169,40 +175,37 @@ public class OneFragment extends Fragment {
     };
 
 
-    public ValueEventListener offerBannerListner = new ValueEventListener() {
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            int i = 0;
-            for(DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                topBannerNews = postSnapshot.getValue(StoredNews.class);
-            }
-            linear_offer_banner.setVisibility(View.VISIBLE);
-            if(topBannerNews != null){
-
-                topEditor = getContext().getSharedPreferences("mysymphonyapp_top", Context.MODE_PRIVATE).edit();
-                topEditor.putString("title1",storedNews[0].getTitle());
-                topEditor.putString("title2",storedNews[1].getTitle());
-                topEditor.putString("content1",storedNews[0].getDescription());
-                topEditor.putString("content2",storedNews[1].getDescription());
-                topEditor.putString("image_url1",storedNews[0].getImageUrl());
-                topEditor.putString("image_url2",storedNews[1].getImageUrl());
-                topEditor.putString("activityToBeOpened1",storedNews[0].getActivityToBeOpened());
-                topEditor.putString("activityToBeOpened2",storedNews[1].getActivityToBeOpened());
-                topEditor.putString("notification_type1",storedNews[0].getType());
-                topEditor.putString("notification_type2",storedNews[1].getType());
-
-                topEditor.apply();
-            }
-
-
-
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    };
+//    public ValueEventListener offerBannerListner = new ValueEventListener() {
+//        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//        public void onDataChange(DataSnapshot dataSnapshot) {
+//            int i = 0;
+//            for(DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+//                topBannerNews[i] = postSnapshot.getValue(StoredNews.class);
+//                i++;
+//            }
+//            //linear_offer_banner.setVisibility(View.VISIBLE);
+//            if(topBannerNews.length>0){
+//
+//                topEditor = getContext().getSharedPreferences("mysymphonyapp_top", Context.MODE_PRIVATE).edit();
+//                topEditor.putString("title3",topBannerNews[0].getTitle());
+//                topEditor.putString("content3",topBannerNews[0].getDescription());
+//                topEditor.putString("image_url3",topBannerNews[0].getImageUrl());
+//                topEditor.putString("activityToBeOpened3",topBannerNews[0].getActivityToBeOpened());
+//                topEditor.putString("notification_type3",topBannerNews[0].getType());
+//                topEditor.putString("url",topBannerNews[0].getUrl());
+//
+//                topEditor.apply();
+//            }
+//
+//
+//
+//        }
+//
+//        @Override
+//        public void onCancelled(DatabaseError databaseError) {
+//
+//        }
+//    };
 
     public OneFragment (){
 
@@ -221,7 +224,7 @@ public class OneFragment extends Fragment {
         contactArea = (LinearLayout)view.findViewById(R.id.linear_contact_us_block) ;
 
         linear_offerarea = view.findViewById(R.id.linear_offerarea);
-
+        offer_banner1 = view.findViewById(R.id.offer_banner1);
         linear_offer_banner = view.findViewById(R.id.linear_offer_banner);
         main_user_email = view.findViewById(R.id.main_user_email);
         main_user_phone = view.findViewById(R.id.main_user_phone);
@@ -251,6 +254,8 @@ public class OneFragment extends Fragment {
 
 
         dpTopNewsRef.orderByChild("top_card").equalTo("yes").limitToFirst(2).addValueEventListener(topCardListner);
+
+       // dbOfferBannerRef.orderByChild("banner").equalTo("yes").limitToFirst(1).addValueEventListener(offerBannerListner);
 
         dbUserRef.orderByKey().equalTo(user.getUid()).limitToFirst(1).addValueEventListener(profileListener);
 
@@ -302,14 +307,8 @@ public class OneFragment extends Fragment {
         }
 
         modelFound = fetchJson.searchModelName(modelName);
-
-
-
-
-
-
-
-
+        //firebaseRemoteConfig = oneRemoteConfig.getmFirebaseRemoteConfig();
+        //fetchRemoteConfig();
     }
 
     @Override
@@ -334,6 +333,16 @@ public class OneFragment extends Fragment {
 
             String image_url1 = topSharedPreferences.getString("image_url1", "https://firebasestorage.googleapis.com/v0/b/about-device.appspot.com/o/creatives%2Fslider_one.jpg?alt=media&token=64b9d22d-a435-45b0-9578-b7c10936c7bc");
             String image_url2 = topSharedPreferences.getString("image_url2", "https://firebasestorage.googleapis.com/v0/b/about-device.appspot.com/o/creatives%2Fslider_one.jpg?alt=media&token=64b9d22d-a435-45b0-9578-b7c10936c7bc");
+//            String image_url3 = topSharedPreferences.getString("image_url3", "https://firebasestorage.googleapis.com/v0/b/about-device.appspot.com/o/creatives%2Foffer_banner_image.webp?alt=media&token=9dee4b8a-faf4-4b71-8aad-c1659052acc7");
+//
+//            String title = topSharedPreferences.getString("title3", "No Title");//"No Title" is the default value.
+//            String content = topSharedPreferences.getString("content3", "No Description");
+//            String image_url = topSharedPreferences.getString("image_url3", "https://firebasestorage.googleapis.com/v0/b/about-device.appspot.com/o/creatives%2Fslider_one.jpg?alt=media&token=64b9d22d-a435-45b0-9578-b7c10936c7bc");
+//            String activityToBeOpened = topSharedPreferences.getString("activityToBeOpened3", "NewsWebActivity");
+//            String notification_type = topSharedPreferences.getString("notification_type3", "news");
+//
+//            String link = topSharedPreferences.getString("url","https://symphony-mobile.com/");
+
             //offer_img1.setImageURI(Uri.parse(image_url1));
            // offer_img2.setImageURI(Uri.parse(image_url2));
             Picasso.with(getActivity())
@@ -345,6 +354,11 @@ public class OneFragment extends Fragment {
                     .load(image_url2)
                     .fit()
                     .into(offer_img2);
+
+//            Picasso.with(getActivity())
+//                    .load(image_url3)
+//                    .fit()
+//                    .into(offer_banner1);
 
 
         }
@@ -361,6 +375,13 @@ public class OneFragment extends Fragment {
                 offer2();
             }
         });
+
+//        offer_banner1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                offer3();
+//            }
+//        });
 
         if(user!=null){
             // Toast.makeText(getActivity(),user.getUid().toString(),Toast.LENGTH_LONG).show();
@@ -446,6 +467,9 @@ public class OneFragment extends Fragment {
         if(dpTopNewsRef != null) {
             dpTopNewsRef.removeEventListener(topCardListner);
         }
+//        if(dbOfferBannerRef != null){
+//            dbOfferBannerRef.removeEventListener(offerBannerListner);
+//        }
     }
 
     public void removeListnerFromClient(){
@@ -575,11 +599,54 @@ public class OneFragment extends Fragment {
         }
     }
 
-    public void loadTopCard(){
-
-    }
-
-
+//    public void offer3(){
+//        // String restoredText2 = topSharedPreferences.getString("mysymphonyapp_top", null);
+//        if (topSharedPreferences.getString("title3", null) != null) {
+//            String title = topSharedPreferences.getString("title3", "No Title");//"No Title" is the default value.
+//            String content = topSharedPreferences.getString("content3", "No Description");
+//            String image_url = topSharedPreferences.getString("image_url3", "https://firebasestorage.googleapis.com/v0/b/about-device.appspot.com/o/creatives%2Fslider_one.jpg?alt=media&token=64b9d22d-a435-45b0-9578-b7c10936c7bc");
+//            String activityToBeOpened = topSharedPreferences.getString("activityToBeOpened3", "NewsWebActivity");
+//            String notification_type = topSharedPreferences.getString("notification_type3", "news");
+//
+//             URLlink = topSharedPreferences.getString("url","https://symphony-mobile.com/");
+//
+//            if(haveNetworkConnection()) {
+//                if(notification_type.equals("news")||notification_type.equals("offer")){
+//                    Intent intent = new Intent(MySymphonyApp.getContext(), NewsActivity.class);
+//                    intent.putExtra("title", title);
+//                    intent.putExtra("body", content);
+//                    if(image_url != null){
+//                        intent.putExtra("IMAGEURL", image_url);
+//                    }
+//                    startActivity(intent);
+//                }
+//                if(notification_type.equals("promo")){
+//                    Intent intent = new Intent(MySymphonyApp.getContext(),NewsWebActivity.class);
+//                    intent.putExtra("targetUrl", URLlink);
+//                    intent.putExtra("textData", title + "\n" + content);
+//                    startActivity(intent);
+//                }
+//                //startActivity(intent);
+//                if(notification_type.equals("fota")){
+//                    if(activityToBeOpened.equals("MediaTekFOTA")){
+//                        Intent LaunchIntent = MySymphonyApp.getContext().getPackageManager().getLaunchIntentForPackage("com.mediatek.systemupdate");
+//                        startActivity(LaunchIntent);
+//                    }
+//                    else if(activityToBeOpened.equals("SpedturmFOTA")){
+//                        Intent LaunchIntent = MySymphonyApp.getContext().getPackageManager().getLaunchIntentForPackage("com.megafone.systemupdate");
+//                        startActivity(LaunchIntent);
+//                    }
+//                    else if(activityToBeOpened.equals("UniversalFOTA")){
+//                        Intent LaunchIntent = MySymphonyApp.getContext().getPackageManager().getLaunchIntentForPackage("com.google.android.gms");
+//                        startActivity(LaunchIntent);
+//                    }
+//                }
+//            }
+//            else{
+//                showSnack(false);
+//            }
+//        }
+//    }
 
 
 

@@ -45,7 +45,10 @@ public class AppUser implements Serializable {
         this.userCategoryText = userCategoryText;
         this.userCategoryImage = userCategoryImage;
         this.mac = mac;
+
     }
+
+
 
     public String getUid() {
         return uid;

@@ -155,7 +155,7 @@ public class NewsListActivity extends BaseActivity {
                     public void onItemClick(View view, int position) {
                         String title = newsRecyclerAdapter.getItem(position).getTitle();
                         String content = newsRecyclerAdapter.getItem(position).getDescription();
-                        String link = "";
+                        String link = newsRecyclerAdapter.getItem(position).getUrl();
                         String image_url = newsRecyclerAdapter.getItem(position).getImageUrl();
                         String activityToBeOpened = newsRecyclerAdapter.getItem(position).getActivityToBeOpened();
                         String notification_type = newsRecyclerAdapter.getItem(position).getType();
@@ -167,6 +167,12 @@ public class NewsListActivity extends BaseActivity {
                                 if(image_url != null){
                                     intent.putExtra("IMAGEURL", image_url);
                                 }
+                                startActivity(intent);
+                            }
+                            if(notification_type.equals("promo")){
+                                Intent intent = new Intent(getApplication(),NewsWebActivity.class);
+                                intent.putExtra("targetUrl", link);
+                                intent.putExtra("textData", title + "\n" + content);
                                 startActivity(intent);
                             }
                             //startActivity(intent);

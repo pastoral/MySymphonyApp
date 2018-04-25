@@ -16,4 +16,16 @@
         <key>get_main_image_header</key>
         <value>none</value>
     </entry>
+    <entry>
+        <key>offer_banner_image_url</key>
+        <value>none</value>
+    </entry>
+    <entry>
+        <key>offer_banner_click_url</key>
+        <value>none</value>
+    </entry>
+    <entry>
+        <key>offer_banner_visibility</key>
+        <value>false</value>
+    </entry>
 </defaultsMap>
