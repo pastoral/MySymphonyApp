@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Parcelable;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import java.util.List;
 import aboutdevice.com.munir.symphony.mysymphony.R;
 import aboutdevice.com.munir.symphony.mysymphony.firebase.RemoteConfig;
 
+@Keep
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;

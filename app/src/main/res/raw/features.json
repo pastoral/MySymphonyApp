@@ -363,7 +363,20 @@
     "battery" : "2200mAh Li-ion Battery",
     "sim" : "Dual SIM",
     "sensor" : "G-Sensor, Proximity, Light"
+  },
+  "i15" :{
+    "processor" : "1.3 GHz Quad Core Cortex-A7",
+    "camera" : "8MP + 5MP, Dual Flash ",
+    "display" : "5.45 inch HD+ incell  Mali T820 GPU",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android 8.1",
+    "data_connection" : "3G, 2G",
+    "connectivity" : "WiFi, Bluetooth, GPS-AGPS",
+    "battery" : "3200mAh Li-poly",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "Gravity 3D ,Proximity"
   }
+
 
 
 

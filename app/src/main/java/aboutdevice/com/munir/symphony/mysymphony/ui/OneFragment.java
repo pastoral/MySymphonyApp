@@ -115,7 +115,7 @@ public class OneFragment extends Fragment {
     private Button btnEditProfile;
     public LinearLayout linear_offer_banner;
     public ImageView offer_banner1;
-    public String URLlink;
+    public String link="";
 
 
 
@@ -248,6 +248,8 @@ public class OneFragment extends Fragment {
         dbOfferBannerRef = dbRef.child("news");
         dbOfferBannerRef.keepSynced(true);
 
+        oneRemoteConfig = new RemoteConfig();
+
 
 
         topSharedPreferences = getContext().getSharedPreferences("mysymphonyapp_top", Context.MODE_PRIVATE);
@@ -315,7 +317,7 @@ public class OneFragment extends Fragment {
     public void onStart() {
         super.onStart();
         isActivityActive = true;
-
+        firebaseRemoteConfig = oneRemoteConfig.getmFirebaseRemoteConfig();
 
     }
 
@@ -394,6 +396,8 @@ public class OneFragment extends Fragment {
 
 
         }
+
+        fetchRemoteConfig();
 
     }
 
@@ -648,6 +652,74 @@ public class OneFragment extends Fragment {
 //        }
 //    }
 
+
+    public void fetchRemoteConfig() {
+        long cacheExpiration = 3600;
+        if(firebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()){
+            cacheExpiration = 0;
+        }
+        firebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                    firebaseRemoteConfig.activateFetched();
+
+                } else {
+
+                }
+
+                loadOfferBanner();
+
+            }
+        });
+    }
+
+
+    public void loadOfferBanner(){
+        String offerImageURL = firebaseRemoteConfig.getString("offer_banner_image_url");
+        String offerDestinationURL = firebaseRemoteConfig.getString("offer_banner_click_url");
+        String visibility = firebaseRemoteConfig.getString("offer_banner_visibility");
+
+
+        //if(oneFragment.linear_offer_banner != null && oneFragment.offer_banner1!=null) {
+            if (offerImageURL.equals("none")) {
+                // oneFragment.offer_banner1.setImageResource(R.drawable.purple1);
+                Picasso.with(getActivity()).load("https://s19.postimg.cc/h3nwqi7oz/728x90.jpg").into(offer_banner1);
+            } else {
+                if(offerImageURL != null) {
+                    Picasso.with(getActivity()).load(offerImageURL).into(offer_banner1);
+                }
+                else{
+                    return;
+                }
+            }
+            if (offerDestinationURL.equals("none")) {
+                link = "https://symphony-mobile.com/";
+            } else {
+                link = offerDestinationURL;
+            }
+
+            if (visibility.equals("false")) {
+               linear_offer_banner.setVisibility(View.GONE);
+            } else {
+                linear_offer_banner.setVisibility(View.VISIBLE);
+            }
+
+            offer_banner1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //if(notification_type.equals("promo")){
+                    Intent intent = new Intent(MySymphonyApp.getContext(),NewsWebActivity.class);
+                    intent.putExtra("targetUrl", link);
+                    intent.putExtra("textData", "Excellent Offer" + "\n" + "Excellent Offer going on");
+                    startActivity(intent);
+                    //}
+                }
+            });
+
+        //}
+    }
 
 
 }

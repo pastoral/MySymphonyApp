@@ -19,6 +19,7 @@ import android.net.NetworkInfo;
 
 import android.os.Bundle;
 
+import android.support.annotation.Keep;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -81,6 +82,7 @@ import static android.view.View.GONE;
 /**
  * Created by munirul.hoque on 5/16/2016.
  */
+@Keep
 public class ThreeFragment extends Fragment {
     public String name;
     public int pos, scrollToPosition = 0;
@@ -91,7 +93,7 @@ public class ThreeFragment extends Fragment {
     private FireBaseWorker fireBaseWorker;
     private CCAddressViewHolder ccAddressViewHolder;
     private DatabaseReference mDatabaseReference;
-    private FirebaseRecyclerAdapter<CCAddress,CCAddressViewHolder> firebaseRecyclerAdapter;
+    public FirebaseRecyclerAdapter<CCAddress,CCAddressViewHolder> firebaseRecyclerAdapter;
     static boolean calledAlready = false;
     private TextView txtNearestCCAddress,txtNearestCCName;
     private static final String TAG = "FusedLocationFinder";
@@ -236,7 +238,7 @@ public class ThreeFragment extends Fragment {
                 mDatabaseReference.orderByChild("name")
         ) {
             @Override
-            protected void populateViewHolder(CCAddressViewHolder viewHolder, CCAddress model, int position) {
+            public void populateViewHolder(CCAddressViewHolder viewHolder, CCAddress model, int position) {
                 progressBar.setVisibility(GONE);
                 ccLocation.setLatitude(firebaseRecyclerAdapter.getItem(position).getLat());
                 ccLocation.setLongitude(firebaseRecyclerAdapter.getItem(position).getLan());
