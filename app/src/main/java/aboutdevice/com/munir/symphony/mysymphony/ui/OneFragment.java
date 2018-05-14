@@ -111,6 +111,9 @@ public class OneFragment extends Fragment {
     public static SharedPreferences topSharedPreferences;
     public static SharedPreferences.Editor topEditor ;
 
+    public static SharedPreferences userSharedPreferences;
+    public static SharedPreferences.Editor userEditor ;
+
     private ViewPager oneViewPager;
     private Button btnEditProfile;
     public LinearLayout linear_offer_banner;
@@ -242,17 +245,18 @@ public class OneFragment extends Fragment {
         // recyclerTopCard = view.findViewById(R.id.recyclerTopCard);
         dbRef = FirebaseDatabase.getInstance().getReference();
         dbUserRef = dbRef.child("users");
-        dbUserRef.keepSynced(true);
+        //dbUserRef.keepSynced(true);
         dpTopNewsRef = dbRef.child("news");
-        dpTopNewsRef.keepSynced(true);
+        //dpTopNewsRef.keepSynced(true);
         dbOfferBannerRef = dbRef.child("news");
-        dbOfferBannerRef.keepSynced(true);
+        //dbOfferBannerRef.keepSynced(true);
 
         oneRemoteConfig = new RemoteConfig();
 
 
 
         topSharedPreferences = getContext().getSharedPreferences("mysymphonyapp_top", Context.MODE_PRIVATE);
+        userSharedPreferences = getContext().getSharedPreferences("mysymphonyapp_user", Context.MODE_PRIVATE);
 
 
         dpTopNewsRef.orderByChild("top_card").equalTo("yes").limitToFirst(2).addValueEventListener(topCardListner);
@@ -329,6 +333,24 @@ public class OneFragment extends Fragment {
 
         if(modelFound) {
             featureArea.setVisibility(View.VISIBLE);
+        }
+
+        if(userSharedPreferences.getString("image_url1", "null") != null){
+            String photo_url1 = userSharedPreferences.getString("image_url1", "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png");
+
+            String name = userSharedPreferences.getString("name","John Doe");
+            String email = userSharedPreferences.getString("email","abc@mail.com");
+            String phone = userSharedPreferences.getString("phone","01710000000");
+
+            Picasso.with(getActivity())
+                    .load(photo_url1)
+                    .fit()
+                    .into(userPhoto);
+
+            main_user_name.setText(name);
+            main_user_phone.setText(email);
+            main_user_email.setText(phone);
+           // btnEditProfile.setVisibility(View.VISIBLE);
         }
 
         if(topSharedPreferences.getString("image_url1", "null") != null && topSharedPreferences.getString("image_url2", "null") != null ){
@@ -441,6 +463,14 @@ public class OneFragment extends Fragment {
     public void UpdateUI(AppUser appUser){
         //String m = null;
         if(appUser!=null) {
+
+            userEditor = getContext().getSharedPreferences("mysymphonyapp_user", Context.MODE_PRIVATE).edit();
+            userEditor.putString("name",appUser.getName());
+            userEditor.putString("email",appUser.getEmail());
+            userEditor.putString("phone",appUser.getPhoneNumber());
+            userEditor.putString("url",appUser.getPhotoURL());
+            userEditor.apply();
+
             main_user_name.setText(appUser.getName());
             main_user_phone.setText(appUser.getPhoneNumber());
             main_user_email.setText(appUser.getEmail());

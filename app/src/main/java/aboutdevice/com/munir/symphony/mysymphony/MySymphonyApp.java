@@ -36,6 +36,10 @@ public class MySymphonyApp extends Application {
                 .setNotificationOpenedHandler(new MyNotificationOpenedHandler())
                 .setNotificationReceivedHandler( new MyNotificationReceivedHandler() )
                 .init();
+//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+//                .setNotificationOpenedHandler(new MyNotificationOpenedHandler())
+//                ////.unsubscribeWhenNotificationsAreDisabled(true)
+//                .init();
         //Fresco.initialize(this);
         //FacebookSdk.setApplicationId("2064990243720158");
         //FacebookSdk.sdkInitialize(this);

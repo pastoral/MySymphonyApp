@@ -375,10 +375,43 @@
     "battery" : "3200mAh Li-poly",
     "sim" : "Dual Micro SIM",
     "sensor" : "Gravity 3D ,Proximity"
+  },
+  "i120" :{
+    "processor" : "1.3 GHz Quad Core, IMX 8XE ",
+    "camera" : "13MP + 8MP , Dual Flash ",
+    "display" : "2.5D, 5.45 inch HD+ Full Vision , incell ",
+    "memory" : "16GB ROM + 2GB RAM",
+    "os" : "Android 8.1 Oreo",
+    "data_connection" : "4G, 3G, 2G",
+    "connectivity" : "Wifi, Bluetooth, GPS-AGPS, OTG",
+    "battery" : "3200mAh Li-polymer Battery",
+    "sim" : "Dual Nano SIM",
+    "sensor" : "Gravity (3D), Proximity, Light, Fingerprint"
+  },
+  "V135" :{
+    "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
+    "camera" : "5MP + 5MP Camera\nDual Flash",
+    "display" : "5.34'' FWVGA+ TN Display\n18:9 Wide Screen Full Vision\nMali-400 GPU",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android GO 8.1.0",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "WiFi, GPS, BT",
+    "battery" : "2150mAh Li-ion Battery",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "G-Sensor, Proximity, Light"
+  },
+
+  "G100" :{
+    "processor" : "1.3GHz Quad Core Processor",
+    "camera" : "5MP + 5MP Camera",
+    "display" : "5.45'' FWVGA+ IPS Display\nIMG GE8100 GPU",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android GO 8.1.0",
+    "data_connection" : "4G, 3G HSPA+, EDGE",
+    "connectivity" : "WiFi, GPS, BT",
+    "battery" : "2500mAh Li-ion Battery",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "G-Sensor, Proximity, Light"
   }
-
-
-
-
 
 }

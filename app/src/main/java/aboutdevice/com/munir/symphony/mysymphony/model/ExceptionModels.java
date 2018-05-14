@@ -5,7 +5,7 @@ package aboutdevice.com.munir.symphony.mysymphony.model;
  */
 
 public class ExceptionModels {
-    public String[] exceptionModelList = {"R100","V46","P9","V75m"};
+    public String[] exceptionModelList = {"R100","V46","P9","V75m","G100"};
     public ExceptionModels(){
 
     }
