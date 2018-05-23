@@ -186,7 +186,7 @@ public class MainActivity extends BaseActivity
     public String link="";
     public ImageView offer_banner1;
     public LinearLayout linear_offer_banner;
-
+    //public static Shared
 
 
 
@@ -227,6 +227,8 @@ public class MainActivity extends BaseActivity
         linear_offer_banner = findViewById(R.id.linear_offer_banner);
         //logoutText = findViewById(R.id.logout);
         remoteConfig = new RemoteConfig();
+
+        //userSharedPreferences = getContext().getSharedPreferences("mysymphonyapp_user", Context.MODE_PRIVATE);
 
 
 
@@ -789,13 +791,20 @@ public class MainActivity extends BaseActivity
             }
             if(appUser!=null){
                 for(int i=0; i<appUser.getImei().size(); i++){
-                    existingImeiList.add(appUser.imei.get(i).toString());
+
+                    if(existingImeiList.contains(appUser.imei.get(i).toString())) {
+                        existingImeiList.add(appUser.imei.get(i).toString());
+                    }
                 }
                 for(int i=0; i<appUser.getModel().size(); i++){
-                    existingModelList.add(appUser.model.get(i).toString());
+                    if(existingModelList.contains(appUser.model.get(i).toString())) {
+                        existingModelList.add(appUser.model.get(i).toString());
+                    }
                 }
                 for(int i=0; i<appUser.getMac().size(); i++){
-                    esitingMacList.add(appUser.mac.get(i).toString());
+                    if(esitingMacList.contains(appUser.imei.get(i).toString())) {
+                        esitingMacList.add(appUser.mac.get(i).toString());
+                    }
                 }
 
             }
