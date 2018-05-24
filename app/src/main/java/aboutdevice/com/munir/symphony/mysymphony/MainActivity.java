@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -186,7 +187,10 @@ public class MainActivity extends BaseActivity
     public String link="";
     public ImageView offer_banner1;
     public LinearLayout linear_offer_banner;
-    //public static Shared
+    public static SharedPreferences appSharedPreferences;
+    public static SharedPreferences.Editor appEditor ;
+    public static boolean firstTimeIMEI = true;
+    public static boolean firstTimeLocation = true;
 
 
 
@@ -333,7 +337,7 @@ public class MainActivity extends BaseActivity
         AppBarLayout.LayoutParams lpOfferBlock = (AppBarLayout.LayoutParams)collapsingToolbar.getLayoutParams();
         lpOfferBlock.height = (int)heightLinearOfferBlock;
 
-
+        appSharedPreferences = getContext().getSharedPreferences("mysymphonyapp_main", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -374,18 +378,32 @@ public class MainActivity extends BaseActivity
             startLocationUpdate();
         }
 
+
+
         if (user != null) {
             if (!isActivityActive) {
                 //showProgressDialog("Loading user data....", MainActivity.this);
             }
+
+
             dbUserRef.orderByKey().equalTo(user.getUid()).limitToFirst(1).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         appUser = postSnapshot.getValue(AppUser.class);
                     }
+                    if(appSharedPreferences.getBoolean("return_imei", false)) {
+                        firstTimeIMEI = false;
+                    }
+                    if(appSharedPreferences.getBoolean("return_location", false)) {
+                        firstTimeLocation = false;
+                    }
                     if (user != null && appUser != null) {
-                        getExistingImei();
+                        if(firstTimeIMEI){
+                            getExistingImei();
+                            writeSPIMEI();
+                        }
+
                         updateOneSignal(appUser);
                         if (brand.contains("Symphony") || brand.contains("symphony") || brand.contains("SYMPHONY")) {
                             savePost(macAddress,
@@ -912,13 +930,18 @@ public class MainActivity extends BaseActivity
 
         try{
             if(address.length()>3){
-                if(dbUserRef.child(user.getUid()).child("location").equals("Gaibandha")) {
-                    dbUserRef.child(user.getUid()).child("location").setValue(address);
+                if(firstTimeLocation){
+                    if(dbUserRef.child(user.getUid()).child("location").equals("Gaibandha")) {
+                        dbUserRef.child(user.getUid()).child("location").setValue(address);
+                    }
+                    if(dbUserRef.child(user.getUid()).child("lat").equals("22.22")||dbUserRef.child(user.getUid()).child("lan").equals("44.44")) {
+                        dbUserRef.child(user.getUid()).child("lat").setValue(lat);
+                        dbUserRef.child(user.getUid()).child("lan").setValue(lan);
+                    }
+
+                    writeSPLocation();
                 }
-                if(dbUserRef.child(user.getUid()).child("lat").equals("22.22")||dbUserRef.child(user.getUid()).child("lan").equals("44.44")) {
-                    dbUserRef.child(user.getUid()).child("lat").setValue(lat);
-                    dbUserRef.child(user.getUid()).child("lan").setValue(lan);
-                }
+
             }
         }
         catch (Exception e){
@@ -1142,6 +1165,20 @@ public class MainActivity extends BaseActivity
             Picasso.with(getApplicationContext()).load(imageHeaderURL).into(mainimageview);
         }
 
+    }
+
+    public void writeSPIMEI(){
+        appEditor = getContext().getSharedPreferences("mysymphonyapp_main", Context.MODE_PRIVATE).edit();
+        appEditor.putBoolean("return_imei",true);
+        //firstTime = false;
+        appEditor.apply();
+    }
+
+    public void writeSPLocation(){
+        appEditor = getContext().getSharedPreferences("mysymphonyapp_main", Context.MODE_PRIVATE).edit();
+        appEditor.putBoolean("return_location",true);
+        //firstTime = false;
+        appEditor.apply();
     }
 
 
