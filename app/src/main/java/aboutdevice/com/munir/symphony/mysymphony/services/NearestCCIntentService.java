@@ -9,7 +9,8 @@ package aboutdevice.com.munir.symphony.mysymphony.services;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
-public class NearestCCIntentService {//extends IntentService {
+public class NearestCCIntentService {
+    //////// Rest of code has been removed on 03/06/2018////////////////////
 
 
 

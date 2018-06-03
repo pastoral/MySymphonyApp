@@ -1,0 +1,242 @@
+# This is a configuration file for ProGuard.
+# http://proguard.sourceforge.net/index.html#manual/usage.html
+#
+# Starting with version 2.2 of the Android plugin for Gradle, this file is distributed together with
+# the plugin and unpacked at build-time. The files in $ANDROID_HOME are no longer maintained and
+# will be ignored by new version of the Android plugin for Gradle.
+
+# Optimization is turned off by default. Dex does not like code run
+# through the ProGuard optimize steps (and performs some
+# of these optimizations on its own).
+# Note that if you want to enable optimization, you cannot just
+# include optimization flags in your own project configuration file;
+# instead you will need to point to the
+# "proguard-android-optimize.txt" file instead of this one from your
+# project.properties file.
+-dontoptimize
+
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-verbose
+
+# Preserve some attributes that may be required for reflection.
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+
+-keep public class com.google.vending.licensing.ILicensingService
+-keep public class com.android.vending.licensing.ILicensingService
+-keep public class com.google.android.vending.licensing.ILicensingService
+-dontnote com.android.vending.licensing.ILicensingService
+-dontnote com.google.vending.licensing.ILicensingService
+-dontnote com.google.android.vending.licensing.ILicensingService
+
+# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# Keep setters in Views so that animations can still work.
+-keepclassmembers public class * extends android.view.View {
+    void set*(***);
+    *** get*();
+}
+
+# We want to keep methods in Activity that could be used in the XML attribute onClick.
+-keepclassmembers class * extends android.app.Activity {
+    public void *(android.view.View);
+}
+
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keepclassmembers class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+# Preserve annotated Javascript interface methods.
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+# The support libraries contains references to newer platform versions.
+# Don't warn about those in case this app is linking against an older
+# platform version. We know about them, and they are safe.
+-dontnote android.support.**
+-dontwarn android.support.**
+
+# This class is deprecated, but remains for backward compatibility.
+-dontwarn android.util.FloatMath
+
+# Understand the @Keep support annotation.
+-keep class android.support.annotation.Keep
+
+-keep @android.support.annotation.Keep class * {*;}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <methods>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <fields>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <init>(...);
+}
+
+
+
+
+
+
+# Retrofit 2.X
+## https://square.github.io/retrofit/ ##
+
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+-dontwarn retrofit.**
+-keep class retrofit.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+-dontnote okhttp3.**
+
+# Okio
+-keep class sun.misc.Unsafe { *; }
+-dontwarn java.nio.file.*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+
+
+
+# Retrofit
+-keep class com.google.gson.** { *; }
+-keep public class com.google.gson.** {public private protected *;}
+-keep class com.google.inject.** { *; }
+-keep class org.apache.http.** { *; }
+-keep class org.apache.james.mime4j.** { *; }
+-keep class javax.inject.** { *; }
+-keep class javax.xml.stream.** { *; }
+-keep class retrofit.** { *; }
+-keep class com.google.appengine.** { *; }
+-keepattributes *Annotation*
+-keepattributes Signature
+-dontwarn com.squareup.okhttp.*
+-dontwarn rx.**
+-dontwarn javax.xml.stream.**
+-dontwarn com.google.appengine.**
+-dontwarn java.nio.file.**
+-dontwarn org.codehaus.**
+
+
+
+-dontwarn retrofit2.**
+-dontwarn org.codehaus.mojo.**
+-keep class retrofit2.** { *; }
+-keepattributes Exceptions
+-keepattributes RuntimeVisibleAnnotations
+-keepattributes RuntimeInvisibleAnnotations
+-keepattributes RuntimeVisibleParameterAnnotations
+-keepattributes RuntimeInvisibleParameterAnnotations
+
+-keepattributes EnclosingMethod
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+-keepclasseswithmembers interface * {
+    @retrofit2.* <methods>;
+}
+# Platform calls Class.forName on types which do not exist on Android to determine platform.
+-dontnote retrofit2.Platform
+# Platform used when running on RoboVM on iOS. Will not be used at runtime.
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+# Platform used when running on Java 8 VMs. Will not be used at runtime.
+-dontwarn retrofit2.Platform$Java8
+# Retain generic type information for use by reflection by converters and adapters.
+-keepattributes Signature
+# Retain declared checked exceptions for use by a Proxy instance.
+-keepattributes Exceptions
+
+-dontwarn android.arch.**
+-dontwarn com.fasterxml.jackson.databind.**
+
+-keep class org.bitmaps.** { *; }
+-keep class javax.** { *; }
+-keep class org.** { *; }
+-keep class twitter4j.** { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.model.AppUser
+-keep class aboutdevice.com.munir.symphony.mysymphony.model.AppUser
+-keep class aboutdevice.com.munir.symphony.mysymphony.model.**{ *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.model.StoredNews
+-keep class aboutdevice.com.munir.symphony.mysymphony.model.CCAddress
+-keep class aboutdevice.com.munir.symphony.mysymphony.utils.** { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.adapter.** { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.ui.ThreeFragment
+-keep class aboutdevice.com.munir.symphony.mysymphony.ui.MapsActivity
+
+
+
+
+
+
+# Add any classes the interact with gson
+# the following line is for illustration purposes
+-keep class aboutdevice.com.munir.symphony.mysymphony.MainActivity
+-keep class aboutdevice.com.munir.symphony.mysymphony.data.model.UserRemote
+-keep class aboutdevice.com.munir.symphony.mysymphony.data.remote.UserDataAPIService
+-keep class aboutdevice.com.munir.symphony.mysymphony.data.remote.UserDataApiUtils
+-keep class aboutdevice.com.munir.symphony.mysymphony.data.remote.UserDataRetrofitClient
+-keep class aboutdevice.com.munir.symphony.mysymphony.data.model.** { *; }
+
+
+
+# Hide warnings about references to newer platforms in the library
+-dontwarn android.support.v7.**
+# don't process support library
+-keep class android.support.v7.** { *; }
+-keep interface android.support.v7.** { *; }
+
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.MapActivity
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+# To support Enum type of class members
+-keepclassmembers enum * { *; }
+
+-keep class com.activeandroid.** { *; }
+-keep class com.activeandroid.**.** { *; }
+-keep class * extends com.activeandroid.Model
+-keep class * extends com.activeandroid.serializer.TypeSerializer
+
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+

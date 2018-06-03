@@ -23,6 +23,8 @@ import aboutdevice.com.munir.symphony.mysymphony.ui.NewsWebActivity;
 public class MyNotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
     // This fires when a notification is opened by tapping on it.
     String bigPicture;
+    String customKey;
+    String action_url;
     @Override
     public void notificationOpened(OSNotificationOpenResult result) {
         OSNotificationAction.ActionType actionType = result.action.type;
@@ -37,7 +39,15 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
         //on the notification, AnotherActivity will be opened.
         //Else, if we have not set any additional data MainActivity is opened.
         if(data!= null){
+
+            customKey = data.optString("customkey", null);
+            if (customKey != null) {
+                Log.i("OneSignalExample", "customkey set with value: " + customKey);
+
+            }
+
             activityToBeOpened = data.optString("activityToBeOpened", null);
+            action_url = data.optString("action_url", null);
             // String title = data.optString("t", null);
             // String body = data.optString("b", null);
             String str1 = result.notification.payload.title;
@@ -108,6 +118,14 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
                 intent.putExtra("SYSTRAY","systray");
 
                 MySymphonyApp.getContext().startActivity(intent);
+            }
+
+            else if (activityToBeOpened != null && action_url.length() >4 && actionType == OSNotificationAction.ActionType.ActionTaken) {
+
+                Intent intent = new Intent(MySymphonyApp.getContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("action_url", action_url);
+                Log.i("OneSignalExample", "Button pressed with id: " + result.action.actionID);
             }
 
             //else if(result.notification.payload.)

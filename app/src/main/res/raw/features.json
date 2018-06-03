@@ -377,9 +377,9 @@
     "sensor" : "Gravity 3D ,Proximity"
   },
   "i120" :{
-    "processor" : "1.3 GHz Quad Core, IMX 8XE ",
+    "processor" : "1.5 GHz Quad Core",
     "camera" : "13MP + 8MP , Dual Flash ",
-    "display" : "2.5D, 5.45 inch HD+ Full Vision , incell ",
+    "display" : "2.5D, 5.45 inch HD+ Full Vision , incell \n Mali T570 GPU",
     "memory" : "16GB ROM + 2GB RAM",
     "os" : "Android 8.1 Oreo",
     "data_connection" : "4G, 3G, 2G",

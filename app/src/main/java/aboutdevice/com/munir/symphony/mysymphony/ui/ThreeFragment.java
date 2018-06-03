@@ -118,11 +118,10 @@ public class ThreeFragment extends Fragment {
     //public String nearestCCName, nearestCCAddress;
    // public SharedPreferences sharedpreferences;
     //public  SharedPreferences.Editor editor;
-    //BroadcastReceiver gpsLocationReceiver;
+
     public double nearestCCLat, nearestCCLan;
     private IntentFilter filter;
-    //private ResponeReceiver receiver;
-    //public MyResultReceiver resultReceiver;
+
 
     private Snackbar snackbar;
 
@@ -138,7 +137,7 @@ public class ThreeFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_three,container,false);
 
-        //getContext().registerReceiver(gpsLocationReceiver, new IntentFilter("android.location.PROVIDERS_CHANGED"));
+
 
 
 
@@ -163,8 +162,6 @@ public class ThreeFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
 
-        //filter = new IntentFilter(ResponeReceiver.ACTION_RESP);
-        //filter.addCategory(Intent.CATEGORY_DEFAULT);
 
     }
 
@@ -223,10 +220,7 @@ public class ThreeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //  askForPermission(permisionList[1],REQUEST_CHECK_SETTINGS);
-        //ccAddressList.clear();
-//        getActivity().registerReceiver(receiver,filter);
-//        resultReceiver.setmReceiver(this);
+
         final Intent intent = new Intent(getActivity(),MapsActivity.class);
         //LoadCC loadCC = new LoadCC();
         //loadCC.execute();

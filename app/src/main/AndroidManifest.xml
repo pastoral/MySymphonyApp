@@ -41,35 +41,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!--
-        <receiver
-            android:name=".receiver.ConnectivityReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-        -->
 
-
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
-        -->
-        <!--
-            <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB4IYw-a9K8tykrSyRcFl_jHqV6O_8NCYw" />
-        -->
-        <!--
-             <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBzYMtddfLIW0zX8LoElmzntjez4Q132iM" />
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -81,28 +53,14 @@
             android:name=".ui.MapsActivity"
             android:label="@string/title_activity_maps" />
 
-        <!--<service-->
-            <!--android:name=".onesignal.MyNotificationExtenderService"-->
-            <!--&gt;-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.onesignal.NotificationExtender" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
+
 
         <activity android:name=".ui.NewsWebActivity" />
         <activity
             android:name=".ui.NewsActivity"
             android:label="@string/title_activity_news"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--<activity-->
-            <!--android:name=".ui.StoredNewsList"-->
-            <!--android:label="@string/title_activity_stored_news_list"-->
-            <!--android:parentActivityName=".MainActivity"-->
-            <!--android:theme="@style/AppTheme.NoActionBar">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".MainActivity" />-->
-        <!--</activity>-->
+
         <activity
             android:name=".ui.NewsListActivity"
             android:label="@string/title_activity_stored_news_list"
@@ -110,11 +68,7 @@
 
         </activity>
 
-        <!--<service-->
-            <!--android:name=".services.BackgroundLocationService"-->
-            <!--android:process=":mysmphony_loc" />-->
-        <!--<service android:name=".services.LocationUpdates" />-->
-        <!--<service android:name=".services.NearestCCIntentService" />-->
+
 
         <activity
             android:name=".ui.SelfCareActivity"
@@ -135,20 +89,7 @@
 
         </activity>
 
-        <!--<activity android:name="com.facebook.FacebookActivity"-->
-            <!--android:configChanges=-->
-                <!--"keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
-            <!--android:label="@string/app_name" />-->
-        <!--<activity-->
-            <!--android:name="com.facebook.CustomTabActivity"-->
-            <!--android:exported="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<data android:scheme="@string/fb_login_protocol_scheme" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+
     </application>
 
 </manifest>
