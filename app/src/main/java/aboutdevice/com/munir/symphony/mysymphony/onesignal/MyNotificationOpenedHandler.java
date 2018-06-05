@@ -25,6 +25,7 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
     String bigPicture;
     String customKey;
     String action_url;
+    String apkname = "";
     @Override
     public void notificationOpened(OSNotificationOpenResult result) {
         OSNotificationAction.ActionType actionType = result.action.type;
@@ -48,6 +49,7 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
 
             activityToBeOpened = data.optString("activityToBeOpened", null);
             action_url = data.optString("action_url", null);
+            apkname = data.optString("apkname", null);
             // String title = data.optString("t", null);
             // String body = data.optString("b", null);
             String str1 = result.notification.payload.title;
@@ -120,12 +122,15 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
                 MySymphonyApp.getContext().startActivity(intent);
             }
 
-            else if (activityToBeOpened != null && action_url.length() >4 && actionType == OSNotificationAction.ActionType.ActionTaken) {
+            else if (action_url.length() >4 && actionType == OSNotificationAction.ActionType.ActionTaken) {
 
                 Intent intent = new Intent(MySymphonyApp.getContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+
                 intent.putExtra("action_url", action_url);
+                intent.putExtra("apkname", apkname);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                 Log.i("OneSignalExample", "Button pressed with id: " + result.action.actionID);
+                MySymphonyApp.getContext().startActivity(intent);
             }
 
             //else if(result.notification.payload.)

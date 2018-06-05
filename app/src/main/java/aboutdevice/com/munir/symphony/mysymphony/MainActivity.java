@@ -3,13 +3,17 @@ package aboutdevice.com.munir.symphony.mysymphony;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -19,14 +23,17 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.FragmentPagerAdapter;
@@ -82,6 +89,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -130,6 +138,7 @@ import static aboutdevice.com.munir.symphony.mysymphony.Constants.permisionList;
 import static aboutdevice.com.munir.symphony.mysymphony.Constants.permsRequestCode;
 import static aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp.getContext;
 import static aboutdevice.com.munir.symphony.mysymphony.ui.FourFrgment.newFacebookIntent;
+import static android.provider.Telephony.ServiceStateTable.AUTHORITY;
 
 
 public class MainActivity extends BaseActivity
@@ -208,9 +217,13 @@ public class MainActivity extends BaseActivity
     public static final int progress_bar_type = 0;
 
     // File url to download
-    private static String file_url = "http://www.qwikisoft.com/demo/ashade/20001.kml";
+
     private Intent in;
-    private ProgressBar mainProgressBar;
+    //private ProgressBar mainProgressBar;
+
+    private long enqueue;
+    private DownloadManager dm;
+    private String apkname = "apk";
 
 
 
@@ -249,13 +262,12 @@ public class MainActivity extends BaseActivity
         appbarmain = findViewById(R.id.appbarmain);
         offer_banner1 = findViewById(R.id.offer_banner1);
         linear_offer_banner = findViewById(R.id.linear_offer_banner);
-        mainProgressBar = findViewById(R.id.mainProgressBar);
+        //mainProgressBar = findViewById(R.id.mainProgressBar);
         //logoutText = findViewById(R.id.logout);
         remoteConfig = new RemoteConfig();
 
 
-        in = new Intent();
-        redirect_url = in.getStringExtra("action_url");
+
 
 
 
@@ -286,7 +298,12 @@ public class MainActivity extends BaseActivity
             e.printStackTrace();
         }
 
-
+        in = getIntent();
+        redirect_url = in.getStringExtra("action_url");
+        apkname = in.getStringExtra("apkname");
+        if(redirect_url != null && redirect_url.length()>5){
+            downloadAPK(redirect_url);
+        }
 
 
 
@@ -361,6 +378,81 @@ public class MainActivity extends BaseActivity
         lpOfferBlock.height = (int)heightLinearOfferBlock;
 
         appSharedPreferences = getContext().getSharedPreferences("mysymphonyapp_main", Context.MODE_PRIVATE);
+
+
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // TODO Auto-generated method stub
+                String fileName = "";
+                String action = intent.getAction();
+                String uriString="";
+                if (action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+                    DownloadManager.Query query = new DownloadManager.Query();
+                    query.setFilterById(intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0));
+                    DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                    Cursor cursor = manager.query(query);
+                    if (cursor.moveToFirst()) {
+                        if (cursor.getCount() > 0) {
+
+                            int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                            Long download_id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
+
+                            // status contain Download Status
+                            // download_id contain current download reference id
+
+                            if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                                String file = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                                fileName = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_TITLE));
+                                uriString = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                                //file contains downloaded file name
+
+                                // do your stuff here on download success
+                                Log.d("DOWNLOADED", fileName);
+
+                                //startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
+                                try{
+                                    File dfile = new File(Environment.getExternalStorageDirectory()
+                                            + "/download/"  + apkname+".apk");//name here is the name of any string you want to pass to the method
+                                    //File dfile =new File( Environment.DIRECTORY_DOWNLOADS, "losselycoupled.apk");
+                                    if (!dfile.isDirectory())
+                                        dfile.mkdir();
+                                    Uri uri = FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID +".provider",dfile);
+                                    Intent install = new Intent(Intent.ACTION_VIEW);
+                                install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                install.setDataAndType(uri,
+                                        "vnd.android.package-archive");
+                                    install.setData(uri);
+
+                                getApplicationContext().startActivity(install);
+                                }
+                                catch (Exception e){
+                                    e.printStackTrace();
+                                    Log.d("FILE_DOWNLOAD_FAILED", e.toString());
+                                    startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
+                                }
+//                                Intent install = new Intent(Intent.ACTION_VIEW);
+//                                install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                                install.setDataAndType(Uri.fromFile(new File(uriString)),
+//                                        "vnd.android.package-archive");
+//
+//                                getApplicationContext().startActivity(install);
+
+
+                            }
+                        }
+                    }
+                    cursor.close();
+
+                }
+            }
+        };
+
+        registerReceiver(receiver, new IntentFilter(
+                DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
     }
 
     @Override
@@ -392,6 +484,8 @@ public class MainActivity extends BaseActivity
         checkLocationSettings();
         backstackFragTrack = "";
 
+
+       // Log.d("Redirect_URL", redirect_url);
         // WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         //WifiInfo wInfo = wifiManager.getConnectionInfo();
         macAddress = getMACAdress();
@@ -401,9 +495,7 @@ public class MainActivity extends BaseActivity
             startLocationUpdate();
         }
 
-        if(redirect_url != null && redirect_url.length()>5){
-           // new DownloadFileFromURL().execute(redirect_url);
-        }
+
 
         if (user != null) {
             if (!isActivityActive) {
@@ -1210,88 +1302,26 @@ public class MainActivity extends BaseActivity
 
 
 
+    public void downloadAPK(String redirect_url){
+//        dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+//        DownloadManager.Request request = new DownloadManager.Request(
+//                Uri.parse(redirect_url));
+//        enqueue = dm.enqueue(request);
 
-//    class DownloadFileFromURL extends AsyncTask<String, String, String> {
-//
-//        /**
-//         * Before starting background thread Show Progress Bar Dialog
-//         * */
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            mainProgressBar.setVisibility(View.VISIBLE);
-//        }
-//
-//        /**
-//         * Downloading file in background thread
-//         * */
-//        @Override
-//        protected String doInBackground(String... f_url) {
-//            int count;
-//            try {
-//                URL url = new URL(f_url[0]);
-//                URLConnection conection = url.openConnection();
-//                conection.connect();
-//
-//                // this will be useful so that you can show a tipical 0-100%
-//                // progress bar
-//                int lenghtOfFile = conection.getContentLength();
-//
-//                // download the file
-//                InputStream input = new BufferedInputStream(url.openStream(),
-//                        8192);
-//
-//                // Output stream
-//                OutputStream output = new FileOutputStream(Environment
-//                        .getExternalStorageDirectory().toString()
-//                        + "/2011.kml");
-//
-//                byte data[] = new byte[1024];
-//
-//                long total = 0;
-//
-//                while ((count = input.read(data)) != -1) {
-//                    total += count;
-//                    // publishing the progress....
-//                    // After this onProgressUpdate will be called
-//                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
-//
-//                    // writing data to file
-//                    output.write(data, 0, count);
-//                }
-//
-//                // flushing output
-//                output.flush();
-//
-//                // closing streams
-//                output.close();
-//                input.close();
-//
-//            } catch (Exception e) {
-//                Log.e("Error: ", e.getMessage());
-//            }
-//
-//            return null;
-//        }
-//
-//        /**
-//         * Updating progress bar
-//         * */
-//        protected void onProgressUpdate(String... progress) {
-//            // setting progress percentage
-//            mainProgressBar.setProgress(Integer.parseInt(progress[0]));
-//        }
-//
-//        /**
-//         * After completing background task Dismiss the progress dialog
-//         * **/
-//        @Override
-//        protected void onPostExecute(String file_url) {
-//            // dismiss the dialog after the file was downloaded
-//            mainProgressBar.setVisibility(View.GONE);
-//
-//        }
-//
-//    }
+        String url = redirect_url;
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setMimeType("application/vnd.android.package-archive");
+
+// in order for this if to run, you must use the android 3.2 to compile your app
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        }
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, apkname+".apk");
+
+// get download service and enqueue file
+        dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        enqueue = dm.enqueue(request);
+    }
 
 }
