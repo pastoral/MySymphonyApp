@@ -416,7 +416,7 @@
   "V125" :{
     "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
     "camera" : "5MP Front camera with flash\n5MP Back camera with flash",
-    "display" : "4.95'' FWVGA TN Display\nMali-400 GPU",
+    "display" : "4.95'' FWVGA+ TN Display\nMali-400 GPU",
     "memory" : "8GB ROM + 1GB RAM",
     "os" : "Android GO 8.1.0",
     "data_connection" : "3G HSPA+, EDGE",
@@ -436,6 +436,30 @@
     "battery" : "1400mAh Li-ion Battery",
     "sim" : "Regular + Micro SIM",
     "sensor" : "G-Sensor"
+  },
+  "V98" :{
+    "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
+    "camera" : "5MP + 2MP Camera",
+    "display" : "5'' FWVGA TN Display\nMali-T820 MP1 GPU",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android GO 8.1.0",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "Wi-Fi, BT, GPS",
+    "battery" : "2000mAh Li-ion Battery",
+    "sim" : "Regular + Regular SIM",
+    "sensor" : "Gravity Sensor"
+  },
+  "V94" :{
+    "processor" : "1.3GHz Quad Core Processor ",
+    "camera" : "5MP + 2MP Camera",
+    "display" : "4.95'' FWVGA+ TN Display\nMali-T820 MP1 GPU",
+    "memory" : "8GB ROM + 512MB RAM",
+    "os" : "Android GO 8.1.0",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "Wi-Fi, BT, GPS",
+    "battery" : "2000mAh Li-ion Battery",
+    "sim" : "Regular + Regular SIM",
+    "sensor" : "Gravity Sensor"
   }
 
 }
