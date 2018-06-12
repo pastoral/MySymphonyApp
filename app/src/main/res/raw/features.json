@@ -379,7 +379,7 @@
   "i120" :{
     "processor" : "1.5 GHz Quad Core",
     "camera" : "13MP + 8MP , Dual Flash ",
-    "display" : "2.5D, 5.45 inch HD+ Full Vision , incell \n Mali T570 GPU",
+    "display" : "2.5D, 5.45 inch HD+ Full Vision \n570MHz GPU",
     "memory" : "16GB ROM + 2GB RAM",
     "os" : "Android 8.1 Oreo",
     "data_connection" : "4G, 3G, 2G",
@@ -428,7 +428,7 @@
   "E90" :{
     "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
     "camera" : "2MP + VGA Camera",
-    "display" : "4'' WVGA TN Display\nMali-T820 MP1 GPU",
+    "display" : "4'' WVGA  Display\nMali-T820 MP1 GPU",
     "memory" : "8GB ROM + 512MB RAM",
     "os" : "Android GO 8.1.0",
     "data_connection" : "3G HSPA+, EDGE",

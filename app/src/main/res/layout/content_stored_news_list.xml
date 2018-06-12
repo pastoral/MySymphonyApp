@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="aboutdevice.com.munir.symphony.mysymphony.ui.StoredNewsList"
+    tools:context="aboutdevice.com.munir.symphony.mysymphony.ui.NewsListActivity"
     tools:showIn="@layout/activity_stored_news_list">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <ProgressBar
             style="?android:attr/progressBarStyle"
@@ -34,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/notification_recycler"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:layout_marginBottom="50dp"/>
 
     </FrameLayout>
 

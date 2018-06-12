@@ -22,7 +22,7 @@ import aboutdevice.com.munir.symphony.mysymphony.ui.NewsWebActivity;
 
 public class MyNotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
     // This fires when a notification is opened by tapping on it.
-    String bigPicture;
+    String bigPicture, bigIcon;
     String customKey;
     String action_url;
     String apkname = "";
@@ -30,6 +30,7 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
     public void notificationOpened(OSNotificationOpenResult result) {
         OSNotificationAction.ActionType actionType = result.action.type;
         bigPicture = result.notification.payload.bigPicture;
+        bigIcon = result.notification.payload.largeIcon;
         JSONObject data = result.notification.payload.additionalData;
         String link = result.notification.payload.launchURL;
         String activityToBeOpened;
@@ -66,6 +67,9 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
                 intent.putExtra("body", str2);
                 if(bigPicture != null){
                     intent.putExtra("IMAGEURL", bigPicture);
+                }
+                else{
+                    intent.putExtra("IMAGEURL", bigIcon);
                 }
                 MySymphonyApp.getContext().startActivity(intent);
             }

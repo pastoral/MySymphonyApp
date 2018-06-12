@@ -305,7 +305,7 @@ public class MainActivity extends BaseActivity
             downloadAPK(redirect_url);
         }
 
-
+        mFirebaseRemoteConfig = remoteConfig.getmFirebaseRemoteConfig();
 
 
         // Set up the ViewPager with the sections adapter.
@@ -342,6 +342,8 @@ public class MainActivity extends BaseActivity
         else{
             return;
         }
+
+        fetchRemoteConfig();
 
         bottomnavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -469,11 +471,7 @@ public class MainActivity extends BaseActivity
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
-        else{
-            // logoutText.setVisibility(View.VISIBLE);
-            mFirebaseRemoteConfig = remoteConfig.getmFirebaseRemoteConfig();
 
-        }
 
     }
 
@@ -483,6 +481,7 @@ public class MainActivity extends BaseActivity
         isGooglePlayServicesAvailable(this);
         checkLocationSettings();
         backstackFragTrack = "";
+
 
 
        // Log.d("Redirect_URL", redirect_url);
@@ -563,7 +562,7 @@ public class MainActivity extends BaseActivity
             });
         }
 
-        fetchRemoteConfig();
+
 
     }
 
