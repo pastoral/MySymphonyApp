@@ -887,12 +887,17 @@ public class MainActivity extends BaseActivity
             return;
         }
         swVersion = modelInfo.getSystemProperty("ro.build.display.id");
-        OneSignal.sendTag("imei",imei);
-        OneSignal.sendTag("model",modelName);
-        OneSignal.sendTag("userType" , registeredUser.getUserCategoryText());
-        OneSignal.sendTag("region" , userLocality);
-        OneSignal.sendTag("swVersion" , swVersion);
-        OneSignal.sendTag("series", series);
+//        OneSignal.sendTag("imei",imei);
+//        OneSignal.sendTag("model",modelName);
+//        OneSignal.sendTag("userType" , registeredUser.getUserCategoryText());
+////        if(userLocality != null) {
+////            OneSignal.sendTag("region", userLocality);
+////        }
+////        else{
+////            OneSignal.sendTag("region", "");
+////        }
+//        OneSignal.sendTag("swVersion" , swVersion);
+//        OneSignal.sendTag("series", series);
     }
 
     private void startLocationUpdate(){

@@ -422,8 +422,8 @@
     "data_connection" : "3G HSPA+, EDGE",
     "connectivity" : "Wi-Fi, BT",
     "battery" : "2200mAh Li-ion Battery",
-    "sim" : "Regular + Micro SIM",
-    "sensor" : "G-Sensor, Proximity, Light"
+    "sim" : "Regular + Micro SIM"
+
   },
   "E90" :{
     "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
@@ -439,14 +439,14 @@
   },
   "V98" :{
     "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
-    "camera" : "5MP + 2MP Camera",
-    "display" : "5'' FWVGA TN Display\nMali-T820 MP1 GPU",
-    "memory" : "8GB ROM + 1GB RAM",
-    "os" : "Android GO 8.1.0",
+    "camera" : "Rear 5MP + Front 2MP Camera",
+    "display" : "5'' FWVGA TN Display\nMali-T820 GPU",
+    "memory" : "8GB ROM + 1GB RAM DDR3",
+    "os" : "Android 8.1 Go",
     "data_connection" : "3G HSPA+, EDGE",
     "connectivity" : "Wi-Fi, BT, GPS",
     "battery" : "2000mAh Li-ion Battery",
-    "sim" : "Regular + Regular SIM",
+    "sim" : "Dual Micro SIM",
     "sensor" : "Gravity Sensor"
   },
   "V94" :{
@@ -458,8 +458,19 @@
     "data_connection" : "3G HSPA+, EDGE",
     "connectivity" : "Wi-Fi, BT, GPS",
     "battery" : "2000mAh Li-ion Battery",
-    "sim" : "Regular + Regular SIM",
+    "sim" : "Dual Micro SIM",
     "sensor" : "Gravity Sensor"
+  },
+  "V145" :{
+    "processor" : "1.4GHz Quad Core Processor",
+    "camera" : "5MP Front camera \n 5MP Back camera with flash",
+    "display" : "5” FWVGA TN Display\nMali-820 GPU",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android Go 8.1.0",
+    "data_connection" : "4G, HSPA+, EDGE",
+    "connectivity" : "Wi-Fi, BT",
+    "battery" : "2200mAh Li-ion Battery",
+    "sim" : "Micro + Nano SIM"
   }
 
 }

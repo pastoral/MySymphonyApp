@@ -7,8 +7,8 @@ android {
         applicationId "aboutdevice.com.munir.symphony.mysymphony"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 68
-        versionName "5.4.1"
+        versionCode 71
+        versionName "5.4.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [onesignal_app_id               : "ca87c9a3-54e4-47b2-9c04-ffd835d47e17",
                                 onesignal_google_project_number: "303838651450"]
@@ -24,9 +24,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), "proguard-rules.pro"
             //Other parameters
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
+           // debuggable false
+//            jniDebuggable false
+//            renderscriptDebuggable false
 //           // //Add your own signing config
             pseudoLocalesEnabled false
             zipAlignEnabled true
@@ -87,6 +87,7 @@ dependencies {
     implementation 'com.firebase:firebase-client-android:2.4.0'
     implementation 'com.firebaseui:firebase-ui:2.4.0'
     //implementation 'com.facebook.fresco:fresco:0.6.1'
+    implementation 'com.android.support:multidex:1.0.3'
 
 
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
