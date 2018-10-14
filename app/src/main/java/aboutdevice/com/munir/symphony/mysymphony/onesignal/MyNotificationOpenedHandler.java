@@ -1,6 +1,7 @@
 package aboutdevice.com.munir.symphony.mysymphony.onesignal;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
         JSONObject data = result.notification.payload.additionalData;
         String link = result.notification.payload.launchURL;
         String activityToBeOpened;
+        String packageName;
 
         //While sending a Push notification from OneSignal dashboard
         // you can send an addtional data named "activityToBeOpened" and retrieve the value of it and do necessary operation
@@ -119,11 +121,25 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
 
             else if(link!=null){
                 Intent intent = new Intent(MySymphonyApp.getContext(), NewsWebActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("targetUrl", link);
-                intent.putExtra("SYSTRAY","systray");
+                Log.d("URLPush", link);
+                packageName = data.optString("packageName", null);
 
-                MySymphonyApp.getContext().startActivity(intent);
+                if(link.contains("https://play.google.com/store/")){
+                    Log.d("URLPushDetect", "Detected");
+                    intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("market://details?id="+packageName));
+                    MySymphonyApp.getContext().startActivity(intent);
+                }
+                else{
+                    Log.d("URLPushDetect", "Normal");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("targetUrl", link);
+                    intent.putExtra("SYSTRAY","systray");
+
+
+                    MySymphonyApp.getContext().startActivity(intent);
+                }
+
             }
 
             else if (action_url.length() >4 && actionType == OSNotificationAction.ActionType.ActionTaken) {

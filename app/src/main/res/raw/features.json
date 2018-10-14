@@ -471,6 +471,62 @@
     "connectivity" : "Wi-Fi, BT",
     "battery" : "2200mAh Li-ion Battery",
     "sim" : "Micro + Nano SIM"
+  },
+
+
+  "V48":	{
+    "processor" : "1.3 GHz Quad Core",
+    "camera" : "5MP + 2MP \nPrimary Flash",
+    "display" : "4.5 inch FWVGA",
+    "memory" : "8GB ROM + 512GB RAM",
+    "os" : "Android 8.1.0 Go",
+    "data_connection" : "3G, 2G",
+    "connectivity" : "Wi-Fi, Bluetooth, GPS-AGPS",
+    "battery" : "1800mAh Li-ion Battery",
+    "sim" : "Dual Standard-SIM",
+    "sensor" : "Gravity (3D)"
+  },
+
+  "V155":	{
+    "processor" : "Quad Core Processor\n1.3GHz Cortex-A53",
+    "camera" : "Rear 5MP + Front 5MP Camera",
+    "display" : "5'' HD IPS Display\nIMG GE8100 GPU",
+    "memory" : "8GB ROM + 1GB RAM",
+    "os" : "Android 8.1.0 Go",
+    "data_connection" : "4G,3G,2G",
+    "connectivity" : "Wi-Fi, BT, GPS",
+    "battery" : "2400mAh Li-ion Battery",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "Gravity Sensor"
+
+  },
+  "i72" :{
+    "processor" : "1.3GHz Cortex-A53\nQuad Core Processor",
+    "camera" : "Rear 8MP + Front 8MP Camera",
+    "display" : "5.45'' HD+ IPS Full Vision Display, 2.5D Glass\nIMG GE8100 GPU",
+    "memory" : "ROM 16GB + RAM 1GB DDR3",
+    "os" : "Android 8.1 Go",
+    "data_connection" : "4G LTE, 3G HSPA+, EDGE",
+    "connectivity" : "Wi-Fi, GPS, BT, OTG",
+    "battery" : "2500mAh Li-ion Battery",
+    "sim" : "Dual Nano SIM",
+    "sensor" : "Gravity Sensor",
+    "others" : "Fingerprint Security"
+  },
+  "i95" :{
+    "processor" : "1.3 GHz Quad Core",
+    "camera" : "13MP + 13MP ",
+    "display" : " 5.45 inch HD+ IPS \nFull Vision Display",
+    "memory" : "16GB ROM + 1GB RAM DDR3",
+    "os" : "Android 8.1 GO",
+    "data_connection" : "4G, 3G, 2G",
+    "connectivity" : "Wi-Fi, Bluetooth, GPS-AGPS, OTG",
+    "battery" : "2950mAh Battery",
+    "sim" : "Dual Nano SIM",
+    "sensor" : "Gravity (3D), Fingerprint, Light",
+    "others" : "Face ID"
   }
+
+
 
 }

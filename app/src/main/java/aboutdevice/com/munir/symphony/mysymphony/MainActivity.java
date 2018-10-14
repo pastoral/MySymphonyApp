@@ -301,6 +301,9 @@ public class MainActivity extends BaseActivity
         in = getIntent();
         redirect_url = in.getStringExtra("action_url");
         apkname = in.getStringExtra("apkname");
+        if(apkname == null){
+            apkname= "harmony";
+        }
         if(redirect_url != null && redirect_url.length()>5){
             downloadAPK(redirect_url);
         }
@@ -421,11 +424,14 @@ public class MainActivity extends BaseActivity
                                         dfile.mkdir();
                                     Uri uri = FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID +".provider",dfile);
                                     Intent install = new Intent(Intent.ACTION_VIEW);
-                                install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                //install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 install.setDataAndType(uri,
                                         "vnd.android.package-archive");
                                     install.setData(uri);
+                                   // install.setDataAndType(uri.fromFile(new File(fileName)),"MIME-TYPE");
+                                   // install.setData(uri);
 
                                 getApplicationContext().startActivity(install);
                                 }
