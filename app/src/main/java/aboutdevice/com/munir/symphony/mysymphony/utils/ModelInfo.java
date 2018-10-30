@@ -1,13 +1,18 @@
 package aboutdevice.com.munir.symphony.mysymphony.utils;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.content.ContextCompat;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import java.util.List;
+
+import aboutdevice.com.munir.symphony.mysymphony.MainActivity;
 
 /**
  * Created by User on 1/21/2018.
@@ -28,9 +33,13 @@ public class ModelInfo extends Application {
     }
 
     public String getDeviceImei(TelephonyManager mTelephonyManager) {
-
-
-        String deviceid = mTelephonyManager.getDeviceId();
+        String deviceid;
+        if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            deviceid = mTelephonyManager.getDeviceId();
+        }
+        else{
+            deviceid = "unaccessible";
+        }
         return deviceid;
     }
 
