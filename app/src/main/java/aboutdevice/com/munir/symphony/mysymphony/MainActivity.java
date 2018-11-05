@@ -424,16 +424,16 @@ public class MainActivity extends BaseActivity
                                         dfile.mkdir();
                                     Uri uri = FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID +".provider",dfile);
                                     Intent install = new Intent(Intent.ACTION_VIEW);
-                                //install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                install.setDataAndType(uri,
-                                        "vnd.android.package-archive");
+                                    //install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    install.setDataAndType(uri,
+                                            "vnd.android.package-archive");
                                     install.setData(uri);
-                                   // install.setDataAndType(uri.fromFile(new File(fileName)),"MIME-TYPE");
-                                   // install.setData(uri);
+                                    // install.setDataAndType(uri.fromFile(new File(fileName)),"MIME-TYPE");
+                                    // install.setData(uri);
 
-                                getApplicationContext().startActivity(install);
+                                    getApplicationContext().startActivity(install);
                                 }
                                 catch (Exception e){
                                     e.printStackTrace();
@@ -490,7 +490,7 @@ public class MainActivity extends BaseActivity
 
 
 
-       // Log.d("Redirect_URL", redirect_url);
+        // Log.d("Redirect_URL", redirect_url);
         // WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         //WifiInfo wInfo = wifiManager.getConnectionInfo();
         macAddress = getMACAdress();

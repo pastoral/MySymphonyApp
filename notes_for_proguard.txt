@@ -1,0 +1,33 @@
+-dontwarn com.fasterxml.**
+-dontwarn android.**
+-dontwarn com.squareup.**
+-dontwarn javax.annotation.**
+-keep class okhttp3.** { *; }
+-keep class retrofit2.** { *; }
+-keep class com.firebase.** { *; }
+
+-keep class aboutdevice.com.munir.symphony.mysymphony.firebase.** { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.model.** { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.adapter.** { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.ui.** { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.utils.** { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.MainActivity { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.BaseActivity { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.MySymphonyApp { *; }
+-keep class aboutdevice.com.munir.symphony.mysymphony.SplashActivity { *; }
+-keepattributes Signature
+-keepclassmembers class com.munir.symphony.mysymphony.model.** {
+  *;
+}
+
+-keepclassmembers class com.firebase.**{
+  *;
+}
+
+-keepclassmembers class android.support.** {
+  *;
+}
+
+-keepclassmembers class com.munir.symphony.mysymphony.onesignal** {
+   *;
+ }
