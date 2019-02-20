@@ -501,16 +501,16 @@
 
   },
   "i72" :{
-    "processor" : "1.3GHz Cortex-A53\nQuad Core Processor",
+    "processor" : "1.4GHz Cortex-A53\nQuad Core Processor",
     "camera" : "Rear 8MP + Front 8MP Camera",
-    "display" : "5.45'' HD+ IPS Full Vision Display, 2.5D Glass\nIMG GE8100 GPU",
+    "display" : "5.45'' HD+ IPS Full Vision Display, 2.5D Glass\nMali T820 GPU",
     "memory" : "ROM 16GB + RAM 1GB DDR3",
     "os" : "Android 8.1 Go",
     "data_connection" : "4G LTE, 3G HSPA+, EDGE",
     "connectivity" : "Wi-Fi, GPS, BT, OTG",
     "battery" : "2500mAh Li-ion Battery",
     "sim" : "Dual Nano SIM",
-    "sensor" : "Gravity Sensor",
+    "sensor" : "Gravity,Proximity ,Light Sensor",
     "others" : "Fingerprint Security"
   },
   "i95" :{
@@ -528,9 +528,9 @@
   "V97" :{
     "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
     "camera" : "Rear 5MP + Front 2MP Camera",
-    "display" : "4.95`` FWVGA+ TN Display\n18:9 Wide Screen Full Vision\nMali- 400 GPU",
+    "display" : "4.95’’ FWVGA+ TN Display\n18:9 Wide Screen Full Vision\nMali- 400 GPU",
     "memory" : "ROM 8GB + RAM 1GB DDR3",
-    "os" : "AndroidTM 8.1 OreoTM (Go edition)",
+    "os" : "Android™ 8.1 Oreo™(Go edition)",
     "data_connection" : "3G HSPA+, EDGE",
     "connectivity" : "Wi-Fi, BT, GPS",
     "battery" : "2000mAh Li-ion Battery",
@@ -540,16 +540,80 @@
   "V142" :{
     "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
     "camera" : "Rear 5MP AF + Front 5MP Camera",
-    "display" : "5.45`` FWVGA+ IPS 2.5D Display\n18:9 Wide Screen Full Vision\nMali-400 GPU",
+    "display" : "5.45’’ FWVGA+ IPS Display\n2.5D Glass\n18:9 Wide Screen Full Vision\nMali-400 GPU",
     "memory" : "ROM 8GB + RAM 1GB DDR3",
-    "os" : "AndroidTM 8.1 OreoTM (Go edition)",
+    "os" : "Android™ 8.1 Oreo™(Go edition)",
     "data_connection" : "3G HSPA+, EDGE",
     "connectivity" : "Wi-Fi, BT, GPS, OTG",
     "battery" : "2500mAh Li-ion Battery",
-    "sim" : "Dual Micro SIM",
+    "sim" : "Dual Nano SIM",
     "sensor" : "Gravity Sensor",
     "others" : "Fingerprint Security"
-  }
+  },
+  "V97" :{
+    "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
+    "camera" : "Rear 5MP + Front 2MP Camera",
+    "display" : "4.95’’ FWVGA+ TN Display\n2.5D Glass\n18:9 Wide Screen Full Vision\nMali- 400 GPU",
+    "memory" : "ROM 8GB + RAM 1GB DDR3",
+    "os" : "Android™ 8.1 Oreo™ (Go edition)",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "Wi-Fi, BT, GPS",
+    "battery" : "2000mAh Li-ion Battery",
+    "sim" : "Dual Nano SIM",
+    "sensor" : "Gravity Sensor"
+  },
+  "V128" :{
+    "processor" : "1.3GHz Quad Core Processor",
+    "camera" : "Rear 5MP AF +  Front 5MP Camera",
+    "display" : " 4.95’’ FWVGA+ IPS Full Vision Display",
+    "memory" : "ROM 8GB + RAM 1GB DDR3",
+    "os" : "Android 8.1 GO",
+    "data_connection" : "3G, 2G",
+    "connectivity" : "Wi-Fi, BT, GPS, OTG",
+    "battery" : "2000mAh Battery",
+    "sim" : "Dual Nano SIM",
+    "sensor" : "Gravity(3D) Sensor",
+    "special feature" : "Fingerprint Security"
+  },
+  "i65" :{
+    "processor" : "Quad Core Processor\n1.5GHz Cortex-A53",
+    "camera" : "Rear 8MP AF + Front 5MP\nDual Flash Camera",
+    "display" : "5.45’’ HD+ IPS 2.5D Display\n18:9 Wide Screen Full Vision\nIMG GE8100 GPU",
+    "memory" : "ROM 8GB + RAM 1GB DDR3",
+    "os" : "Android™ 8.1 Oreo™ (Go edition)",
+    "data_connection" : "4G LTE, 3G HSPA+, EDGE",
+    "connectivity" : "Wi-Fi, BT, GPS, OTG",
+    "battery" : "2500mAh Li-ion Battery",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "Gravity, Proximity, Light Sensor",
+    "others" : "Dual SIM 4G Support"
+  },
 
+  "R40" :{
+    "processor" : "1.3GHz Quad Core Processor",
+    "camera" : "Rear 8MP  +  Front 5MP Camera",
+    "display" : " 5.45''HD+  2.5D",
+    "memory" : "ROM 8GB + RAM 1GB DDR3",
+    "os" : "AndroidTM 9 PieTM (GO Edition) ",
+    "data_connection" : "3G, 2G",
+    "connectivity" : "Wi-Fi, BT, GPS, OTG",
+    "battery" : "4000mAh Battery",
+    "sim" : "Dual Nano SIM",
+    "sensor" : "Gravity (3D) Sensor",
+    "special feature" : "Fingerprint Security"
+  },
+
+  "V141" :{
+    "processor" : "1.3GHz Quad Core Processor",
+    "camera" : "Rear 5MP +  Front 5MP Camera",
+    "display" : "5.45'' FW+ IPS Full Lamination",
+    "memory" : "ROM 8GB + RAM 1GB DDR3",
+    "os" : "AndroidTM 8.1 OreoTM (GO Edition)",
+    "data_connection" : "3G, 2G",
+    "connectivity" : "Wi-Fi, BT, GPS",
+    "battery" : "2500mAh Battery",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "Gravity (3D) Sensor"
+  }
 
 }
