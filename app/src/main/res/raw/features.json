@@ -614,6 +614,63 @@
     "battery" : "2500mAh Battery",
     "sim" : "Dual Micro SIM",
     "sensor" : "Gravity (3D) Sensor"
+  },
+
+  "Z15" :{
+    "processor" : " 1.6 GHz Octa Core Processor",
+    "camera" : " Front 5MP + Rear 13MP AF+2MP Dual Camera with Al Function",
+    "display" : " 6.09'' HD+ IPS Water Drop Notch Display, 2.5D with Full Lamination",
+    "memory" : " 32GB + 2GB DDR4",
+    "os" : "Android 9.0 Pie",
+    "data_connection" : "4G,3G, 2G",
+    "connectivity" : "Wi-Fi, BT, GPS, OTG",
+    "battery" : " 4000mAh Battery",
+    "sim" : " Hybrid SD",
+    "sensor" : " Fingerprint, Gravity(3D) \n Proximity, Light Sensor",
+    "special feature" : "Face Unlock \n Dual SIM 4G Support(Standby) \n MTC Back Cover "
+  },
+
+  "i68" :{
+    "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
+    "camera" : "Rear 8MP AF + Front 5MP\nDual Flash Camera",
+    "display" : "5.99’’ HD+ IPS 2.5D Display\n18:9 Wide Screen Full Vision\nMali-T820 GPU",
+    "memory" : "ROM 16GB + RAM 1GB DDR3",
+    "os" : "Android™ 9.0 Pie™ (Go edition)",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "Wi-Fi, BT, GPS, OTG",
+    "battery" : "3700mAh Li-Polymer Battery",
+    "sim" : "Dual Nano SIM",
+    "sensor" : "Fingerprint, Gravity Sensor",
+    "others" : "Face Unlock"
+  },
+  "V93" :{
+    "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
+    "camera" : "Rear 5MP + Front 2MP Camera",
+    "display" : "5’’ FWVGA TN Display\nMali- 400 GPU",
+    "memory" : "ROM 8GB + RAM 512MB",
+    "os" : "Android™ 8.1 Oreo™ (Go edition)",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "Wi-Fi, BT, GPS",
+    "battery" : "2150mAh Li-ion Battery",
+    "sim" : "Dual Micro SIM",
+    "sensor" : "Gravity Sensor"
+  },
+  "i18" :{
+    "processor" : "Quad Core Processor\n1.3GHz Cortex-A7",
+    "camera" : "Rear 8MP AF + Front 5MP\nDual Flash Camera",
+    "display" : "5.45’’ HD+ IPS 2.5D Display\n18:9 Wide Screen Full Vision\nMali-T820 GPU",
+    "memory" : "ROM 16GB + RAM 1GB DDR3",
+    "os" : "Android™ 9.0 Pie™ (Go edition)",
+    "data_connection" : "3G HSPA+, EDGE",
+    "connectivity" : "Wi-Fi, BT, GPS, OTG",
+    "battery" : "2900mAh Li-Polymer Battery",
+    "sim" : "Micro + Nano SIM",
+    "sensor" : "Fingerprint, Gravity, Proximity, Light Sensor",
+    "others" : "Face Unlock"
   }
+
+
+
+
 
 }
