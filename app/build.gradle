@@ -10,7 +10,7 @@ android {
         versionCode 85
         versionName "5.5.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [onesignal_app_id               : "ca87c9a3-54e4-47b2-9c04-ffd835d47e17",
+        manifestPlaceholders = [onesignal_app_id               : "ca87c9a3-54e4-47b2-9c04-ffd835d47e28",
                                 onesignal_google_project_number: "303838651450"]
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
